@@ -12,6 +12,7 @@
   "author": "Edmund Li",
   "license": "ISC",
   "dependencies": {
+    "mocha": "^3.2.0",
     "react-chrome-redux": "^1.0.0"
   }
 }
