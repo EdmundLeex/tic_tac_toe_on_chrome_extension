@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" type="text/css" href="css/ttt.css">
+  </head>
+  <body>
+    <div class="group game"></div>
+
+    <div class="group"><span>Next Move: </span><span id="next-move"></span></div>
+
+    <div class="group" id="message"></div>
+
+    <div class="group" id="reset"><button>START</button></div>
+
+    <div class="group" id="toggle">
+      <span class="inline">VS AI</span>
+      <input class="tgl tgl-flat" id="ai-toggle" type="checkbox">
+      <label class="tgl-btn inline" for="ai-toggle"></label>
+    </div>
+  </body>
+
+  <script src="scripts/lib/jquery-2.1.1.js"></script>
+  <script src="scripts/controllers/game_controller.js"></script>
+  <script src="scripts/popup.js"></script>
+</html>

@@ -1,0 +1,46 @@
+{
+  "manifest_version": 2,
+  "name": "Super Tic Tac Toe",
+  "version": "0.0.1",
+  "description": "Tic Tac Toe of Strategy",
+  // "homepage_url": "#",
+  "minimum_chrome_version": "46",
+  // "icons": {
+  //   "128": "assets/images/icon-lg.png"
+  // },
+  "permissions": [
+    "notifications",
+    "alarms",
+    "storage"
+  ],
+  "optional_permissions": [
+    "tabs"
+  ],
+  "background": {
+    "persistent": true,
+    "scripts": [
+      "scripts/lib/jquery-2.1.1.js",
+      "scripts/game/util.js",
+      "scripts/util/api.js",
+      "scripts/models/board.js",
+      "scripts/models/mini_board.js",
+      "scripts/models/large_board.js",
+      "scripts/models/player.js",
+      "scripts/models/computer_player.js",
+      // "scripts/game/index.js",
+      "scripts/models/game.js"
+      // "scripts/game/view.js"
+    ]
+  },
+  "browser_action": {
+    // "default_icon": {
+    //   "38": "assets/images/icon.png"
+    // },
+    "default_title": "Super Tic Tac Toe",
+    "default_popup": "popup.html"
+  }
+  // "options_ui": {
+  //   "page": "options.html",
+  //   "chrome_style": true
+  // }
+}
