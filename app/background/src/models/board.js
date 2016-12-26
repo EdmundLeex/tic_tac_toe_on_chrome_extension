@@ -1,18 +1,33 @@
-function Board () {
+function Board (options) {
   // this.grid = Board.newGrid();
   this.winner = null;
+  this.level = options.level;
 }
 
 Board.marks = ["x", "o"];
 
 Board.allGrids = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
+Board.winningSequence = [
+  // horizontals
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  // verticals
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  // diagonals
+  [0, 4, 8],
+  [2, 4, 6]
+];
+
 Board.newBoard = function (options = { level: 2 }) {
   var level = options.level;
   if (level === 0) { return null; }
   level--;
 
-  var board = new Board();
+  var board = new Board(options);
   board.grid = [];
 
   for (var i = 0; i < 9; i++) {
@@ -23,7 +38,7 @@ Board.newBoard = function (options = { level: 2 }) {
 };
 
 Board.prototype.placeMark = function(pos, mark) {
-  if (!isValidPos(pos, this.grid)) { throw 'Invalid placement'; }
+  if (!isValidPos(pos, this)) { throw 'Invalid placement'; }
 
   let posClone = pos.slice(0);
   let idx = posClone.shift();
@@ -34,9 +49,17 @@ Board.prototype.placeMark = function(pos, mark) {
   }
 };
 
-function isValidPos(pos, grid) {
-  return !isPosDeeperThanGridLevel(pos, grid) && isWithinBound(pos) && isEmptyPos(pos, grid);
-};
+function updateWinners(board) {
+  if (board.winner !== null) return;
+
+  // if 
+}
+
+function isValidPos(pos, board) {
+  let grid = board.grid;
+  // console.log(board);
+  return posMatchGridLevel(pos, board) && isWithinBound(pos) && isEmptyPos(pos, board);
+}
 
 function isWithinBound(pos) {
   let isWithinBound = true;
@@ -48,7 +71,9 @@ function isWithinBound(pos) {
   return isWithinBound;
 }
 
-function isEmptyPos(pos, grid) {
+function isEmptyPos(pos, board) {
+  let grid = board.grid;
+  console.log(board)
   let posClone = pos.slice(0);
   let idx = posClone.shift();
   if (posClone.length === 0) {
@@ -58,14 +83,8 @@ function isEmptyPos(pos, grid) {
   }
 }
 
-function isPosDeeperThanGridLevel(pos, grid) {
-  let posLevel = pos.length;
-  
-  if (posLevel === 1) {
-    return grid[0] !== null && grid[0].constructor === Board;
-  } else {
-    return isPosDeeperThanGridLevel(pos.slice(1), grid[0].grid);
-  }
+function posMatchGridLevel(pos, board) {
+  return pos.length === board.level;
 }
 
 Board.loadGrid = function (Constructor, gridObj) {
