@@ -2,7 +2,7 @@ import Board from '../../app/background/src/models/board';
 import assert from 'assert';
 
 describe('Board', function() {
-  describe('#newGrid()', function() {
+  describe('::newGrid()', function() {
     it ('makes a board with one level grid given an option as { level: 1 }', () => {
       let board = Board.newBoard({ level: 1 });
       assert.equal(board.grid.constructor, Array);
