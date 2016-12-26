@@ -1,5 +1,5 @@
 function Board () {
-  this.grid = Board.newGrid();
+  // this.grid = Board.newGrid();
   this.winner = null;
 }
 
@@ -7,19 +7,50 @@ Board.marks = ["x", "o"];
 
 Board.allGrids = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-Board.newGrid = function (Constructor) {
-  var grid = [];
+Board.newBoard = function (options = { level: 2 }) {
+  var level = options.level;
+  if (level === 0) { return null; }
+  level--;
+
+  var board = new Board();
+  board.grid = [];
 
   for (var i = 0; i < 9; i++) {
-    if (Constructor) {
-      grid.push(new Constructor());
-    } else {
-      grid.push(null);
-    }
+    board.grid.push(Board.newBoard({ level: level }));
   }
 
-  return grid;
+  return board;
 };
+
+// Board.newGrid = function (options = { level: 2 }) {
+//   var level = options.level;
+//   if (level === 0) { return null; }
+//   var grid = [];
+
+//   for (var i = 0; i < 9; i++) {
+//     var innerBoard = new Board();
+//     innerBoard.grid = Board.newGrid({ level:  });
+//     grid.push(innerBoard)
+//   }
+
+//   console.log(JSON.stringify(grid));
+
+//   return grid;
+// };
+
+// Board.newGrid = function (Constructor) {
+//   var grid = [];
+
+//   for (var i = 0; i < 9; i++) {
+//     if (Constructor) {
+//       grid.push(new Constructor());
+//     } else {
+//       grid.push(null);
+//     }
+//   }
+
+//   return grid;
+// };
 
 Board.loadGrid = function (Constructor, gridObj) {
   var grid = [];
