@@ -62,7 +62,11 @@ describe('Board', () => {
     });
 
     describe('when the board is one level', () => {
-      let board = Board.newBoard({ level: 1 });
+      let board;
+
+      beforeEach('initBoard', () => {
+        board = Board.newBoard({ level: 1 });
+      });
 
       it('places mark onto board according to the given pos', () => {
         let pos = [getRandomPos()];
@@ -71,13 +75,17 @@ describe('Board', () => {
 
         assert.equal(grid[pos], mark);
 
-        let randPos = [getAnotherRandomPos(pos)];
+        let randPos = [getAnotherRandomPos(pos[0])];
         assert.equal(grid[randPos], null);
-      })
+      });
     });
 
     describe('when the board is two level', () => {
-      var board = Board.newBoard();
+      let board;
+
+      beforeEach('initBoard', () => {
+        board = Board.newBoard();
+      });
 
       it('places mark onto board according to the given pos', () => {
         let pos = [getRandomPos(), getRandomPos()];
@@ -87,9 +95,35 @@ describe('Board', () => {
         let innerGrid = innerBoard.grid;
         assert.equal(innerGrid[pos[1]], mark);
 
-        let randPos = [getAnotherRandomPos(pos), getAnotherRandomPos(pos)];
+        let randPos = [getAnotherRandomPos(pos[0]), getAnotherRandomPos(pos[1])];
         let randInnerBoard = board.grid[randPos[0]];
         assert.equal(randInnerBoard.grid[randPos[1]], null);
+      });
+
+      it('throws error if places mark on an occupied pos', () => {
+        let pos = [getRandomPos(), getRandomPos()];
+        board.placeMark(pos);
+
+        assert.throws(board.placeMark.bind(board, pos), 'Invalid placement');
+      });
+
+      it('throws error if places mark out of bound', () => {
+        let pos = [1, -1];
+        assert.throws(board.placeMark.bind(board, pos), 'Invalid placement');
+
+        pos = [-1, 1];
+        assert.throws(board.placeMark.bind(board, pos), 'Invalid placement');
+
+        pos = [0, 9];
+        assert.throws(board.placeMark.bind(board, pos), 'Invalid placement');
+
+        pos = [9, 2];
+        assert.throws(board.placeMark.bind(board, pos), 'Invalid placement');
+      });
+
+      it('throws error if pos depth is higher than board level', () => {
+        let pos = [1, 2, 3];
+        assert.throws(board.placeMark.bind(board, pos), 'Invalid placement');
       });
     });
 
@@ -99,8 +133,11 @@ describe('Board', () => {
 
     function getAnotherRandomPos(pos) {
       let randPos = getRandomPos();
-      while (randPos === pos) { randPos = getRandomPos(); }
-      return randPos;
+      if (randPos === pos) {
+        return getAnotherRandomPos(pos);
+      } else {
+        return randPos;
+      }
     }
   });
 });

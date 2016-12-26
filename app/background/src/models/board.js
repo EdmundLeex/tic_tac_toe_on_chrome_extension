@@ -23,8 +23,10 @@ Board.newBoard = function (options = { level: 2 }) {
 };
 
 Board.prototype.placeMark = function(pos, mark) {
+  if (!isValidPos(pos, this.grid)) { throw 'Invalid placement'; }
+
   let posClone = pos.slice(0);
-  var idx = posClone.shift();
+  let idx = posClone.shift();
   if (posClone.length === 0) {
     this.grid[idx] = mark;
   } else {
@@ -32,7 +34,39 @@ Board.prototype.placeMark = function(pos, mark) {
   }
 };
 
+function isValidPos(pos, grid) {
+  return !isPosDeeperThanGridLevel(pos, grid) && isWithinBound(pos) && isEmptyPos(pos, grid);
+};
 
+function isWithinBound(pos) {
+  let isWithinBound = true;
+
+  pos.forEach((idx) => {
+    if (idx > 8 || idx < 0) { isWithinBound = false; }
+  });
+
+  return isWithinBound;
+}
+
+function isEmptyPos(pos, grid) {
+  let posClone = pos.slice(0);
+  let idx = posClone.shift();
+  if (posClone.length === 0) {
+    return grid[idx] === null;
+  } else {
+    return isEmptyPos(posClone, grid[idx].grid);
+  }
+}
+
+function isPosDeeperThanGridLevel(pos, grid) {
+  let posLevel = pos.length;
+  
+  if (posLevel === 1) {
+    return grid[0] !== null && grid[0].constructor === Board;
+  } else {
+    return isPosDeeperThanGridLevel(pos.slice(1), grid[0].grid);
+  }
+}
 
 Board.loadGrid = function (Constructor, gridObj) {
   var grid = [];
