@@ -22,36 +22,6 @@ Board.newBoard = function (options = { level: 2 }) {
   return board;
 };
 
-// Board.newGrid = function (options = { level: 2 }) {
-//   var level = options.level;
-//   if (level === 0) { return null; }
-//   var grid = [];
-
-//   for (var i = 0; i < 9; i++) {
-//     var innerBoard = new Board();
-//     innerBoard.grid = Board.newGrid({ level:  });
-//     grid.push(innerBoard)
-//   }
-
-//   console.log(JSON.stringify(grid));
-
-//   return grid;
-// };
-
-// Board.newGrid = function (Constructor) {
-//   var grid = [];
-
-//   for (var i = 0; i < 9; i++) {
-//     if (Constructor) {
-//       grid.push(new Constructor());
-//     } else {
-//       grid.push(null);
-//     }
-//   }
-
-//   return grid;
-// };
-
 Board.loadGrid = function (Constructor, gridObj) {
   var grid = [];
   for (var i = 0; i < 3; i++) {
