@@ -1,8 +1,8 @@
 import Board from '../../app/background/src/models/board';
 import assert from 'assert';
 
-describe('Board', function() {
-  describe('::newGrid()', function() {
+describe('Board', () => {
+  describe('::newBoard()', () => {
     it ('makes a board with one level grid given an option as { level: 1 }', () => {
       let board = Board.newBoard({ level: 1 });
       assert.equal(board.grid.constructor, Array);
@@ -52,5 +52,55 @@ describe('Board', function() {
         }
       }
     });
+  });
+
+  describe('#placeMark()', () => {
+    let mark;
+
+    beforeEach(() => {
+      mark = ['o', 'x'][getRandomPos(2)];
+    });
+
+    describe('when the board is one level', () => {
+      let board = Board.newBoard({ level: 1 });
+
+      it('places mark onto board according to the given pos', () => {
+        let pos = [getRandomPos()];
+        board.placeMark([pos], mark);
+        let grid = board.grid;
+
+        assert.equal(grid[pos], mark);
+
+        let randPos = [getAnotherRandomPos(pos)];
+        assert.equal(grid[randPos], null);
+      })
+    });
+
+    describe('when the board is two level', () => {
+      var board = Board.newBoard();
+
+      it('places mark onto board according to the given pos', () => {
+        let pos = [getRandomPos(), getRandomPos()];
+        board.placeMark(pos, mark);
+        let grid = board.grid;
+        let innerBoard = grid[pos[0]];
+        let innerGrid = innerBoard.grid;
+        assert.equal(innerGrid[pos[1]], mark);
+
+        let randPos = [getAnotherRandomPos(pos), getAnotherRandomPos(pos)];
+        let randInnerBoard = board.grid[randPos[0]];
+        assert.equal(randInnerBoard.grid[randPos[1]], null);
+      });
+    });
+
+    function getRandomPos(ceiling = 9) {
+      return Math.floor(Math.random() * ceiling);
+    }
+
+    function getAnotherRandomPos(pos) {
+      let randPos = getRandomPos();
+      while (randPos === pos) { randPos = getRandomPos(); }
+      return randPos;
+    }
   });
 });

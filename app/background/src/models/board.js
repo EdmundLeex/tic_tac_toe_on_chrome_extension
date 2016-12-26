@@ -22,6 +22,18 @@ Board.newBoard = function (options = { level: 2 }) {
   return board;
 };
 
+Board.prototype.placeMark = function(pos, mark) {
+  let posClone = pos.slice(0);
+  var idx = posClone.shift();
+  if (posClone.length === 0) {
+    this.grid[idx] = mark;
+  } else {
+    this.grid[idx].placeMark(posClone, mark);
+  }
+};
+
+
+
 Board.loadGrid = function (Constructor, gridObj) {
   var grid = [];
   for (var i = 0; i < 3; i++) {
