@@ -3,10 +3,6 @@ function Board () {
   this.winner = null;
 }
 
-if (TTT.Board === undefined) {
-  TTT.Board = Board;
-}
-
 Board.marks = ["x", "o"];
 
 Board.allGrids = [0, 1, 2, 3, 4, 5, 6, 7, 8];
