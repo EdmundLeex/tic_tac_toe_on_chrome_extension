@@ -8,7 +8,7 @@ Board.marks = ["x", "o"];
 
 Board.allGrids = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-Board.winningSequence = [
+Board.winningSequences = [
   // horizontals
   [0, 1, 2],
   [3, 4, 5],
@@ -47,17 +47,48 @@ Board.prototype.placeMark = function(pos, mark) {
   } else {
     this.grid[idx].placeMark(posClone, mark);
   }
+
+  updateWinners(this);
 };
 
 function updateWinners(board) {
+  if (board === null) return;
   if (board.winner !== null) return;
 
-  // if 
+  Board.marks.forEach((mark) => {
+    if (boardHasWinningSequenceFromMark(board, mark)) {
+      board.winner = mark;
+      return;
+    }
+  });
+}
+
+function boardHasWinningSequenceFromMark(board, mark) {
+  let hasWinner = true;
+  Board.winningSequences.some((winningSequence) => {
+    if (board.level === 1) {
+      hasWinner = (
+        board.grid[winningSequence[0]] === mark &&
+        board.grid[winningSequence[1]] === mark &&
+        board.grid[winningSequence[2]] === mark
+      );
+    } else if (board.level > 1) {
+      hasWinner = (
+        board.grid[winningSequence[0]].winner === mark &&
+        board.grid[winningSequence[1]].winner === mark &&
+        board.grid[winningSequence[2]].winner === mark
+      );
+    } else {
+      throw('Invalid board level');
+    }
+
+    if (hasWinner) return true;
+  });
+
+  return hasWinner;
 }
 
 function isValidPos(pos, board) {
-  let grid = board.grid;
-  // console.log(board);
   return posMatchGridLevel(pos, board) && isWithinBound(pos) && isEmptyPos(pos, board);
 }
 
@@ -73,13 +104,12 @@ function isWithinBound(pos) {
 
 function isEmptyPos(pos, board) {
   let grid = board.grid;
-  console.log(board)
   let posClone = pos.slice(0);
   let idx = posClone.shift();
   if (posClone.length === 0) {
     return grid[idx] === null;
   } else {
-    return isEmptyPos(posClone, grid[idx].grid);
+    return isEmptyPos(posClone, grid[idx]);
   }
 }
 

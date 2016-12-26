@@ -146,4 +146,211 @@ describe('Board', () => {
       }
     }
   });
+
+  describe('#winner', () => {
+    let board;
+    beforeEach('initBoard', () => {
+      board = Board.newBoard();
+    });
+
+    it("doesn't return winner if there is none", () => {
+      assert.equal(board.grid[0].winner, null);
+      board.placeMark([0,0], 'x');
+      board.placeMark([0,3], 'x');
+      board.placeMark([0,2], 'x');
+      assert.equal(board.grid[0].winner, null);
+    });
+
+    describe('returns the winner of inner board', () => {
+      describe('when horizontal', () => {
+        it('first row', () => {
+          assert.equal(board.grid[0].winner, null);
+          board.placeMark([0,0], 'x');
+          board.placeMark([0,1], 'x');
+          board.placeMark([0,2], 'x');
+          assert.equal(board.grid[0].winner, 'x');
+        });
+
+        it('second row', () => {
+          assert.equal(board.grid[0].winner, null);
+          board.placeMark([0,3], 'x');
+          board.placeMark([0,4], 'x');
+          board.placeMark([0,5], 'x');
+          assert.equal(board.grid[0].winner, 'x');
+        });
+
+        it('third row', () => {
+          assert.equal(board.grid[0].winner, null);
+          board.placeMark([0,6], 'x');
+          board.placeMark([0,7], 'x');
+          board.placeMark([0,8], 'x');
+          assert.equal(board.grid[0].winner, 'x');
+        });
+      });
+
+      describe('when vertical', () => {
+        it('first column', () => {
+          assert.equal(board.grid[0].winner, null);
+          board.placeMark([0,0], 'x');
+          board.placeMark([0,3], 'x');
+          board.placeMark([0,6], 'x');
+          assert.equal(board.grid[0].winner, 'x');
+        });
+
+        it('second column', () => {
+          assert.equal(board.grid[0].winner, null);
+          board.placeMark([0,1], 'x');
+          board.placeMark([0,4], 'x');
+          board.placeMark([0,7], 'x');
+          assert.equal(board.grid[0].winner, 'x');
+        });
+
+        it('third column', () => {
+          assert.equal(board.grid[0].winner, null);
+          board.placeMark([0,2], 'x');
+          board.placeMark([0,5], 'x');
+          board.placeMark([0,8], 'x');
+          assert.equal(board.grid[0].winner, 'x');
+        });
+      });
+
+      describe('when diagonal', () => {
+        it('upper left to lower right', () => {
+          assert.equal(board.grid[0].winner, null);
+          board.placeMark([0,0], 'x');
+          board.placeMark([0,4], 'x');
+          board.placeMark([0,8], 'x');
+          assert.equal(board.grid[0].winner, 'x');
+        });
+
+        it('lower left to upper right', () => {
+          assert.equal(board.grid[0].winner, null);
+          board.placeMark([0,6], 'x');
+          board.placeMark([0,4], 'x');
+          board.placeMark([0,2], 'x');
+          assert.equal(board.grid[0].winner, 'x');
+        });
+      });
+    });
+
+    describe('returns the winner of outer board', () => {
+      describe('when horizontal', () => {
+        it('first row', () => {
+          assert.equal(board.winner, null);
+          board.placeMark([0,0], 'x');
+          board.placeMark([0,1], 'x');
+          board.placeMark([0,2], 'x');
+          board.placeMark([1,0], 'x');
+          board.placeMark([1,1], 'x');
+          board.placeMark([1,2], 'x');
+          board.placeMark([2,0], 'x');
+          board.placeMark([2,1], 'x');
+          board.placeMark([2,2], 'x');
+          assert.equal(board.winner, 'x');
+        });
+
+        it('second row', () => {
+          assert.equal(board.winner, null);
+          board.placeMark([3,3], 'x');
+          board.placeMark([3,4], 'x');
+          board.placeMark([3,5], 'x');
+          board.placeMark([4,0], 'x');
+          board.placeMark([4,1], 'x');
+          board.placeMark([4,2], 'x');
+          board.placeMark([5,0], 'x');
+          board.placeMark([5,1], 'x');
+          board.placeMark([5,2], 'x');
+          assert.equal(board.winner, 'x');
+        });
+
+        it('third row', () => {
+          assert.equal(board.winner, null);
+          board.placeMark([6,6], 'x');
+          board.placeMark([6,7], 'x');
+          board.placeMark([6,8], 'x');
+          board.placeMark([7,0], 'x');
+          board.placeMark([7,1], 'x');
+          board.placeMark([7,2], 'x');
+          board.placeMark([8,0], 'x');
+          board.placeMark([8,1], 'x');
+          board.placeMark([8,2], 'x');
+          assert.equal(board.winner, 'x');
+        });
+      });
+
+      describe('when vertical', () => {
+        it('first column', () => {
+          assert.equal(board.winner, null);
+          board.placeMark([0,0], 'x');
+          board.placeMark([0,3], 'x');
+          board.placeMark([0,6], 'x');
+          board.placeMark([3,0], 'x');
+          board.placeMark([3,3], 'x');
+          board.placeMark([3,6], 'x');
+          board.placeMark([6,0], 'x');
+          board.placeMark([6,3], 'x');
+          board.placeMark([6,6], 'x');
+          assert.equal(board.winner, 'x');
+        });
+
+        it('second column', () => {
+          assert.equal(board.winner, null);
+          board.placeMark([1,1], 'x');
+          board.placeMark([1,4], 'x');
+          board.placeMark([1,7], 'x');
+          board.placeMark([4,0], 'x');
+          board.placeMark([4,3], 'x');
+          board.placeMark([4,6], 'x');
+          board.placeMark([7,0], 'x');
+          board.placeMark([7,3], 'x');
+          board.placeMark([7,6], 'x');
+          assert.equal(board.winner, 'x');
+        });
+
+        it('third column', () => {
+          assert.equal(board.winner, null);
+          board.placeMark([2,2], 'x');
+          board.placeMark([2,5], 'x');
+          board.placeMark([2,8], 'x');
+          board.placeMark([5,0], 'x');
+          board.placeMark([5,3], 'x');
+          board.placeMark([5,6], 'x');
+          board.placeMark([8,0], 'x');
+          board.placeMark([8,3], 'x');
+          board.placeMark([8,6], 'x');
+          assert.equal(board.winner, 'x');
+        });
+      });
+
+      describe('when diagonal', () => {
+        it('upper left to lower right', () => {
+          assert.equal(board.winner, null);
+          board.placeMark([0,0], 'x');
+          board.placeMark([0,4], 'x');
+          board.placeMark([0,8], 'x');
+          board.placeMark([4,0], 'x');
+          board.placeMark([4,3], 'x');
+          board.placeMark([4,6], 'x');
+          board.placeMark([8,0], 'x');
+          board.placeMark([8,3], 'x');
+          board.placeMark([8,6], 'x');
+          assert.equal(board.winner, 'x');
+        });
+
+        it('lower left to upper right', () => {
+          assert.equal(board.winner, null);
+          board.placeMark([6,6], 'x');
+          board.placeMark([6,4], 'x');
+          board.placeMark([6,2], 'x');
+          board.placeMark([4,0], 'x');
+          board.placeMark([4,3], 'x');
+          board.placeMark([4,6], 'x');
+          board.placeMark([2,0], 'x');
+          board.placeMark([2,3], 'x');
+          board.placeMark([2,6], 'x');
+          assert.equal(board.winner, 'x');
+        });
+      });
+    });
+  });
 });
