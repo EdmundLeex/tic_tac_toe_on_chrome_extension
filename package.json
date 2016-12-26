@@ -9,6 +9,7 @@
   "scripts": {
     "build": "webpack",
     "test": "mocha --compilers js:babel-core/register 'test/**/*.@(js|jsx)'",
+    "test:debug": "mocha --debug-brk --compilers js:babel-core/register test/*",
     "test:watch": "npm run test -- --watch"
   },
   "author": "Edmund Li",
