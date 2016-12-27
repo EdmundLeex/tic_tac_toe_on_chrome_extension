@@ -68,6 +68,14 @@ Board.prototype.isFull = function() {
   return true;
 };
 
+// Board.prototype.isOver = function () {
+//   if (this.winner !== null) {
+//     return true;
+//   }
+
+//   return this.isFull();
+// };
+
 function updateWinners(board) {
   if (board === null) return;
   if (board.winner !== null) return;
@@ -134,33 +142,25 @@ function posMatchGridLevel(pos, board) {
   return pos.length === board.level;
 }
 
-Board.loadGrid = function (Constructor, gridObj) {
-  var grid = [];
-  for (var i = 0; i < 3; i++) {
-    grid.push([]);
-    for (var j = 0; j < 3; j++) {
-      if (Constructor) {
-        grid[i][j] = new Constructor();
-        grid[i][j].grid = Board.loadGrid(null, gridObj[i][j]);
-      } else {
-        grid[i][j] = gridObj.grid[i][j];
-      }
-    }
-  }
+// Board.loadGrid = function (Constructor, gridObj) {
+//   var grid = [];
+//   for (var i = 0; i < 3; i++) {
+//     grid.push([]);
+//     for (var j = 0; j < 3; j++) {
+//       if (Constructor) {
+//         grid[i][j] = new Constructor();
+//         grid[i][j].grid = Board.loadGrid(null, gridObj[i][j]);
+//       } else {
+//         grid[i][j] = gridObj.grid[i][j];
+//       }
+//     }
+//   }
 
-  return grid;
-};
+//   return grid;
+// };
 
-Board.prototype.isOver = function () {
-  if (this.getWinner() !== null) {
-    return true;
-  }
-
-  return this.isFull();
-};
-
-Board.prototype.loadSavedBoard = function(boardObj) {
-  throw('Board#loadSavedBoard is not implemented.')
-};
+// Board.prototype.loadSavedBoard = function(boardObj) {
+//   throw('Board#loadSavedBoard is not implemented.')
+// };
 
 module.exports = Board;
