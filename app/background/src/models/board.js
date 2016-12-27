@@ -51,6 +51,23 @@ Board.prototype.placeMark = function(pos, mark) {
   updateWinners(this);
 };
 
+Board.prototype.isFull = function() {
+  let isFull = true;
+
+  for (var i = 0; i < 9; i++) {
+    if (this.level === 1) {
+      isFull = !isEmptyPos([i], this);
+    } else if (this.level > 1) {
+      isFull = this.grid[i].isFull();
+    } else {
+      throw('Invalid board level');
+    }
+
+    if (!isFull) return false;
+  }
+  return true;
+};
+
 function updateWinners(board) {
   if (board === null) return;
   if (board.winner !== null) return;
@@ -134,52 +151,12 @@ Board.loadGrid = function (Constructor, gridObj) {
   return grid;
 };
 
-Board.prototype.isValidPos = function (pos) {
-  return (pos < 9 && pos > 0);
-};
-
-Board.prototype.isFull = function () {
-  for (var pos = 0; pos < 9; pos++) {
-    if (this.isEmptyPos(pos)) {
-      return false;
-    }
-  }
-  return true;
-};
-
 Board.prototype.isOver = function () {
   if (this.getWinner() !== null) {
     return true;
   }
 
   return this.isFull();
-};
-
-Board.prototype.getWinner = function () {
-  var posSeqs = [
-    // horizontals
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    // verticals
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    // diagonals
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
-
-  for (var i = 0; i < posSeqs.length; i++) {
-    if (!this.winner) {
-      this.winner = this.winnerHelper(posSeqs[i]);
-      if (this.winner !== null) {
-        return this.winner;
-      }
-    }
-  }
-
-  return null;
 };
 
 Board.prototype.loadSavedBoard = function(boardObj) {

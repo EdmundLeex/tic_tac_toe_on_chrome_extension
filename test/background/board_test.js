@@ -132,19 +132,6 @@ describe('Board', () => {
         assert.throws(board.placeMark.bind(board, pos), 'Invalid placement');
       });
     });
-
-    function getRandomPos(ceiling = 9) {
-      return Math.floor(Math.random() * ceiling);
-    }
-
-    function getAnotherRandomPos(pos) {
-      let randPos = getRandomPos();
-      if (randPos === pos) {
-        return getAnotherRandomPos(pos);
-      } else {
-        return randPos;
-      }
-    }
   });
 
   describe('#winner', () => {
@@ -353,4 +340,82 @@ describe('Board', () => {
       });
     });
   });
+
+  describe('#isFull()', () => {
+    let board;
+
+    // beforeEach('initBoard', () => {
+    //   board = Board.newBoard();
+    // });
+
+    describe('when it is a one level board', () => {
+      beforeEach('initBoard', () => {
+        board = Board.newBoard({ level: 1 });
+      });
+
+      it('returns true if the board is full', () => {
+        for (let i = 0; i < 9; i++) {
+          board.placeMark([i], 'x');
+        }
+
+        assert.equal(board.isFull(), true);
+      });
+
+      it ('returns false if the board is not full', () => {
+        let randPos = getRandomPos();
+
+        for (let i = 0; i < 9; i++) {
+          if (randPos !== i) {
+            board.placeMark([i], 'x');
+          }
+        }
+
+        assert.equal(board.isFull(), false);
+      });
+    });
+
+    describe('when it is a two level board', () => {
+      beforeEach('initBoard', () => {
+        board = Board.newBoard();
+      });
+
+      it('returns true if board is full', () => {
+        for (let i = 0; i < 9; i++) {
+          for (let j = 0; j < 9; j++) {
+            board.placeMark([i, j], 'x');
+          }
+        }
+
+        assert.equal(board.isFull(), true);
+      });
+
+      it('returns false if board is not full', () => {
+        let randPos = [getRandomPos(), getRandomPos()];
+
+        for (let i = 0; i < 9; i++) {
+          for (let j = 0; j < 9; j++) {
+            if (randPos[0] !== i && randPos[1] !== j) {
+              board.placeMark([i, j], 'x');
+            }
+          }
+        }
+
+        assert.equal(board.isFull(), false);
+      });
+    });
+
+  });
+
+  function getRandomPos(ceiling = 9) {
+    return Math.floor(Math.random() * ceiling);
+  }
+
+  function getAnotherRandomPos(pos) {
+    let randPos = getRandomPos();
+    if (randPos === pos) {
+      return getAnotherRandomPos(pos);
+    } else {
+      return randPos;
+    }
+  }
 });
