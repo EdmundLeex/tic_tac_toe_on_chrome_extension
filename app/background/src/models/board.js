@@ -1,5 +1,4 @@
 function Board (options) {
-  // this.grid = Board.newGrid();
   this.winner = null;
   this.level = options.level;
 }
