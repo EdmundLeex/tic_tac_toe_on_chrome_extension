@@ -1,5 +1,5 @@
-import Board from '../../app/background/src/models/board';
 import assert from 'assert';
+import Board from '../../app/background/src/models/board';
 
 describe('Board', () => {
   describe('::newBoard()', () => {

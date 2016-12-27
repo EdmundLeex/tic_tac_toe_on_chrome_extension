@@ -22,8 +22,8 @@ Game.newGame = (options = {}) => {
   return game;
 };
 
-Game.prototype.makeMove = function (pos, mark) {
-  this.board.placeMark(pos, mark);
+Game.prototype.makeMove = function (pos) {
+  this.board.placeMark(pos, this.currentPlayer.mark);
   swapTurn(this);
 };
 
