@@ -344,10 +344,6 @@ describe('Board', () => {
   describe('#isFull()', () => {
     let board;
 
-    // beforeEach('initBoard', () => {
-    //   board = Board.newBoard();
-    // });
-
     describe('when it is a one level board', () => {
       beforeEach('initBoard', () => {
         board = Board.newBoard({ level: 1 });
