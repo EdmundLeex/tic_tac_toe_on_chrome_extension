@@ -1,5 +1,6 @@
 import assert from 'assert';
 import Board from '../../app/background/src/models/board';
+import { getRandomPos, getAnotherRandomPos } from '../test_helper';
 
 describe('Board', () => {
   describe('::newBoard()', () => {
@@ -64,7 +65,7 @@ describe('Board', () => {
     let mark;
 
     beforeEach(() => {
-      mark = ['o', 'x'][getRandomPos(2)];
+      mark = ['o', 'x'][getRandomPos(0, 2)];
     });
 
     describe('when the board is one level', () => {
@@ -401,17 +402,4 @@ describe('Board', () => {
     });
 
   });
-
-  function getRandomPos(ceiling = 9) {
-    return Math.floor(Math.random() * ceiling);
-  }
-
-  function getAnotherRandomPos(pos) {
-    let randPos = getRandomPos();
-    if (randPos === pos) {
-      return getAnotherRandomPos(pos);
-    } else {
-      return randPos;
-    }
-  }
 });
