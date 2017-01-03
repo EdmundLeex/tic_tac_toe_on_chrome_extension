@@ -114,6 +114,7 @@ describe('Game', () => {
       game.makeMove([8, 3]);
       game.makeMove([3, 5]);
       game.makeMove([5, 3]);
+      assert.equal(game.winner, null);
       game.makeMove([3, 2]);
       game.makeMove([2, 0]);
       game.makeMove([0, 8]);
