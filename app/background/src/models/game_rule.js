@@ -24,8 +24,8 @@ GameRule.prototype.isValidMove = function(pos) {
 };
 
 GameRule.prototype.registerMove = function(pos) {
-  if (isValidMove(this.board, this.previousPos, pos)) {
-    this.previousPos = pos;
+  if (this.isValidMove(pos)) {
+    this.previousPos = pos.slice(0);
     // check winner?
     // if there is one, set winner
     return true;
@@ -33,10 +33,6 @@ GameRule.prototype.registerMove = function(pos) {
     throw('Move is against rule');
   }
 };
-
-// function isValidMove(board, previousPos, pos) {
-//   return board.isEmptyPos(pos) && isAllowedPos(previousPos, pos);
-// }
 
 function isAllowedPos(previousPos, newPos) {
   if (previousPos === null) return true;

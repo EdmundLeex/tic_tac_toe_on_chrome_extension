@@ -42,7 +42,9 @@ describe('GameRule', () => {
       let registerSecondMove = gameRule.registerMove.bind(gameRule, [0, 1]);
 
       assert.doesNotThrow(registerFirstMove);
+      assert.deepEqual(gameRule.previousPos, [8, 0]);
       assert.doesNotThrow(registerSecondMove);
+      assert.deepEqual(gameRule.previousPos, [0, 1]);
     });
 
     it('throws error on invalid move (occupied pos)', () => {
