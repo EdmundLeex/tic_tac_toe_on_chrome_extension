@@ -47,7 +47,7 @@ Board.prototype.placeMark = function(pos, mark) {
     this.grid[idx].placeMark(posClone, mark);
   }
 
-  updateWinners(this);
+  updateWinner(this);
   return true;
 };
 
@@ -76,15 +76,15 @@ Board.prototype.isValidPos = function(pos) {
   return posMatchGridLevel(pos, this) && isWithinBound(pos);
 };
 
-// Board.prototype.isOver = function () {
-//   if (this.winner !== null) {
-//     return true;
-//   }
+Board.prototype.isOver = function () {
+  if (this.winner !== null) {
+    return true;
+  }
 
-//   return this.isFull();
-// };
+  return this.isFull();
+};
 
-function updateWinners(board) {
+function updateWinner(board) {
   if (board === null) return;
   if (board.winner !== null) return;
 
@@ -120,10 +120,6 @@ function boardHasWinningSequenceFromMark(board, mark) {
 
   return hasWinner;
 }
-
-// function isValidPos(pos, board) {
-//   return posMatchGridLevel(pos, board) && isWithinBound(pos);
-// }
 
 function isWithinBound(pos) {
   let isWithinBound = true;

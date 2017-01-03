@@ -96,33 +96,34 @@ describe('Game', () => {
     });
   });
 
-  // describe('game flow', () => {
-  //   it('plays', () => {
-  //     let players = [{ mark: 'x' }, { mark: 'o' }];
-  //     let game = Game.newGame({ players: players });
+  describe('game flow', () => {
+    it('plays', () => {
+      let players = [{ mark: 'x' }, { mark: 'o' }];
+      let game = Game.newGame({ players: players });
 
-  //     game.makeMove([6, 8]);
-  //     assert.throws(game.makeMove.bind(game, [6, 8]), 'Invalid move');
-  //     assert.throws(game.makeMove.bind(game, [6, 0]), 'Invalid move');
-  //     assert.equal(game.isOver, false);
-  //     game.makeMove([8, 6]);
-  //     game.makeMove([6, 5]);
-  //     game.makeMove([5, 6]);
-  //     game.makeMove([6, 2]);
-  //     game.makeMove([2, 3]);
-  //     game.makeMove([3, 8]);
-  //     game.makeMove([8, 3]);
-  //     game.makeMove([3, 5]);
-  //     game.makeMove([5, 3]);
-  //     game.makeMove([3, 2]);
-  //     game.makeMove([2, 0]);
-  //     game.makeMove([0, 8]);
-  //     game.makeMove([8, 0]);
-  //     game.makeMove([0, 5]);
-  //     game.makeMove([5, 0]);
-  //     game.makeMove([0, 2]);
-  //     assert.equal(game.winner.mark, 'x');
-  //     assert.equal(game.isOver, true);
-  //   });
-  // });
+      game.makeMove([6, 8]);
+      assert.throws(game.makeMove.bind(game, [6, 8]), 'Invalid move');
+      assert.throws(game.makeMove.bind(game, [6, 0]), 'Invalid move');
+      assert.equal(game.isOver(), false);
+      game.makeMove([8, 6]);
+      game.makeMove([6, 5]);
+      game.makeMove([5, 6]);
+      game.makeMove([6, 2]);
+      game.makeMove([2, 3]);
+      game.makeMove([3, 8]);
+      game.makeMove([8, 3]);
+      game.makeMove([3, 5]);
+      game.makeMove([5, 3]);
+      game.makeMove([3, 2]);
+      game.makeMove([2, 0]);
+      game.makeMove([0, 8]);
+      game.makeMove([8, 0]);
+      game.makeMove([0, 5]);
+      game.makeMove([5, 0]);
+      game.makeMove([0, 2]);
+      debugger;
+      assert.equal(game.winner.mark, 'x');
+      assert.equal(game.isOver(), true);
+    });
+  });
 });

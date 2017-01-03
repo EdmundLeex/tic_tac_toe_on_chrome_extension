@@ -7,6 +7,7 @@ function Game(options) {
   this.nextPlayer = options.players[1];
   this.board = null;
   this.gameRule = null;
+  this.winner = null;
 }
 
 Game.newGame = (options = {}) => {
@@ -32,10 +33,28 @@ Game.prototype.makeMove = function (pos) {
     this.board.placeMark(pos, this.currentPlayer.mark);
 
     swapTurn(this);
+    updateWinner(this);
   } else {
     throw 'Invalid move';
   }
 };
+
+Game.prototype.isOver = function() {
+  return this.board.isOver();
+};
+
+function updateWinner(game) {
+  if (game.board.winner !== null) {
+    let players = [game.currentPlayer, game.nextPlayer];
+    game.winner = matchPlayerWithMark(players, game.board.winner);
+  }
+}
+
+function matchPlayerWithMark(players, mark) {
+  for (let i = 0; i < players.length; i++) {
+    if (players[i].mark === mark) return players[i];
+  }
+}
 
 function swapTurn(game) {
   let currentPlayer = game.currentPlayer;

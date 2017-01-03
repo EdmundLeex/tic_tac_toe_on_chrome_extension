@@ -5,20 +5,6 @@ function GameRule(board) {
   this.board = board;
 }
 
-GameRule.winningSequences = [
-  // horizontals
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  // verticals
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  // diagonals
-  [0, 4, 8],
-  [2, 4, 6]
-];
-
 GameRule.prototype.isValidMove = function(pos) {
   return this.board.isEmptyPos(pos) && isAllowedPos(this.previousPos, pos);
 };
@@ -45,43 +31,6 @@ function isAllowedPos(previousPos, newPos) {
   }
 
   return isAllowed;
-}
-
-function updateWinners(board) {
-  if (board === null) return;
-  if (board.winner !== null) return;
-
-  Board.marks.forEach((mark) => {
-    if (boardHasWinningSequenceFromMark(board, mark)) {
-      board.winner = mark;
-      return;
-    }
-  });
-}
-
-function boardHasWinningSequenceFromMark(board, mark) {
-  let hasWinner = true;
-  GameRule.winningSequences.some((winningSequence) => {
-    if (board.level === 1) {
-      hasWinner = (
-        board.grid[winningSequence[0]] === mark &&
-        board.grid[winningSequence[1]] === mark &&
-        board.grid[winningSequence[2]] === mark
-      );
-    } else if (board.level > 1) {
-      hasWinner = (
-        board.grid[winningSequence[0]].winner === mark &&
-        board.grid[winningSequence[1]].winner === mark &&
-        board.grid[winningSequence[2]].winner === mark
-      );
-    } else {
-      throw('Invalid board level');
-    }
-
-    if (hasWinner) return true;
-  });
-
-  return hasWinner;
 }
 
 module.exports = GameRule;
