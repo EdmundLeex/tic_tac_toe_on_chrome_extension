@@ -6,7 +6,7 @@ function GameRule(board) {
 }
 
 GameRule.prototype.isValidMove = function(pos) {
-  return this.board.isEmptyPos(pos) && isAllowedPos(this.previousPos, pos);
+  return this.board.isEmptyPos(pos) && isAllowedPos(this.previousPos, pos, this.board);
 };
 
 GameRule.prototype.registerMove = function(pos) {
@@ -20,14 +20,16 @@ GameRule.prototype.registerMove = function(pos) {
   }
 };
 
-function isAllowedPos(previousPos, newPos) {
+function isAllowedPos(previousPos, newPos, board) {
   if (previousPos === null) return true;
+  if (board.level > 1 && board.grid[previousPos[1]].isFull()) return true;
 
-  let allowedGrid = previousPos.slice(1);
+  let allowedPos = previousPos.slice(1);
+
   let isAllowed = true;
 
-  for (let i = 0; i < allowedGrid.length; i++) {
-    if (allowedGrid[i] !== newPos[i]) isAllowed = false;
+  for (let i = 0; i < allowedPos.length; i++) {
+    if (allowedPos[i] !== newPos[i]) isAllowed = false;
   }
 
   return isAllowed;

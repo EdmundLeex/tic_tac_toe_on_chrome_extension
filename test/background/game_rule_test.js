@@ -34,6 +34,47 @@ describe('GameRule', () => {
       let invalidRandPos = [getAnotherRandomPos(randPos[1]), getRandomPos()];
       assert.equal(gameRule.isValidMove(invalidRandPos), false);
     });
+
+    it('returns true if previousPos points to a full grid', () => {
+      makeMove(gameRule, board, [0, 0], 'x');
+      makeMove(gameRule, board, [0, 1], 'o');
+      makeMove(gameRule, board, [1, 0], 'x');
+      makeMove(gameRule, board, [0, 3], 'o');
+      makeMove(gameRule, board, [3, 0], 'x');
+      makeMove(gameRule, board, [0, 2], 'o');
+      makeMove(gameRule, board, [2, 1], 'x');
+      makeMove(gameRule, board, [1, 1], 'o');
+      makeMove(gameRule, board, [1, 2], 'x');
+      makeMove(gameRule, board, [2, 0], 'o');
+      makeMove(gameRule, board, [0, 4], 'x');
+      makeMove(gameRule, board, [4, 0], 'o');
+      makeMove(gameRule, board, [0, 5], 'x');
+      makeMove(gameRule, board, [5, 0], 'o');
+      makeMove(gameRule, board, [0, 6], 'x');
+      makeMove(gameRule, board, [6, 3], 'o');
+      makeMove(gameRule, board, [3, 1], 'x');
+      makeMove(gameRule, board, [1, 4], 'o');
+      makeMove(gameRule, board, [4, 4], 'x');
+      makeMove(gameRule, board, [4, 8], 'o');
+      makeMove(gameRule, board, [8, 0], 'x');
+      makeMove(gameRule, board, [0, 8], 'o');
+      makeMove(gameRule, board, [8, 5], 'x');
+      makeMove(gameRule, board, [5, 5], 'o');
+      makeMove(gameRule, board, [5, 8], 'x');
+      makeMove(gameRule, board, [8, 4], 'o');
+      makeMove(gameRule, board, [4, 5], 'x');
+      makeMove(gameRule, board, [5, 4], 'o');
+      makeMove(gameRule, board, [4, 2], 'x');
+      makeMove(gameRule, board, [2, 3], 'o');
+      makeMove(gameRule, board, [3, 2], 'x');
+      makeMove(gameRule, board, [2, 6], 'o');
+      makeMove(gameRule, board, [6, 0], 'x');
+      makeMove(gameRule, board, [0, 7], 'o');
+      assert.equal(board.grid[0].isFull(), true);
+      makeMove(gameRule, board, [7, 0], 'x');
+      assert.equal(gameRule.isValidMove([1, 7]), true);
+      assert.equal(gameRule.isValidMove([8, 8]), true);
+    });
   });
 
   describe('#registerMove()', () => {
@@ -64,4 +105,9 @@ describe('GameRule', () => {
       assert.throws(registerInvalidMove, 'Move is against rule');
     });
   });
+
+  function makeMove(gameRUle, board, pos, mark) {
+    gameRule.registerMove(pos);
+    board.placeMark(pos, mark);
+  }
 });
