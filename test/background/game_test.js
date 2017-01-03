@@ -121,7 +121,6 @@ describe('Game', () => {
       game.makeMove([0, 5]);
       game.makeMove([5, 0]);
       game.makeMove([0, 2]);
-      debugger;
       assert.equal(game.winner.mark, 'x');
       assert.equal(game.isOver(), true);
     });
