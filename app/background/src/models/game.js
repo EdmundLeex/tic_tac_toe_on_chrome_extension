@@ -5,7 +5,8 @@ function Game(options) {
   this.level = options.level;
   this.currentPlayer = options.players[0];
   this.nextPlayer = options.players[1];
-  this.gameRule = new GameRule();
+  this.board = null;
+  this.gameRule = null;
 }
 
 Game.newGame = (options = {}) => {
@@ -20,19 +21,20 @@ Game.newGame = (options = {}) => {
 
   let game = new Game(options);
   game.board = Board.newBoard(options);
+  game.gameRule = new GameRule(game.board);
 
   return game;
 };
 
 Game.prototype.makeMove = function (pos) {
-  try {
+  debugger;
+  if (this.gameRule.isValidMove(pos) && this.board.isValidPos(pos)) {
+    this.gameRule.registerMove(pos);
     this.board.placeMark(pos, this.currentPlayer.mark);
 
-    // post move actions
-    this.gameRule.registerMove(pos);
     swapTurn(this);
-  } catch (e) {
-    if (e === 'Invalid placement' || e === 'Move is against rule') throw 'Invalid move';
+  } else {
+    throw 'Invalid move';
   }
 };
 

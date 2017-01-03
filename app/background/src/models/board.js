@@ -5,7 +5,7 @@ function Board (options) {
 
 Board.marks = ["x", "o"];
 
-Board.allGrids = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+// Board.allGrids = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 Board.winningSequences = [
   // horizontals
@@ -37,7 +37,7 @@ Board.newBoard = function (options = { level: 2 }) {
 };
 
 Board.prototype.placeMark = function(pos, mark) {
-  if (!isValidPos(pos, this)) { throw 'Invalid placement'; }
+  if (!this.isValidPos(pos)) { throw 'Invalid placement'; }
 
   let posClone = pos.slice(0);
   let idx = posClone.shift();
@@ -48,6 +48,7 @@ Board.prototype.placeMark = function(pos, mark) {
   }
 
   updateWinners(this);
+  return true;
 };
 
 Board.prototype.isFull = function() {
@@ -65,6 +66,14 @@ Board.prototype.isFull = function() {
     if (!isFull) return false;
   }
   return true;
+};
+
+Board.prototype.isEmptyPos = function(pos) {
+  return isEmptyPos(pos, this);
+};
+
+Board.prototype.isValidPos = function(pos) {
+  return posMatchGridLevel(pos, this) && isWithinBound(pos);
 };
 
 // Board.prototype.isOver = function () {
@@ -112,9 +121,9 @@ function boardHasWinningSequenceFromMark(board, mark) {
   return hasWinner;
 }
 
-function isValidPos(pos, board) {
-  return posMatchGridLevel(pos, board) && isWithinBound(pos) && isEmptyPos(pos, board);
-}
+// function isValidPos(pos, board) {
+//   return posMatchGridLevel(pos, board) && isWithinBound(pos);
+// }
 
 function isWithinBound(pos) {
   let isWithinBound = true;
