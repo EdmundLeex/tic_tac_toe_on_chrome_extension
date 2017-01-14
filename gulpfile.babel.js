@@ -40,13 +40,13 @@ gulp.task('popup-js', ['clean'], (cb) => {
 // });
 
 gulp.task('popup-html', ['clean'], () => {
-  return gulp.src('popup/src/index.html')
+  return gulp.src('app/popup/src/index.html')
     .pipe(plugins.rename('popup.html'))
     .pipe(gulp.dest('./build'))
 });
 
 gulp.task('copy-manifest', ['clean'], () => {
-  return gulp.src('manifest.json')
+  return gulp.src('app/manifest.json')
     .pipe(gulp.dest('./build'));
 });
 
