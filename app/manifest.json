@@ -16,22 +16,22 @@
   "optional_permissions": [
     "tabs"
   ],
-  "background": {
-    "persistent": true,
-    "scripts": [
-      "scripts/lib/jquery-2.1.1.js",
-      "scripts/game/util.js",
-      "scripts/util/api.js",
-      "scripts/models/board.js",
-      "scripts/models/mini_board.js",
-      "scripts/models/large_board.js",
-      "scripts/models/player.js",
-      "scripts/models/computer_player.js",
-      // "scripts/game/index.js",
-      "scripts/models/game.js"
-      // "scripts/game/view.js"
-    ]
-  },
+  // "background": {
+  //   "persistent": true,
+  //   "scripts": [
+  //     // "scripts/lib/jquery-2.1.1.js",
+  //     // "scripts/game/util.js",
+  //     // "scripts/util/api.js",
+  //     // "scripts/models/board.js",
+  //     // "scripts/models/mini_board.js",
+  //     // "scripts/models/large_board.js",
+  //     // "scripts/models/player.js",
+  //     // "scripts/models/computer_player.js",
+  //     // "scripts/game/index.js",
+  //     // "scripts/models/game.js"
+  //     // "scripts/game/view.js"
+  //   ]
+  // },
   "browser_action": {
     // "default_icon": {
     //   "38": "assets/images/icon.png"
