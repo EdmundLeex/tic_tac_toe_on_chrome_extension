@@ -6,11 +6,29 @@ class App extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    document.addEventListener('click', () => {
+      this.props.dispatch({
+        type: 'MAKE_MOVE'
+      });
+    });
+  }
+
   render() {
+    console.log(this.props)
     return (
-      <div>hello world</div>
+      <div>
+        { this.props.game.players.currentPlayer.mark }
+      </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    game: state.game
+  };
+};
+
+export default connect(mapStateToProps)(App);
+// export default App
