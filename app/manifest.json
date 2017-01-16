@@ -16,6 +16,11 @@
   "optional_permissions": [
     "tabs"
   ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
   // "background": {
   //   "persistent": true,
   //   "scripts": [
