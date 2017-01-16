@@ -15,10 +15,10 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props)
+    let count = this.props.game ? this.props.game.count : 0;
     return (
       <div>
-        { this.props.game.players.currentPlayer.mark }
+        { count }
       </div>
     );
   }
