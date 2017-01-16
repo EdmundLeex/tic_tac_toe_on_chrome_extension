@@ -1,29 +1,33 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
-  devtool: 'eval',
-  entry: './src/index.js',
+
+  entry: [
+    './app/background/src/index.js'
+  ],
+
   output: {
-    path: '../../dist/',
-    publicPath: '/',
-    filename: 'index.js',
+    filename: 'background.js',
+    path: path.join(__dirname, '../../', 'build'),
+    publicPath: '/'
   },
-  module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loaders: ['babel']
-    }]
-  },
+
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js'],
+    modulesDirectories: ['node_modules']
   },
-  devServer: {
-    contentBase: './dist',
-    hot: true
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ]
+
+  module: {
+    loaders: [
+      {
+        test: /\.(jsx|js)?$/,
+        loader: 'babel',
+        exclude: /(node_modules)/,
+        include: path.join(__dirname, 'src'),
+        query: {
+          presets: ['es2015']
+        }
+      }
+    ]
+  }
 };
