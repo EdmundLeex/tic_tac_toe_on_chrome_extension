@@ -2,17 +2,16 @@ import { Map } from 'immutable';
 import Game from '../models/game';
 
 function makeMove(state, movePos) {
-  let game = state.game;
+  let game = state.get('game');
   game.makeMove([0, 0]);
 
-  state.game = game;
-  console.log(state.game);
+  state.set('game', game);
   return state;
 }
 
-const initialState = {
+const initialState = Map({
   game: Game.newGame({ players: [{ mark: 'o'}, { mark: 'x' }] })
-};
+});
 
 // function makeMove(state, incr) {
 //   return state.set('count', state.get('count') + incr);
