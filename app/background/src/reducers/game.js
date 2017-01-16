@@ -1,3 +1,4 @@
+import { Map } from 'immutable';
 import Game from '../models/game';
 
 function makeMove(state, movePos) {
@@ -12,11 +13,10 @@ function makeMove(state, movePos) {
 // };
 
 function makeMove(state) {
-  let newState = { count: state.count + 1 }
-  return newState;
+  return state.set('count', state.get('count') + 1);
 }
 
-const initialState = {count: 0};
+const initialState = Map({count: 0});
 
 export default (state = initialState, action) => {
   switch (action.type) {
