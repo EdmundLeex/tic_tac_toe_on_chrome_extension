@@ -9,24 +9,28 @@ class App extends Component {
   componentDidMount() {
     document.addEventListener('click', () => {
       this.props.dispatch({
-        type: 'MAKE_MOVE'
+        type: 'MAKE_MOVE',
+        payload: 2
       });
     });
   }
 
   render() {
-    let count = this.props.game ? this.props.game.count : 0;
+    let game = this.props.game;
+    console.log(game)
+    let mark = game.currentPlayer ? game.currentPlayer.mark : '';
     return (
       <div>
-        { count }
+        { mark }
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
+  let game = state.game ? state.game.game : {}
   return {
-    game: state.game
+    game: game
   };
 };
 
