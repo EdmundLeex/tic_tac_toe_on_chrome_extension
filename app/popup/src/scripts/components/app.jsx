@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Board from './board';
+
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.clicking = this.clicking.bind(this);
   }
 
-  componentDidMount() {
-    document.addEventListener('click', () => {
-      this.props.dispatch({
-        type: 'MAKE_MOVE',
-        payload: 2
-      });
-    });
+  clicking(e) {
+    console.log('clicked');
+    debugger;
   }
+
+  // componentDidMount() {
+  //   document.addEventListener('click', (e) => {
+  //     debugger;
+  //     this.props.dispatch({
+  //       type: 'MAKE_MOVE',
+  //       payload: 2
+  //     });
+  //   });
+  // }
 
   render() {
-    let game = this.props.game;
-    console.log(game)
-    let mark = game.currentPlayer ? game.currentPlayer.mark : '';
     return (
       <div>
-        { mark }
+        <Board onClick={this.clicking} {...this.props}/>
       </div>
     );
   }

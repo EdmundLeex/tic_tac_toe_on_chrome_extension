@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "immutable": "^3.8.1",
+    "radium": "^0.18.1",
     "react": "^15.4.2",
     "react-chrome-redux": "^1.1.0",
     "react-dom": "^15.4.2",
