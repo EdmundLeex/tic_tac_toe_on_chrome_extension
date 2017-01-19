@@ -3,7 +3,7 @@ import Game from '../models/game';
 
 function makeMove(state, movePos) {
   let game = state.get('game');
-  game.makeMove([0, 0]);
+  game.makeMove(movePos);
 
   state.set('game', game);
   return state;
@@ -16,8 +16,7 @@ const initialState = Map({
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'MAKE_MOVE':
-      // return makeMove(state, action.payload);
-      return makeMove(state, [0, 0]);
+      return makeMove(state, action.payload);
     default:
       return state;
   }

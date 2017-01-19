@@ -25,6 +25,18 @@ var styles = {
 class Grid extends Component {
   constructor(props) {
     super(props);
+
+    this.placeMark = this.placeMark.bind(this);
+  }
+
+  stripPosFromId(id) {
+    return id.split('-').splice(1).map(id => Number(id));
+  }
+
+  placeMark(e) {
+    console.log('placed mark')
+    let pos = this.stripPosFromId(e.target.id);
+    this.props.makeMove(pos);
   }
 
   render() {
@@ -37,16 +49,28 @@ class Grid extends Component {
       let id = [parentId, i].join('-');
 
       if (grid[i] === null || grid[i].constructor === String) {
-        content = <div style={styles.base} key={id}>{grid[i]}</div>;
+        content = <div
+                    id={id}
+                    key={id}
+                    style={styles.base} 
+                    onClick={this.placeMark}
+                  >
+                    {grid[i]}
+                  </div>;
       } else {
-        content = <Grid key={id} grid={grid[i].grid} parentId={id} />
+        content = <Grid
+                    {...this.props}
+                    key={id}
+                    grid={grid[i].grid}
+                    parentId={id}
+                  />
       }
 
       gridComponents.push(content);
     }
 
     return (
-      <div onClick={this.props.clicking}>
+      <div>
         { gridComponents }
       </div>
     );

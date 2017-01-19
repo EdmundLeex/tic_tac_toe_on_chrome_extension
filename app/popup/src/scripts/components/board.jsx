@@ -15,10 +15,14 @@ class Board extends Component {
     if (!board) { return (<div></div>); }
 
     let grid = board.grid;
-debugger;
+
     return (
       <div>
-        <Grid {...this.props} grid={grid} parentId={'grid'} />
+        <Grid
+          {...this.props}
+          grid={grid}
+          parentId={'grid'}
+        />
       </div>
     );
   }
