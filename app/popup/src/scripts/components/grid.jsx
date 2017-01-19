@@ -11,13 +11,18 @@ let getGridView = function (child, index) {
 }
 
 var styles = {
-  base: {
+  cell: {
     width: '20px',
     height: '20px',
     ':hover': {
       background: '#0074d9'
     },
     border: '1px solid black',
+    display: 'inline-block'
+  },
+  grid: {
+    width: '70px',
+    height: '70px',
     display: 'inline-block'
   }
 };
@@ -52,18 +57,20 @@ class Grid extends Component {
         content = <div
                     id={id}
                     key={id}
-                    style={styles.base} 
+                    style={styles.cell}
                     onClick={this.placeMark}
                   >
                     {grid[i]}
                   </div>;
       } else {
-        content = <Grid
-                    {...this.props}
-                    key={id}
-                    grid={grid[i].grid}
-                    parentId={id}
-                  />
+        content = <div style={styles.grid}>
+                    <Grid
+                      {...this.props}
+                      key={id}
+                      grid={grid[i].grid}
+                      parentId={id}
+                    />
+                  </div>
       }
 
       gridComponents.push(content);
