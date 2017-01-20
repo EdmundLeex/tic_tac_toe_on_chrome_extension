@@ -11,19 +11,18 @@ let getGridView = function (child, index) {
 }
 
 var styles = {
-  cell: {
-    width: '20px',
-    height: '20px',
-    ':hover': {
-      background: '#0074d9'
-    },
-    border: '1px solid black',
-    display: 'inline-block'
+  base: {
+    width: '100%',
+    height: '100%'
   },
   grid: {
-    width: '70px',
-    height: '70px',
-    display: 'inline-block'
+    width: 'calc(100% / 3)',
+    height: 'calc(100% / 3)',
+    border: '1px solid black',
+    display: 'inline-block',
+    position: 'relative',
+    boxSizing: 'border-box',
+    float: 'left'
   }
 };
 
@@ -39,7 +38,6 @@ class Grid extends Component {
   }
 
   placeMark(e) {
-    console.log('placed mark')
     let pos = this.stripPosFromId(e.target.id);
     this.props.makeMove(pos);
   }
@@ -57,17 +55,17 @@ class Grid extends Component {
         content = <div
                     id={id}
                     key={id}
-                    style={styles.cell}
+                    style={styles.grid, styles.grid}
                     onClick={this.placeMark}
                   >
                     {grid[i]}
                   </div>;
       } else {
-        content = <div style={styles.grid}>
+        content = <div key={id} style={styles.grid}>
                     <Grid
                       {...this.props}
-                      key={id}
                       grid={grid[i].grid}
+                      style={styles.base}
                       parentId={id}
                     />
                   </div>
@@ -76,8 +74,10 @@ class Grid extends Component {
       gridComponents.push(content);
     }
 
+    let style = this.props.style || styles.base;
+
     return (
-      <div>
+      <div style={style}>
         { gridComponents }
       </div>
     );

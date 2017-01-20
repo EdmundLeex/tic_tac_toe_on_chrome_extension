@@ -3,6 +3,17 @@ import { connect } from 'react-redux';
 
 import Grid from './grid';
 
+var styles = {
+  board: {
+    width: '450px',
+    height: '450px',
+    border: '5px solid #000',
+    display: 'block',
+    padding: '0',
+    margin: '0 auto'
+  }
+};
+
 class Board extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +28,7 @@ class Board extends Component {
     let grid = board.grid;
 
     return (
-      <div>
+      <div style={styles.board}>
         <Grid
           {...this.props}
           grid={grid}
