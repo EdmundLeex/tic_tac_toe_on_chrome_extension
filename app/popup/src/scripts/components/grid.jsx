@@ -23,6 +23,12 @@ var styles = {
     position: 'relative',
     boxSizing: 'border-box',
     float: 'left'
+  },
+  mark: {
+    textAlign: 'center',
+    width: '100%',
+
+    top: '50%'
   }
 };
 
@@ -55,10 +61,12 @@ class Grid extends Component {
         content = <div
                     id={id}
                     key={id}
-                    style={styles.grid, styles.grid}
+                    style={styles.grid}
                     onClick={this.placeMark}
                   >
-                    {grid[i]}
+                    <div style={styles.mark} onClick={this.props.onClick.bind(this)}>
+                      {grid[i]}
+                    </div>
                   </div>;
       } else {
         content = <div key={id} style={styles.grid}>
