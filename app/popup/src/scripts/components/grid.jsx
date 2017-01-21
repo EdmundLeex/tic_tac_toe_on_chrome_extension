@@ -18,7 +18,10 @@ var styles = {
     display: 'flex',
     position: 'relative',
     boxSizing: 'border-box',
-    float: 'left'
+    float: 'left',
+    ':hover': {
+      cursor: 'pointer'
+    }
   },
   mark: {
     textAlign: 'center',
