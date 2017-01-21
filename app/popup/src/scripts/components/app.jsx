@@ -8,13 +8,6 @@ import Board from './board';
 class App extends Component {
   constructor(props) {
     super(props);
-
-    this.clicking = this.clicking.bind(this);
-  }
-
-  clicking(e) {
-    console.log('clicked');
-    debugger;
   }
 
   // componentDidMount() {
@@ -30,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Board onClick={this.clicking} {...this.props}/>
+        <Board {...this.props}/>
       </div>
     );
   }

@@ -9,7 +9,8 @@ var styles = {
     height: '450px',
     border: '5px solid #000',
     display: 'block',
-    padding: '0',
+    boxSizing: 'border-box',
+    paddingTop: '0',
     margin: '0 auto'
   }
 };

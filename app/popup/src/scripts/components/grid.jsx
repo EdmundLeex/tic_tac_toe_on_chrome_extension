@@ -2,33 +2,28 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Radium from 'radium';
 
-let getGridView = function (child, index) {
-  return (
-    <div key={index}>
-      <Board />
-    </div>
-  );
+function stripPosFromId(id) {
+  return id.split('-').splice(1).map(id => Number(id));
 }
 
 var styles = {
   base: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   grid: {
     width: 'calc(100% / 3)',
     height: 'calc(100% / 3)',
     border: '1px solid black',
-    display: 'inline-block',
+    display: 'flex',
     position: 'relative',
     boxSizing: 'border-box',
     float: 'left'
   },
   mark: {
     textAlign: 'center',
-    width: '100%',
-
-    top: '50%'
+    display: 'block',
+    margin: 'auto'
   }
 };
 
@@ -39,12 +34,8 @@ class Grid extends Component {
     this.placeMark = this.placeMark.bind(this);
   }
 
-  stripPosFromId(id) {
-    return id.split('-').splice(1).map(id => Number(id));
-  }
-
   placeMark(e) {
-    let pos = this.stripPosFromId(e.target.id);
+    let pos = stripPosFromId(e.target.id);
     this.props.makeMove(pos);
   }
 
@@ -64,7 +55,7 @@ class Grid extends Component {
                     style={styles.grid}
                     onClick={this.placeMark}
                   >
-                    <div style={styles.mark} onClick={this.props.onClick.bind(this)}>
+                    <div style={styles.mark}>
                       {grid[i]}
                     </div>
                   </div>;
