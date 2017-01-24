@@ -5,3 +5,11 @@ export function makeMove(pos) {
     payload: pos
   }
 }
+
+export const POST_MOVE = 'POST_MOVE';
+export function postMove(pos) {
+  fetch('', {
+    method: 'POST',
+    body: data
+  }).then;
+}
