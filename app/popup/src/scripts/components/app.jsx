@@ -10,16 +10,6 @@ class App extends Component {
     super(props);
   }
 
-  // componentDidMount() {
-  //   document.addEventListener('click', (e) => {
-  //     debugger;
-  //     this.props.dispatch({
-  //       type: 'MAKE_MOVE',
-  //       payload: 2
-  //     });
-  //   });
-  // }
-
   render() {
     return (
       <div>
