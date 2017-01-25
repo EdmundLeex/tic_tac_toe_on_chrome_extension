@@ -1,15 +1,13 @@
-export const MAKE_MOVE = 'MAKE_MOVE';
-export function makeMove(pos) {
+export const PLACE_MARK = 'PLACE_MARK';
+export function placeMark(pos) {
   return {
-    type: MAKE_MOVE,
+    type: PLACE_MARK,
     payload: pos
   }
 }
 
-export const POST_MOVE = 'POST_MOVE';
-export function postMove(pos) {
-  fetch('', {
-    method: 'POST',
-    body: data
-  }).then;
+export function makeMove(pos) {
+  return function(dispatch) {
+    dispatch(placeMark(pos));
+  }
 }

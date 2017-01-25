@@ -40,7 +40,6 @@ class Grid extends Component {
   placeMark(e) {
     let pos = stripPosFromId(e.target.id);
     this.props.makeMove(pos);
-    this.props.postMove(pos);
   }
 
   render() {
