@@ -6,9 +6,6 @@ import App from './components/app';
 import { Store } from 'react-chrome-redux';
 import { Provider } from 'react-redux';
 
-import { applyMiddleware } from 'redux';
-import { thunk } from 'redux-thunk';
-
 const proxyStore = new Store({
   portName: 'SUPER_TTT'
 });

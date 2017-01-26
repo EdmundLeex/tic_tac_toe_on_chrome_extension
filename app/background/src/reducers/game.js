@@ -15,7 +15,7 @@ const initialState = Map({
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'MAKE_MOVE':
+    case 'PLACE_MARK':
       return makeMove(state, action.payload);
     default:
       return state;
