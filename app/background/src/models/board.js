@@ -5,8 +5,6 @@ function Board (options) {
 
 Board.marks = ["x", "o"];
 
-// Board.allGrids = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-
 Board.winningSequences = [
   // horizontals
   [0, 1, 2],
@@ -36,8 +34,25 @@ Board.newBoard = function (options = { level: 2 }) {
   return board;
 };
 
+Board.loadBoard = function (boardObj) {
+  var level = boardObj.level;
+
+  var board = new Board({ level: level });
+  board.grid = [];
+
+  for (var i = 0; i < 9; i++) {
+    if (level === 1) {
+      board.grid[i] = boardObj.grid[i];
+    } else {
+      board.grid[i] = Board.loadBoard(boardObj.grid[i]);
+    }
+  }
+
+  return board;
+}
+
 Board.prototype.placeMark = function(pos, mark) {
-  if (!this.isValidPos(pos)) { throw 'Invalid placement'; }
+  if (!this.isValidPos(pos)) { throw new Error('Invalid placement'); }
 
   let posClone = pos.slice(0);
   let idx = posClone.shift();
@@ -60,7 +75,7 @@ Board.prototype.isFull = function() {
     } else if (this.level > 1) {
       isFull = this.grid[i].isFull();
     } else {
-      throw('Invalid board level');
+      throw new Error('Invalid board level');
     }
 
     if (!isFull) return false;
@@ -112,7 +127,7 @@ function boardHasWinningSequenceFromMark(board, mark) {
         board.grid[winningSequence[2]].winner === mark
       );
     } else {
-      throw('Invalid board level');
+      throw new Error('Invalid board level');
     }
 
     if (hasWinner) return true;
@@ -145,26 +160,5 @@ function isEmptyPos(pos, board) {
 function posMatchGridLevel(pos, board) {
   return pos.length === board.level;
 }
-
-// Board.loadGrid = function (Constructor, gridObj) {
-//   var grid = [];
-//   for (var i = 0; i < 3; i++) {
-//     grid.push([]);
-//     for (var j = 0; j < 3; j++) {
-//       if (Constructor) {
-//         grid[i][j] = new Constructor();
-//         grid[i][j].grid = Board.loadGrid(null, gridObj[i][j]);
-//       } else {
-//         grid[i][j] = gridObj.grid[i][j];
-//       }
-//     }
-//   }
-
-//   return grid;
-// };
-
-// Board.prototype.loadSavedBoard = function(boardObj) {
-//   throw('Board#loadSavedBoard is not implemented.')
-// };
 
 module.exports = Board;

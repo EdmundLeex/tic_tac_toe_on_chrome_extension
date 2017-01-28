@@ -16,7 +16,7 @@ GameRule.prototype.registerMove = function(pos) {
     // if there is one, set winner
     return true;
   } else {
-    throw('Move is against rule');
+    throw new Error('Move is against rule');
   }
 };
 

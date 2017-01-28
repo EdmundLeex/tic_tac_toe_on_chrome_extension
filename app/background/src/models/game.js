@@ -3,8 +3,8 @@ const GameRule = require('./game_rule');
 
 function Game(options) {
   this.level = options.level;
-  this.currentPlayer = options.players[0];
-  this.nextPlayer = options.players[1];
+  this.currentPlayer = options.currentPlayer || options.players[0];
+  this.nextPlayer = options.nextPlayer || options.players[1];
   this.board = null;
   this.gameRule = null;
   this.winner = null;
@@ -27,6 +27,18 @@ Game.newGame = (options = {}) => {
   return game;
 };
 
+Game.loadGame = function (gameObj) {
+  let options = {
+    level: gameObj.level,
+    currentPlayer: gameObj.currentPlayer,
+    nextPlayer: gameObj.nextPlayer
+  };
+
+  let game = new Game(options);
+  game.board = Board.loadBoard(gameObj.board);
+  return game;
+};
+
 Game.prototype.makeMove = function (pos) {
   if (this.gameRule.isValidMove(pos) && this.board.isValidPos(pos)) {
     this.gameRule.registerMove(pos);
@@ -35,7 +47,7 @@ Game.prototype.makeMove = function (pos) {
     swapTurn(this);
     updateWinner(this);
   } else {
-    throw 'Invalid move';
+    throw new Error('Invalid move');
   }
 };
 
