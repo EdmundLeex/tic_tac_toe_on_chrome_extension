@@ -36,6 +36,8 @@ Game.loadGame = function (gameObj) {
 
   let game = new Game(options);
   game.board = Board.loadBoard(gameObj.board);
+  game.gameRule = new GameRule(game.board);
+  game.gameRule.previousPos = gameObj.gameRule.previousPos;
   return game;
 };
 
