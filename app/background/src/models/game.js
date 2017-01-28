@@ -1,5 +1,5 @@
-import Board from './board';
-import GameRule from './game_rule';
+const Board = require('./board');
+const GameRule = require('./game_rule');
 
 function Game(options) {
   this.level = options.level;

@@ -1,4 +1,4 @@
-import Board from './board';
+const Board = require('./board');
 
 function GameRule(board) {
   this.previousPos = null;
