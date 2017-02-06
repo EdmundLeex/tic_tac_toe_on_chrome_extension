@@ -21,7 +21,10 @@ function submitSignInForm(state) {
       'Origin': BASE_URL,
       'Host': BASE_URL
     },
-    body: JSON.stringify({"email":"foobar@foobar.com","password":"1234"})
+    body: JSON.stringify({
+      email: email,
+      password: password
+    })
   });
 
   return state.set('waitingForResponse', true);
