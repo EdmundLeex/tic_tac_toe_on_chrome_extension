@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../action_creators';
 
 import Board from './board';
+import SignIn from './sign_in';
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Board {...this.props}/>
+        <SignIn {...this.props}/>
       </div>
     );
   }
