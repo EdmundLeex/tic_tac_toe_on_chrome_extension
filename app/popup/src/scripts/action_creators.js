@@ -6,16 +6,6 @@ export function placeMark(pos) {
   }
 }
 
-export function makeMove(pos) {
-  return {
-    type: 'POST_MARK_TO_SERVER'
-  }
-  // return dispatch => {
-  //   dispatch({type: 'POST_MARK_TO_SERVER', payload: 'foooo'});
-  //   // dispatch(placeMark(pos));
-  // }
-}
-
 export const SIGN_IN_FORM_CHANGE = 'SIGN_IN_FORM_CHANGE';
 export function onSignInFormChange(name, value) {
   return {
