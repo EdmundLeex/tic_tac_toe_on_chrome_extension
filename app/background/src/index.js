@@ -1,8 +1,14 @@
-import { createStore } from 'redux';
 import reducer from './reducers/index';
-import { wrapStore } from 'react-chrome-redux';
+import { applyMiddleware, createStore } from 'redux';
+import { alias, wrapStore } from 'react-chrome-redux';
 
-const store = createStore(reducer, {});
+import aliases from './aliases/index';
+
+const store = createStore(reducer,
+  applyMiddleware(
+    alias(aliases)
+  )
+);
 
 wrapStore(store, {
   portName: 'SUPER_TTT'

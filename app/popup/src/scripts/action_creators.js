@@ -7,9 +7,13 @@ export function placeMark(pos) {
 }
 
 export function makeMove(pos) {
-  return function(dispatch) {
-    dispatch(placeMark(pos));
+  return {
+    type: 'POST_MARK_TO_SERVER'
   }
+  // return dispatch => {
+  //   dispatch({type: 'POST_MARK_TO_SERVER', payload: 'foooo'});
+  //   // dispatch(placeMark(pos));
+  // }
 }
 
 export const SIGN_IN_FORM_CHANGE = 'SIGN_IN_FORM_CHANGE';

@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <SignIn {...this.props}/>
+        <Board {...this.props}/>
       </div>
     );
   }
