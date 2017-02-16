@@ -6,10 +6,10 @@ export function placeMark(pos) {
   }
 }
 
-export const SIGN_IN_FORM_CHANGE = 'SIGN_IN_FORM_CHANGE';
+export const SIGN_IN_FORM_CHANGED = 'SIGN_IN_FORM_CHANGED';
 export function onSignInFormChange(name, value) {
   return {
-    type: SIGN_IN_FORM_CHANGE,
+    type: SIGN_IN_FORM_CHANGED,
     payload: { name: name, value: value }
   }
 }
