@@ -1,21 +1,18 @@
 import { Map } from 'immutable';
+import * as actions from '../actions/index';
 
-function postMove(state, movePos) {
-  let game = state.get('game');
-  game.makeMove(movePos);
-
-  state.set('game', game);
-  return state;
+function setErrorMsg(state, error) {
+  return state.set('errorMsg', error);
 }
 
 const initialState = Map({
-  game: Game.newGame({ players: [{ mark: 'o'}, { mark: 'x' }] })
+  errorMsg: ''
 });
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'MAKE_MOVE':
-      return makeMove(state, action.payload);
+    case actions.API_ERROR:
+      return setErrorMsg(state, action.payload);
     default:
       return state;
   }

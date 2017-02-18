@@ -8,13 +8,13 @@ function onSignInFormChanged(state, formValues) {
 }
 
 function onRequestSent(state) {
-  return state.set('waitingForResponse', true);
+  return state.set('waitingForResponse', true)
+              .set('password', '');
 }
 
 function onSignUpSuccess(state) {
   return state.set('waitingForResponse', false)
-              .set('email', '')
-              .set('password', '');
+              .set('email', '');
 }
 
 const initialState = Map({

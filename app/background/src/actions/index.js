@@ -14,9 +14,10 @@ export function signUpSucceed() {
   };
 }
 
-export const SIGN_UP_FAILED = 'SIGN_UP_FAILED';
-export function signUpFail() {
+export const API_ERROR = 'API_ERROR';
+export function apiError(err) {
   return {
-    type: SIGN_UP_FAILED
+    type: API_ERROR,
+    payload: err
   };
 }
