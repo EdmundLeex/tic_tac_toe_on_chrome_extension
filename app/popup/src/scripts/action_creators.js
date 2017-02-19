@@ -20,3 +20,10 @@ export function onSignInFormSubmit() {
     type: SIGN_IN_FORM_SUBMIT
   }
 }
+
+export const NOTIFICATION_ERROR = 'NOTIFICATION_ERROR';
+export function onErrorShown() {
+  return {
+    type: NOTIFICATION_ERROR
+  };
+}

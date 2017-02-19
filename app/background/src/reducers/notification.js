@@ -22,7 +22,7 @@ function showErrorMsg(state, errorMsg) {
 const initialState = Map({
   text: '',
   type: '',
-  status: ''
+  status: 'hidden'
 });
 
 export default (state = initialState, action) => {
