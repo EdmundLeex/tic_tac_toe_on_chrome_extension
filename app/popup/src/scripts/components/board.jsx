@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
 import Grid from './grid';
 
-var styles = {
+const styles = {
   board: {
     width: '450px',
     height: '450px',

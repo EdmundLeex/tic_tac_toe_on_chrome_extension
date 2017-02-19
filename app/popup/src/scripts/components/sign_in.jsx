@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Radium from 'radium';
 
 class SignIn extends Component {
@@ -20,7 +19,7 @@ class SignIn extends Component {
     this.props.onSignInFormSubmit();
   }
 
-  render() {    
+  render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>

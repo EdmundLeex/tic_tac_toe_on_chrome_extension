@@ -14,10 +14,10 @@ export function signUpSucceed() {
   };
 }
 
-export const API_ERROR = 'API_ERROR';
-export function apiError(err) {
+export const NOTIFICATION_ERROR = 'NOTIFICATION_ERROR';
+export function showError(err) {
   return {
-    type: API_ERROR,
+    type: NOTIFICATION_ERROR,
     payload: err
   };
 }

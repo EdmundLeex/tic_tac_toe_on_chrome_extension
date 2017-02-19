@@ -5,6 +5,7 @@ import * as actionCreators from '../action_creators';
 
 import Board from './board';
 import SignIn from './sign_in';
+import Notification from './notification';
 
 class App extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Notification />
         <SignIn {...this.props}/>
       </div>
     );
