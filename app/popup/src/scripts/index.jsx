@@ -10,9 +10,11 @@ const proxyStore = new Store({
   portName: 'SUPER_TTT'
 });
 
-render(
-  <Provider store={ proxyStore }>
-    <App />
-  </Provider>
-  , document.getElementById('app')
-);
+proxyStore.ready().then(() => {
+  render(
+    <Provider store={ proxyStore }>
+      <App />
+    </Provider>
+    , document.getElementById('app')
+  );
+});
