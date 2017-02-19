@@ -14,10 +14,29 @@ export function signUpSucceed() {
   };
 }
 
-export const NOTIFICATION_ERROR = 'NOTIFICATION_ERROR';
-export function showError(err) {
+export function notifyError(err) {
+  return dispatch => {
+    dispatch(showNotification('error', err));
+    window.setTimeout(() => {
+      dispatch(hideNotification());
+    }, 3000);
+  };
+}
+
+export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
+function showNotification(type, msg) {
   return {
-    type: NOTIFICATION_ERROR,
-    payload: err
+    type: SHOW_NOTIFICATION,
+    payload: {
+      type: type,
+      msg: msg
+    }
+  };
+}
+
+export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION';
+function hideNotification() {
+  return {
+    type: HIDE_NOTIFICATION
   };
 }

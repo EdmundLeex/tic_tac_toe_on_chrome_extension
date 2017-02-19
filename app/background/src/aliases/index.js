@@ -51,7 +51,7 @@ const aliases = {
       dispatch(actions.signUpSucceed());
     }).catch(function(err) {
       console.error(err);
-      dispatch(actions.showError(err.message));
+      dispatch(actions.notifyError(err.message));
     });
   }
 };
