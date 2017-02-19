@@ -15,7 +15,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Notification />
+        <Notification {...this.props} />
         <SignIn {...this.props}/>
       </div>
     );
@@ -23,9 +23,9 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  let game = state.game ? state.game.game : {}
   return {
-    game: game
+    game: state.game,
+    notification: state.notification
   };
 };
 
