@@ -86,6 +86,13 @@ const aliases = {
     login(email, password).then(checkStatus).then(function(res) {
       dispatch(actions.popNotification('success', 'Welcome back!'));
       dispatch(actions.loginSucceed());
+      res.json().then((body) => {
+        chrome.cookies.set({
+          url: BASE_URL,
+          name: 'tic_tac_toe_user_token',
+          value: body.token
+        });
+      });
     }).catch(function(err) {
       console.error(err);
       dispatch(actions.popNotification('error', err.message));
