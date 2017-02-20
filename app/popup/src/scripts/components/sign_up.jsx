@@ -42,22 +42,22 @@ class Login extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.naviToSignUp = this.naviToSignUp.bind(this);
+    this.naviToLogin = this.naviToLogin.bind(this);
   }
 
-  naviToSignUp(e) {
+  naviToLogin(e) {
     e.preventDefault();
-    this.props.changeViewTo('signUp');
+    this.props.changeViewTo('login');
   }
 
   handleChange(e) {
     const {name, value} = e.target;
-    this.props.onLoginFormChange(name, value);
+    this.props.onSignUpFormChange(name, value);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onLoginFormSubmit();
+    this.props.onSignUpFormSubmit();
   }
 
   render() {
@@ -71,24 +71,30 @@ class Login extends Component {
               name='email'
               placeholder='Email'
               onChange={this.handleChange}
-              value={this.props.login.email}
             />
             <input
               style={styles.fields}
-              type='password'
+              type='text'
               name='password'
               placeholder='Password'
               onChange={this.handleChange}
             />
             <input
+              style={styles.fields}
+              type='text'
+              name='passwordConf'
+              placeholder='Confirm Password'
+              onChange={this.handleChange}
+            />
+            <input
               style={styles.btn}
               type="submit"
-              value="Login"
+              value="Sign up"
             />
           </form>
           <p style={styles.txtCenter}>
-            {"Don't have an account? "}
-            <a href='#' onClick={this.naviToSignUp}>Sign up</a>
+            {"Already have an account? "}
+            <a href='#' onClick={this.naviToLogin}>Login</a>
           </p>
         </div>
       </div>

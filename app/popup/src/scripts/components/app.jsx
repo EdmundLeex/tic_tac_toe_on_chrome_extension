@@ -25,7 +25,9 @@ const mapStateToProps = (state) => {
   return {
     game: state.game.game,
     notification: state.notification,
-    appState: state.appState
+    appState: state.appState,
+    login: state.loginForm,
+    signUp: state.signUpForm
   };
 };
 

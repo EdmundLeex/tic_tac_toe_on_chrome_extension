@@ -1,14 +1,12 @@
 import { Map } from 'immutable';
 import * as actions from '../actions/index';
 
-function redirectToGameAndSetLoggedIn(state) {
-  return state.set('currentView', 'game')
-              .set('loggedIn', true);
+function changeActiveView(state, view) {
+  return state.set('currentView', view);
 }
 
 const initialState = Map({
-  currentView: 'login',
-  loggedIn: false
+  currentView: 'login'
 });
 
 export default (state = initialState, action) => {
@@ -16,7 +14,9 @@ export default (state = initialState, action) => {
     case actions.API_ERROR:
       return setErrorMsg(state, action.payload);
     case actions.LOGIN_SUCCESS:
-      return redirectToGameAndSetLoggedIn(state);
+      return changeActiveView(state, 'game');
+    case actions.CHANGE_VIEW:
+      return changeActiveView(state, action.payload);
     default:
       return state;
   }

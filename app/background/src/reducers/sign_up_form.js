@@ -21,16 +21,17 @@ function clearField(state, fieldName) {
 const initialState = Map({
   email: '',
   password: '',
+  passwordConf: '',
   waitingForResponse: false
 });
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actions.LOGIN_FORM_CHANGED:
+    case actions.SIGN_UP_FORM_CHANGED:
       return setFormValue(state, action.payload);
     case actions.WAITING_FOR_RESPONSE:
       return setWaitForResponse(state, true);
-    // case actions.LOGIN_SUCCESS:
+    // case actions.SIGN_UP_SUCCESS:
     //   return onSignUpSuccess(state);
     case actions.CLEAR_PASSWORD:
       return clearField(state, 'password');

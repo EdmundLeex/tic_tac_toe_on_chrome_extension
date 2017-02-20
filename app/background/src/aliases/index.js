@@ -1,6 +1,5 @@
 import * as actions from '../actions/index';
-
-const BASE_URL = 'http://localhost:3000';
+import { BASE_URL } from '../config/api';
 
 function checkStatus(resp) {
   if (resp.status >= 200 && resp.status < 300) {
@@ -61,19 +60,24 @@ const aliases = {
     dispatch(postMove(action));
   },
   SIGN_UP_FORM_SUBMIT: (action) => (dispatch, getState) => {
-    const state = getState().signupForm;
+    const state = getState().signUpForm;
     const email = state.get('email');
     const password = state.get('password');
+    const passwordConf = state.get('passwordConf');
 
-    dispatch(actions.waitForResponse());
-    dispatch(actions.clearPassword());
+    if (password !== passwordConf) {
+      dispatch(actions.popNotification('error', "You password doesn\'t match."));
+    } else {
+      dispatch(actions.waitForResponse());
+      dispatch(actions.clearPassword());
 
-    signUp(email, password).then(checkStatus).then(function(res) {
-      dispatch(actions.signUpSucceed());
-    }).catch(function(err) {
-      console.error(err);
-      dispatch(actions.popNotification('error', err.message));
-    });
+      signUp(email, password).then(checkStatus).then(function(res) {
+        dispatch(actions.signUpSucceed());
+      }).catch(function(err) {
+        console.error(err);
+        dispatch(actions.popNotification('error', err.message));
+      });
+    }
   },
   LOGIN_FORM_SUBMIT: (action) => (dispatch, getState) => {
     const state = getState().loginForm;

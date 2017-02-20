@@ -21,9 +21,25 @@ export function onLoginFormSubmit() {
   }
 }
 
-export const NOTIFICATION_ERROR = 'NOTIFICATION_ERROR';
-export function onErrorShown() {
+export const SIGN_UP_FORM_CHANGED = 'SIGN_UP_FORM_CHANGED';
+export function onSignUpFormChange(name, value) {
   return {
-    type: NOTIFICATION_ERROR
-  };
+    type: SIGN_UP_FORM_CHANGED,
+    payload: { name: name, value: value }
+  }
+}
+
+export const SIGN_UP_FORM_SUBMIT = 'SIGN_UP_FORM_SUBMIT';
+export function onSignUpFormSubmit() {
+  return {
+    type: SIGN_UP_FORM_SUBMIT
+  }
+}
+
+export const CHANGE_VIEW = 'CHANGE_VIEW';
+export function changeViewTo(view) {
+  return {
+    type: CHANGE_VIEW,
+    payload: view
+  }
 }
