@@ -10,7 +10,8 @@ class Main extends Component {
   }
 
   render() {
-    const view = this.props.loggedIn ?
+    const loggedIn = this.props.appState.loggedIn;
+    const view = loggedIn ?
       <Board {...this.props} /> : <Login {...this.props} />;
 
     return (

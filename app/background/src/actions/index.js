@@ -15,3 +15,17 @@ export function signUpSucceed() {
     type: SIGN_UP_SUCCESS
   };
 }
+
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export function loginSucceed() {
+  return {
+    type: LOGIN_SUCCESS
+  };
+}
+
+export const CLEAR_PASSWORD = 'CLEAR_PASSWORD';
+export function clearPassword() {
+  return {
+    type: CLEAR_PASSWORD
+  };
+}

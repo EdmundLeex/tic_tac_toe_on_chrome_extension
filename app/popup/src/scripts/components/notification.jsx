@@ -9,7 +9,8 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     color: '#FFFFFF',
-    fontSize: '14px'
+    fontSize: '14px',
+    zIndex: '999'
   },
   success: {
     backgroundColor: '#5BBD66'

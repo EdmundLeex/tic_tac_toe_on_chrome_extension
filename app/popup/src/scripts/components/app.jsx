@@ -23,8 +23,9 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    game: state.game,
-    notification: state.notification
+    game: state.game.game,
+    notification: state.notification,
+    appState: state.appState
   };
 };
 

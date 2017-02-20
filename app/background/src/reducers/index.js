@@ -7,5 +7,6 @@ import appState from './app_state';
 export default combineReducers({
   game,
   loginForm,
-  notification
+  notification,
+  appState
 });
