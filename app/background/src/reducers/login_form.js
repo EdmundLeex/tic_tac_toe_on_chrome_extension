@@ -9,10 +9,10 @@ function setWaitForResponse(state, bool) {
   return state.set('waitingForResponse', bool);
 }
 
-// function onSignUpSuccess(state) {
-//   return state.set('waitingForResponse', false)
-//               .set('email', '');
-// }
+function onSignUpSuccess(state) {
+  return state.set('waitingForResponse', false)
+              .set('email', '');
+}
 
 function clearField(state, fieldName) {
   return state.set(fieldName, '');
@@ -30,8 +30,8 @@ export default (state = initialState, action) => {
       return setFormValue(state, action.payload);
     case actions.WAITING_FOR_RESPONSE:
       return setWaitForResponse(state, true);
-    // case actions.LOGIN_SUCCESS:
-    //   return onSignUpSuccess(state);
+    case actions.LOGIN_SUCCESS:
+      return onSignUpSuccess(state);
     case actions.CLEAR_PASSWORD:
       return clearField(state, 'password');
     default:

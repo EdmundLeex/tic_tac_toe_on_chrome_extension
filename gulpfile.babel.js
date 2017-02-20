@@ -29,16 +29,6 @@ gulp.task('background-js', ['clean'], (cb) => {
   });
 });
 
-// gulp.task('content-js', ['clean'], (cb) => {
-//   webpack(contentWebpackConfig, (err, stats) => {
-//     if(err) throw new plugins.util.PluginError('webpack', err);
-
-//     plugins.util.log('[webpack]', stats.toString());
-
-//     cb();
-//   });
-// });
-
 gulp.task('popup-html', ['clean'], () => {
   return gulp.src('app/popup/src/index.html')
     .pipe(plugins.rename('popup.html'))
@@ -54,11 +44,10 @@ gulp.task('clean', (cb) => {
   rimraf('./build', cb);
 });
 
-gulp.task('build', ['copy-manifest', 'popup-js', 'popup-html', 'background-js']);//, 'event-js', 'content-js']);
+gulp.task('build', ['copy-manifest', 'popup-js', 'popup-html', 'background-js']);
 
 gulp.task('watch', ['default'], () => {
   gulp.watch('app/popup/**/*', ['build']);
-  // gulp.watch('content/**/*', ['build']);
   gulp.watch('app/background/**/*', ['build']);
 });
 

@@ -43,3 +43,10 @@ export function changeViewTo(view) {
     payload: view
   }
 }
+
+export const CHECK_USER_SESSION = 'CHECK_USER_SESSION';
+export function checkUserSession() {
+  return {
+    type: CHECK_USER_SESSION
+  }
+}

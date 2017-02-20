@@ -4,6 +4,7 @@ import Radium from 'radium';
 import Board from './board';
 import Login from './login';
 import SignUp from './sign_up';
+import LoadingOverlay from './loading_overlay';
 
 class Main extends Component {
   constructor(props) {
@@ -23,8 +24,10 @@ class Main extends Component {
         break;
       case 'signUp':
         view = <SignUp {...this.props} />;
+      case 'loadingOverlay':
+        view = <LoadingOverlay />;
       default:
-        break; 
+        break;
     }
 
     return (

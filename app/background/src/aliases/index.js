@@ -10,7 +10,7 @@ function checkStatus(resp) {
   throw error;
 }
 
-function login(email, password) {
+function login(credentials) {
   let headers = new Headers();
   headers.append('Content-Type', 'application/json');
 
@@ -23,10 +23,7 @@ function login(email, password) {
       'Origin': BASE_URL,
       'Host': BASE_URL
     },
-    body: JSON.stringify({
-      email: email,
-      password: password
-    })
+    body: JSON.stringify(credentials)
   });
 }
 
@@ -72,6 +69,7 @@ const aliases = {
       dispatch(actions.clearPassword());
 
       signUp(email, password).then(checkStatus).then(function(res) {
+        dispatch(actions.popNotification('success', 'Welcome to Super Tic Tac Toe!'));
         dispatch(actions.signUpSucceed());
       }).catch(function(err) {
         console.error(err);
@@ -87,7 +85,7 @@ const aliases = {
     dispatch(actions.waitForResponse());
     dispatch(actions.clearPassword());
 
-    login(email, password).then(checkStatus).then(function(res) {
+    login({email, password}).then(checkStatus).then(function(res) {
       dispatch(actions.popNotification('success', 'Welcome back!'));
       dispatch(actions.loginSucceed());
       res.json().then((body) => {
@@ -100,6 +98,20 @@ const aliases = {
     }).catch(function(err) {
       console.error(err);
       dispatch(actions.popNotification('error', err.message));
+    });
+  },
+  CHECK_USER_SESSION: (action) => (dispatch, getState) => {
+    chrome.cookies.get({
+      url: BASE_URL,
+      name: 'tic_tac_toe_user_token'
+    }, function(cookies) {
+      if (cookies) {
+        login({token: cookies.value}).then(checkStatus).then(function(res) {
+          dispatch(actions.changeViewTo('game'));
+        }).catch(function(err) {
+          dispatch(actions.changeViewTo('login'));
+        });
+      }
     });
   }
 };
