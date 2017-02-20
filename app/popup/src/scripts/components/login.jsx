@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-class SignIn extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -11,12 +11,12 @@ class SignIn extends Component {
 
   handleChange(e) {
     const {name, value} = e.target;
-    this.props.onSignInFormChange(name, value);
+    this.props.onLoginFormChange(name, value);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onSignInFormSubmit();
+    this.props.onLoginFormSubmit();
   }
 
   render() {
@@ -39,4 +39,4 @@ class SignIn extends Component {
   }
 }
 
-export default Radium(SignIn);
+export default Radium(Login);

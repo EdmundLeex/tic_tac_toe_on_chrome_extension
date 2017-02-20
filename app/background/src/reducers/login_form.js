@@ -3,7 +3,7 @@ import * as actions from '../actions/index';
 
 const BASE_URL = 'http://localhost:3000/';
 
-function onSignInFormChanged(state, formValues) {
+function onLoginFormChanged(state, formValues) {
   return state.set(formValues.name, formValues.value);
 }
 
@@ -25,8 +25,8 @@ const initialState = Map({
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actions.SIGN_IN_FORM_CHANGED:
-      return onSignInFormChanged(state, action.payload);
+    case actions.LOGIN_FORM_CHANGED:
+      return onLoginFormChanged(state, action.payload);
     case actions.WAITING_FOR_RESPONSE:
       return onRequestSent(state);
     case actions.SIGN_UP_SUCCESS:

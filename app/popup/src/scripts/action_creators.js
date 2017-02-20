@@ -6,18 +6,18 @@ export function placeMark(pos) {
   }
 }
 
-export const SIGN_IN_FORM_CHANGED = 'SIGN_IN_FORM_CHANGED';
-export function onSignInFormChange(name, value) {
+export const LOGIN_FORM_CHANGED = 'LOGIN_FORM_CHANGED';
+export function onLoginFormChange(name, value) {
   return {
-    type: SIGN_IN_FORM_CHANGED,
+    type: LOGIN_FORM_CHANGED,
     payload: { name: name, value: value }
   }
 }
 
-export const SIGN_IN_FORM_SUBMIT = 'SIGN_IN_FORM_SUBMIT';
-export function onSignInFormSubmit() {
+export const LOGIN_FORM_SUBMIT = 'LOGIN_FORM_SUBMIT';
+export function onLoginFormSubmit() {
   return {
-    type: SIGN_IN_FORM_SUBMIT
+    type: LOGIN_FORM_SUBMIT
   }
 }
 

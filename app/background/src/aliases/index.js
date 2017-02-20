@@ -40,10 +40,10 @@ const aliases = {
   PLACE_MARK: (action) => (dispatch) => {
     dispatch(postMove(action));
   },
-  SIGN_IN_FORM_SUBMIT: (action) => (dispatch, getState) => {
+  LOGIN_FORM_SUBMIT: (action) => (dispatch, getState) => {
     dispatch(actions.waitForResponse());
 
-    const state = getState().signInForm;
+    const state = getState().loginForm;
     const email = state.get('email');
     const password = state.get('password');
 

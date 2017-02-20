@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../action_creators';
 
 import Board from './board';
-import SignIn from './sign_in';
+import Login from './login';
 import Notification from './notification';
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
     return (
       <div>
         <Notification {...this.props} />
-        <SignIn {...this.props}/>
+        <Login {...this.props}/>
       </div>
     );
   }
