@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from '../action_creators';
 
-import Board from './board';
-import Login from './login';
 import Notification from './notification';
+import Main from './main';
 
 class App extends Component {
   constructor(props) {
@@ -16,7 +15,7 @@ class App extends Component {
     return (
       <div>
         <Notification {...this.props} />
-        <Login {...this.props}/>
+        <Main {...this.props}/>
       </div>
     );
   }

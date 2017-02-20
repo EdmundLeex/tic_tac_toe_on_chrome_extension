@@ -1,12 +1,9 @@
 import { Map } from 'immutable';
 import * as actions from '../actions/index';
 
-function setErrorMsg(state, error) {
-  return state.set('errorMsg', error);
-}
-
 const initialState = Map({
-  errorMsg: ''
+  currentView: 'login',
+  loggedIn: false
 });
 
 export default (state = initialState, action) => {
