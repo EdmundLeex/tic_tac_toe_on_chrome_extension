@@ -50,3 +50,10 @@ export function checkUserSession() {
     type: CHECK_USER_SESSION
   }
 }
+
+export const CREATE_NEW_GAME = 'CREATE_NEW_GAME';
+export function createNewGame() {
+  return {
+    type: CREATE_NEW_GAME
+  }
+}

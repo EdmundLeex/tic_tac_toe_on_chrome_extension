@@ -47,6 +47,32 @@ function signUp(email, password) {
   });
 }
 
+function getUserToken() {
+  return new Promise((resolve) => {
+    chrome.cookies.get({
+      url: BASE_URL,
+      name: 'tic_tac_toe_user_token',
+    }, resolve);
+  });
+}
+
+function createGameForUser(userToken) {
+  let headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+
+  return fetch(`${BASE_URL}/games`, {
+    method: 'POST',
+    headers: {
+      'Access-Control-Allow-Origin': BASE_URL,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Origin': BASE_URL,
+      'Host': BASE_URL
+    },
+    body: JSON.stringify({token: userToken})
+  });
+}
+
 function postMove(action) {
   console.log('api call...');
   return action;
@@ -68,10 +94,10 @@ const aliases = {
       dispatch(actions.waitForResponse());
       dispatch(actions.clearPassword());
 
-      signUp(email, password).then(checkStatus).then(function(res) {
+      signUp(email, password).then(checkStatus).then((res) => {
         dispatch(actions.popNotification('success', 'Welcome to Super Tic Tac Toe!'));
         dispatch(actions.signUpSucceed());
-      }).catch(function(err) {
+      }).catch((err) => {
         console.error(err);
         dispatch(actions.popNotification('error', err.message));
       });
@@ -85,7 +111,7 @@ const aliases = {
     dispatch(actions.waitForResponse());
     dispatch(actions.clearPassword());
 
-    login({email, password}).then(checkStatus).then(function(res) {
+    login({email, password}).then(checkStatus).then((res) => {
       dispatch(actions.popNotification('success', 'Welcome back!'));
       dispatch(actions.loginSucceed());
       res.json().then((body) => {
@@ -95,26 +121,33 @@ const aliases = {
           value: body.token
         });
       });
-    }).catch(function(err) {
+    }).catch((err) => {
       console.error(err);
       dispatch(actions.popNotification('error', err.message));
     });
   },
   CHECK_USER_SESSION: (action) => (dispatch, getState) => {
-    chrome.cookies.get({
-      url: BASE_URL,
-      name: 'tic_tac_toe_user_token'
-    }, function(cookies) {
+    getUserToken().then((cookies) => {
       if (cookies) {
-        login({token: cookies.value}).then(checkStatus).then(function(res) {
+        login({token: cookies.value}).then(checkStatus).then((res) => {
           dispatch(actions.changeViewTo('game'));
-        }).catch(function(err) {
+        }).catch((err) => {
           dispatch(actions.changeViewTo('login'));
         });
+      }
+    });
+  },
+  CREATE_NEW_GAME: (action) => (dispatch, getState) => {
+    getUserToken().then((cookies) => {
+      if (cookies) {
+        createGameForUser(cookies.value).then(checkStatus).then(() => {
+
+        }).catch((err) => {
+
+        })
       }
     });
   }
 };
 
 export default aliases;
-
