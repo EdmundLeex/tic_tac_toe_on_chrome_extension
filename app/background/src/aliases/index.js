@@ -140,8 +140,10 @@ const aliases = {
   CREATE_NEW_GAME: (action) => (dispatch, getState) => {
     getUserToken().then((cookies) => {
       if (cookies) {
-        createGameForUser(cookies.value).then(checkStatus).then(() => {
-
+        createGameForUser(cookies.value).then(checkStatus).then((res) => {
+          res.json().then((body) => {
+            dispatch(actions.newGame(body.id));
+          })
         }).catch((err) => {
 
         })

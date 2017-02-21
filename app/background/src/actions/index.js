@@ -33,3 +33,11 @@ export function changeViewTo(view) {
     payload: view
   }
 }
+
+export const NEW_GAME = 'NEW_GAME';
+export function newGame(id) {
+  return {
+    type: NEW_GAME,
+    payload: id
+  }
+}

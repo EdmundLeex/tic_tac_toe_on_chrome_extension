@@ -4,6 +4,7 @@ import Radium from 'radium';
 import Board from './board';
 import Login from './login';
 import SignUp from './sign_up';
+import Home from './home';
 import LoadingOverlay from './loading_overlay';
 
 class Main extends Component {
@@ -13,7 +14,8 @@ class Main extends Component {
 
   render() {
     let view;
-    const currentView = this.props.appState.currentView;
+    let currentView = this.props.appState.currentView;
+    currentView = 'home';
 
     switch (currentView) {
       case 'game':
@@ -26,6 +28,8 @@ class Main extends Component {
         view = <SignUp {...this.props} />;
       case 'loadingOverlay':
         view = <LoadingOverlay />;
+      case 'home':
+        view = <Home {...this.props} />
       default:
         break;
     }
