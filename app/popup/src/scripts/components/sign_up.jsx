@@ -74,14 +74,14 @@ class SignUp extends Component {
             />
             <input
               style={styles.fields}
-              type='text'
+              type='password'
               name='password'
               placeholder='Password'
               onChange={this.handleChange}
             />
             <input
               style={styles.fields}
-              type='text'
+              type='password'
               name='passwordConf'
               placeholder='Confirm Password'
               onChange={this.handleChange}
