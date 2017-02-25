@@ -19,6 +19,13 @@ export function loginSucceed() {
   };
 }
 
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
+export function signUpSucceed() {
+  return {
+    type: SIGN_UP_SUCCESS
+  }
+}
+
 export const CLEAR_PASSWORD = 'CLEAR_PASSWORD';
 export function clearPassword() {
   return {

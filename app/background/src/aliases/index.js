@@ -73,6 +73,14 @@ function createGameForUser(userToken) {
   });
 }
 
+function setSessionToken(token) {
+  chrome.cookies.set({
+    url: BASE_URL,
+    name: 'tic_tac_toe_user_token',
+    value: token
+  });
+}
+
 function postMove(action) {
   console.log('api call...');
   return action;
@@ -97,6 +105,9 @@ const aliases = {
       signUp(email, password).then(checkStatus).then((res) => {
         dispatch(actions.popNotification('success', 'Welcome to Super Tic Tac Toe!'));
         dispatch(actions.signUpSucceed());
+        res.json().then((body) => {
+          setSessionToken(body.token);
+        });
       }).catch((err) => {
         console.error(err);
         dispatch(actions.popNotification('error', err.message));
@@ -115,11 +126,7 @@ const aliases = {
       dispatch(actions.popNotification('success', 'Welcome back!'));
       dispatch(actions.loginSucceed());
       res.json().then((body) => {
-        chrome.cookies.set({
-          url: BASE_URL,
-          name: 'tic_tac_toe_user_token',
-          value: body.token
-        });
+        setSessionToken(body.token);
       });
     }).catch((err) => {
       console.error(err);
