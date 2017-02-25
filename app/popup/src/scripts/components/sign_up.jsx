@@ -36,7 +36,7 @@ const styles = {
   }
 };
 
-class Login extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
 
@@ -102,4 +102,4 @@ class Login extends Component {
   }
 }
 
-export default Radium(Login);
+export default Radium(SignUp);

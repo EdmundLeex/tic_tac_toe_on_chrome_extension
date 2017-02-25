@@ -15,7 +15,7 @@ class Main extends Component {
   render() {
     let view;
     let currentView = this.props.appState.currentView;
-    currentView = 'home';
+    // currentView = 'home';
 
     switch (currentView) {
       case 'game':
@@ -26,10 +26,13 @@ class Main extends Component {
         break;
       case 'signUp':
         view = <SignUp {...this.props} />;
+        break;
       case 'loadingOverlay':
         view = <LoadingOverlay />;
+        break;
       case 'home':
         view = <Home {...this.props} />
+        break;
       default:
         break;
     }
