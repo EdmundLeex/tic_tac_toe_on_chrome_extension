@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Radium from 'radium';
+
 import Grid from './grid';
 
 const styles = {
@@ -19,11 +21,7 @@ class Board extends Component {
   }
 
   render() {
-    let game = JSON.parse(this.props.game.currentGame.gameState);
-    let board = game.board ? game.board : null;
-
-    if (!board) { return (<div></div>); }
-
+    let board = this.props.board;
     let grid = board.grid;
 
     return (
@@ -38,4 +36,4 @@ class Board extends Component {
   }
 }
 
-export default Board;
+export default Radium(Board);

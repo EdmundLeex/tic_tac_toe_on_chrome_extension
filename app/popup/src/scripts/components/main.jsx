@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-import Board from './board';
+import Game from './game';
 import Login from './login';
 import SignUp from './sign_up';
 import Home from './home';
@@ -19,7 +19,7 @@ class Main extends Component {
 
     switch (currentView) {
       case 'game':
-        view = <Board {...this.props} />;
+        view = <Game {...this.props} />;
         break;
       case 'login':
         view = <Login {...this.props} />;
