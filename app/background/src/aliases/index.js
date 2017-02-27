@@ -1,6 +1,14 @@
 import * as actions from '../actions/index';
 import { BASE_URL } from '../config/api';
 
+const default_headers = {
+  'Access-Control-Allow-Origin': BASE_URL,
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+  'Origin': BASE_URL,
+  'Host': BASE_URL
+};
+
 function checkStatus(resp) {
   if (resp.status >= 200 && resp.status < 300) {
     return resp;
@@ -11,35 +19,23 @@ function checkStatus(resp) {
 }
 
 function login(credentials) {
-  let headers = new Headers();
-  headers.append('Content-Type', 'application/json');
+  // let headers = new Headers();
+  // headers.append('Content-Type', 'application/json');
 
   return fetch(`${BASE_URL}/login`, {
     method: 'POST',
-    headers: {
-      'Access-Control-Allow-Origin': BASE_URL,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Origin': BASE_URL,
-      'Host': BASE_URL
-    },
+    headers: default_headers,
     body: JSON.stringify(credentials)
   });
 }
 
 function signUp(email, password) {
-  let headers = new Headers();
-  headers.append('Content-Type', 'application/json');
+  // let headers = new Headers();
+  // headers.append('Content-Type', 'application/json');
 
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
-    headers: {
-      'Access-Control-Allow-Origin': BASE_URL,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Origin': BASE_URL,
-      'Host': BASE_URL
-    },
+    headers: default_headers,
     body: JSON.stringify({
       email: email,
       password: password
@@ -51,7 +47,7 @@ function getUserToken() {
   return new Promise((resolve) => {
     chrome.cookies.get({
       url: BASE_URL,
-      name: 'tic_tac_toe_user_token',
+      name: 'ticTacToeUserToken',
     }, resolve);
   });
 }
@@ -62,13 +58,7 @@ function createGameForUser(userToken) {
 
   return fetch(`${BASE_URL}/games`, {
     method: 'POST',
-    headers: {
-      'Access-Control-Allow-Origin': BASE_URL,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Origin': BASE_URL,
-      'Host': BASE_URL
-    },
+    headers: default_headers,
     body: JSON.stringify({token: userToken})
   });
 }
@@ -76,7 +66,7 @@ function createGameForUser(userToken) {
 function setSessionToken(token) {
   chrome.cookies.set({
     url: BASE_URL,
-    name: 'tic_tac_toe_user_token',
+    name: 'ticTacToeUserToken',
     value: token
   });
 }
@@ -133,17 +123,6 @@ const aliases = {
       dispatch(actions.popNotification('error', err.message));
     });
   },
-  CHECK_USER_SESSION: (action) => (dispatch, getState) => {
-    getUserToken().then((cookies) => {
-      if (cookies) {
-        login({token: cookies.value}).then(checkStatus).then((res) => {
-          dispatch(actions.changeViewTo('game'));
-        }).catch((err) => {
-          dispatch(actions.changeViewTo('login'));
-        });
-      }
-    });
-  },
   CREATE_NEW_GAME: (action) => (dispatch, getState) => {
     getUserToken().then((cookies) => {
       if (cookies) {
@@ -155,6 +134,16 @@ const aliases = {
 
         })
       }
+    });
+  },
+  FETCH_GAMES: (action) => (dispatch, getState) => {
+    return fetch(`${BASE_URL}/games`, {
+      credentials: 'include'
+    }).then((res) => {
+      return res.json();
+    }).then((body) => {
+      let games = JSON.parse(body.games);
+      dispatch(actions.receiveGames(games));
     });
   }
 };

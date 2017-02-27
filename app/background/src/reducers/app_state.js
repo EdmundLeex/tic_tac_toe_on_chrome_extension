@@ -6,7 +6,7 @@ function changeActiveView(state, view) {
 }
 
 const initialState = Map({
-  currentView: 'login'
+  currentView: 'home'
 });
 
 export default (state = initialState, action) => {

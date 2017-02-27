@@ -11,10 +11,6 @@ class App extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.checkUserSession();
-  }
-
   render() {
     return (
       <div>
@@ -27,7 +23,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    game: state.game.game,
+    game: state.game,
     notification: state.notification,
     appState: state.appState,
     login: state.loginForm,

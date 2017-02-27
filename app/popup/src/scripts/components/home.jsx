@@ -12,17 +12,23 @@ class Home extends Component {
     this.newGame = this.newGame.bind(this);
   }
 
+  componentDidMount() {
+    this.props.fetchGames();
+  }
+
   newGame() {
     this.props.createNewGame();
   }
 
   render() {
+    console.log(this.props.game.games);
     return (
       <div style={styles.base}>
-        <div
-          onClick={this.newGame}
-        >
+        <div onClick={this.newGame}>
           New Game
+        </div>
+        <div>
+
         </div>
       </div>
     );

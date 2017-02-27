@@ -2,7 +2,6 @@ export * from './notification';
 
 export const LOGIN_FORM_CHANGED = 'LOGIN_FORM_CHANGED';
 export const SIGN_UP_FORM_CHANGED = 'SIGN_UP_FORM_CHANGED';
-export const CHECK_USER_SESSION = 'CHECK_USER_SESSION';
 export const CREATE_NEW_GAME = 'CREATE_NEW_GAME';
 
 export const WAITING_FOR_RESPONSE = 'WAITING_FOR_RESPONSE';
@@ -46,5 +45,13 @@ export function newGame(id) {
   return {
     type: NEW_GAME,
     payload: id
+  }
+}
+
+export const RECEIVE_GAMES = 'RECEIVE_GAMES';
+export function receiveGames(games) {
+  return {
+    type: RECEIVE_GAMES,
+    payload: games
   }
 }

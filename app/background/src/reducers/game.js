@@ -2,6 +2,10 @@ import { Map, List } from 'immutable';
 import Game from '../models/game';
 import * as actions from '../actions/index';
 
+function setGames(state, games) {
+  return state.set('games', List(games));
+}
+
 function makeMove(state, movePos) {
   let game = state.get('game');
   game.makeMove(movePos);
@@ -30,6 +34,8 @@ export default (state = initialState, action) => {
       return makeMove(state, action.payload);
     case actions.NEW_GAME:
       return createNewGame(state, action.payload);
+    case actions.RECEIVE_GAMES:
+      return setGames(state, action.payload);
     default:
       return state;
   }
