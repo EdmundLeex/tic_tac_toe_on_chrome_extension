@@ -145,6 +145,10 @@ const aliases = {
       let games = JSON.parse(body.games);
       dispatch(actions.receiveGames(games));
     });
+  },
+  OPEN_GAME: (action) => (dispatch, getState) => {
+    dispatch(actions.setCurrentGame(action.payload));
+    dispatch(actions.changeViewTo('game'));
   }
 };
 

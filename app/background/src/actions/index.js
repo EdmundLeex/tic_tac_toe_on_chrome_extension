@@ -55,3 +55,11 @@ export function receiveGames(games) {
     payload: games
   }
 }
+
+export const SET_CURRENT_GAME = 'SET_CURRENT_GAME';
+export function setCurrentGame(gameId) {
+  return {
+    type: SET_CURRENT_GAME,
+    payload: gameId
+  }
+}

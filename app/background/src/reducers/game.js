@@ -3,14 +3,24 @@ import Game from '../models/game';
 import * as actions from '../actions/index';
 
 function setGames(state, games) {
-  return state.set('games', List(games));
+  let gamesMap = Map();
+  games.forEach((game) => {
+    gamesMap = gamesMap.set(game.id, game);
+  });
+
+  return state.set('games', gamesMap);
+}
+
+function setCurrentGame(state, gameId) {
+  let game = state.getIn(['games', parseInt(gameId)]);
+  return state.set('currentGame', game);
 }
 
 function makeMove(state, movePos) {
-  let game = state.get('game');
+  let game = state.get('currentGame');
   game.makeMove(movePos);
 
-  state.set('game', game);
+  state.set('currentGame', game);
   return state;
 }
 
@@ -25,7 +35,7 @@ function createNewGame(state, id) {
 
 const initialState = Map({
   games: List(),
-  game: Game.newGame({ players: [{ mark: 'o'}, { mark: 'x' }] })
+  currentGame: null
 });
 
 export default (state = initialState, action) => {
@@ -36,6 +46,8 @@ export default (state = initialState, action) => {
       return createNewGame(state, action.payload);
     case actions.RECEIVE_GAMES:
       return setGames(state, action.payload);
+    case actions.SET_CURRENT_GAME:
+      return setCurrentGame(state, action.payload);
     default:
       return state;
   }

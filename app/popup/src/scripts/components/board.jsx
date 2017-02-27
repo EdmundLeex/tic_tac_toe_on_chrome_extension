@@ -19,9 +19,8 @@ class Board extends Component {
   }
 
   render() {
-    let game = this.props.game;
+    let game = JSON.parse(this.props.game.currentGame.gameState);
     let board = game.board ? game.board : null;
-    console.log(game)
 
     if (!board) { return (<div></div>); }
 

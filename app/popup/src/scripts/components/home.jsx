@@ -10,6 +10,7 @@ class Home extends Component {
     super(props);
 
     this.newGame = this.newGame.bind(this);
+    this.openGame = this.openGame.bind(this);
   }
 
   componentDidMount() {
@@ -20,15 +21,32 @@ class Home extends Component {
     this.props.createNewGame();
   }
 
+  openGame(gameId) {
+    this.props.openGame(gameId);
+  }
+
   render() {
-    console.log(this.props.game.games);
+    let games = this.props.game.games;
+    let gamesIndex = [];
+
+    for (let gameId in games) {
+      gamesIndex.push(
+        <div
+          key={gameId}
+          onClick={this.openGame.bind(this, gameId)}
+        >
+          {games[gameId].status}
+        </div>
+      );
+    }
+
     return (
       <div style={styles.base}>
         <div onClick={this.newGame}>
           New Game
         </div>
         <div>
-
+          {gamesIndex}
         </div>
       </div>
     );

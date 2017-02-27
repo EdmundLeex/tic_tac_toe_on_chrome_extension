@@ -57,3 +57,11 @@ export function fetchGames() {
     type: FETCH_GAMES
   }
 }
+
+export const OPEN_GAME = 'OPEN_GAME';
+export function openGame(gameId) {
+  return {
+    type: OPEN_GAME,
+    payload: gameId
+  }
+}
