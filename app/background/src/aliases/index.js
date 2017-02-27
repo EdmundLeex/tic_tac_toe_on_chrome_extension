@@ -19,9 +19,6 @@ function checkStatus(resp) {
 }
 
 function login(credentials) {
-  // let headers = new Headers();
-  // headers.append('Content-Type', 'application/json');
-
   return fetch(`${BASE_URL}/login`, {
     method: 'POST',
     headers: default_headers,
@@ -30,9 +27,6 @@ function login(credentials) {
 }
 
 function signUp(email, password) {
-  // let headers = new Headers();
-  // headers.append('Content-Type', 'application/json');
-
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: default_headers,
