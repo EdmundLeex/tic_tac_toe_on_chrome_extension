@@ -141,8 +141,15 @@ const aliases = {
     });
   },
   OPEN_GAME: (action) => (dispatch, getState) => {
-    dispatch(actions.setCurrentGame(action.payload));
-    dispatch(actions.changeViewTo('game'));
+    const gameId = action.payload;
+    return fetch(`${BASE_URL}/games/${gameId}`, {
+      credentials: 'include'
+    }).then(checkStatus).then((res) => {
+      return res.json();
+    }).then((body) => {
+      dispatch(actions.setCurrentGame(body.game));
+      dispatch(actions.changeViewTo('game'));
+    });
   }
 };
 

@@ -11,9 +11,8 @@ function setGames(state, games) {
   return state.set('games', gamesMap);
 }
 
-function setCurrentGame(state, gameId) {
-  let game = state.getIn(['games', parseInt(gameId)]);
-  return state.set('currentGame', game);
+function setCurrentGame(state, game) {
+  return state.set('currentGame', JSON.parse(game));
 }
 
 function makeMove(state, movePos) {

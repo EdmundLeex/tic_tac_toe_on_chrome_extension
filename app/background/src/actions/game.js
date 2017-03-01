@@ -1,3 +1,5 @@
+import { BASE_URL } from '../config/api';
+
 export const CREATE_NEW_GAME = 'CREATE_NEW_GAME';
 
 export const NEW_GAME = 'NEW_GAME';
@@ -17,9 +19,22 @@ export function receiveGames(games) {
 }
 
 export const SET_CURRENT_GAME = 'SET_CURRENT_GAME';
-export function setCurrentGame(gameId) {
+export function setCurrentGame(game) {
   return {
     type: SET_CURRENT_GAME,
-    payload: gameId
+    payload: game
+  }
+}
+
+export function fetchGames() {
+  return dispatch => {
+    fetch(`${BASE_URL}/games`, {
+      credentials: 'include'
+    }).then((res) => {
+      return res.json();
+    }).then((body) => {
+      let games = JSON.parse(body.games);
+      dispatch(receiveGames(games));
+    });
   }
 }
