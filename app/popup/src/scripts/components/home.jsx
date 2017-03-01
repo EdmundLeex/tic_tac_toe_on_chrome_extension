@@ -13,10 +13,6 @@ class Home extends Component {
     this.openGame = this.openGame.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetchGames();
-  }
-
   newGame() {
     this.props.createNewGame();
   }
