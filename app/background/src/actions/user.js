@@ -24,7 +24,7 @@ export const CHANGE_LOGIN_STATE = 'CHANGE_LOGIN_STATE';
 export function invalidateSession() {
   return dispatch => {
     dispatch(actions.changeViewTo('login'));
-    // dispatch(changeLoginState(false));
+    dispatch(changeLoginState(false));
   }
 }
 

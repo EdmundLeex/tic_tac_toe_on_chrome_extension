@@ -66,9 +66,9 @@ export function openGame(gameId) {
   }
 }
 
-export const ENSURE_LOGGED_IN = 'ENSURE_LOGGED_IN';
-export function ensureLoggedIn() {
+export const ENSURE_SESSION = 'ENSURE_SESSION';
+export function ensureSession() {
   return {
-    type: ENSURE_LOGGED_IN
+    type: ENSURE_SESSION
   }
 }

@@ -162,11 +162,13 @@ const aliases = {
       }
     });
   },
-  ENSURE_LOGGED_IN: (action) => (dispatch, getState) => {
+  ENSURE_SESSION: (action) => (dispatch, getState) => {
     getUserToken()
       .then((token) => login({token: token}))
       .then(checkStatus)
-      .then((res) => res.json())
+      .then((res) => {
+        dispatch(actions.changeLoginState(true))
+      })
       .catch((err) => {
         if (err.code === 404 && err.message === 'Invalid session token') {
           dispatch(actions.invalidateSession());

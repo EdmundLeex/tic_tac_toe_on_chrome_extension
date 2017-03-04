@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-import EnsureLoggedIn from './ensure_logged_in';
+import EnsureSession from './ensure_session';
 
 const styles = {
   
@@ -44,7 +44,7 @@ class Home extends Component {
 
     return (
       <div style={styles.base}>
-        <EnsureLoggedIn />
+        <EnsureSession />
         <div onClick={this.newGame}>
           New Game
         </div>

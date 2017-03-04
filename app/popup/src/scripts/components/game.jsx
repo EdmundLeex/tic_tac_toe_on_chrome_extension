@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 
 import Board from './board';
-import EnsureLoggedIn from './ensure_logged_in';
+import EnsureSession from './ensure_session';
 
 const styles = {
 
@@ -29,7 +29,7 @@ class Game extends Component {
 
     return (
       <div>
-        <EnsureLoggedIn />
+        <EnsureSession />
         <div onClick={this.goBack}>{'<Back'}</div>
         <Board board={board} />
       </div>
