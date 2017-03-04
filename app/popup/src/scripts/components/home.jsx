@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
+import EnsureLoggedIn from './ensure_logged_in';
+
 const styles = {
   
 };
@@ -11,6 +13,10 @@ class Home extends Component {
 
     this.newGame = this.newGame.bind(this);
     this.openGame = this.openGame.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchGames();
   }
 
   newGame() {
@@ -38,6 +44,7 @@ class Home extends Component {
 
     return (
       <div style={styles.base}>
+        <EnsureLoggedIn />
         <div onClick={this.newGame}>
           New Game
         </div>

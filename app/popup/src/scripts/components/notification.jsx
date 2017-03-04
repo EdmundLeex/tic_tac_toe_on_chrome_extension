@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import { connect } from 'react-redux';
 
 const styles = {
   base: {
@@ -46,4 +47,10 @@ class Notification extends Component {
   }
 }
 
-export default Radium(Notification);
+const mapStateToProps = (state) => {
+  return {
+    notification: state.notification
+  };
+};
+
+export default connect(mapStateToProps)(Radium(Notification));

@@ -24,7 +24,6 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     game: state.game,
-    notification: state.notification,
     appState: state.appState,
     login: state.loginForm,
     signUp: state.signUpForm
