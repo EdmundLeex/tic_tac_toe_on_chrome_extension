@@ -117,17 +117,17 @@ const aliases = {
       });
   },
   CREATE_NEW_GAME: (action) => (dispatch, getState) => {
-    getUserToken().then((cookies) => {
-      if (cookies) {
-        createGameForUser(cookies.value).then(checkStatus).then((res) => {
-          res.json().then((body) => {
-            dispatch(actions.newGame(body.id));
-          })
-        }).catch((err) => {
-
-        })
-      }
-    });
+    getUserToken()
+      .then((cookies) => createGameForUser(cookies.value))
+      .then(checkStatus)
+      .then((res) => res.json())
+      .then((body) => {
+        dispatch(actions.newGame(body.id));
+      })
+      .catch((err) => {
+        console.error(err);
+        dispatch(actions.popNotification('error', err.message));
+      });
   },
   FETCH_GAMES: (action) => (dispatch, getState) => {
     return fetch(`${BASE_URL}/games`, {
