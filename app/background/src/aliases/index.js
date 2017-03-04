@@ -80,16 +80,18 @@ const aliases = {
       dispatch(actions.waitForResponse());
       dispatch(actions.clearPassword());
 
-      signUp(email, password).then(checkStatus).then((res) => {
-        dispatch(actions.popNotification('success', 'Welcome to Super Tic Tac Toe!'));
-        dispatch(actions.signUpSucceed());
-        res.json().then((body) => {
-          setSessionToken(body.token);
+      signUp(email, password)
+        .then(checkStatus)
+        .then((res) => res.json())
+        .then((body) => setSessionToken(body.token))
+        .then(() => {
+          dispatch(actions.popNotification('success', 'Welcome to Super Tic Tac Toe!'));
+          dispatch(actions.signUpSucceed());
+        })
+        .catch((err) => {
+          console.error(err);
+          dispatch(actions.popNotification('error', err.message));
         });
-      }).catch((err) => {
-        console.error(err);
-        dispatch(actions.popNotification('error', err.message));
-      });
     }
   },
   LOGIN_FORM_SUBMIT: (action) => (dispatch, getState) => {
