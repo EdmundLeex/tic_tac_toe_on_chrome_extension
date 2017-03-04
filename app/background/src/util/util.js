@@ -4,5 +4,10 @@ export function checkStatus(resp) {
   }
   const error = new Error(resp.statusText);
   error.resp = resp;
+  error.code = resp.status;
   throw error;
+}
+
+export function handleNetworkError(err) {
+  console.log(err);
 }

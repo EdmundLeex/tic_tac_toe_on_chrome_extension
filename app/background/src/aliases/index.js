@@ -57,7 +57,9 @@ function createGameForUser() {
 function fetchGamesForUser() {
   return fetch(`${BASE_URL}/games`, {
     credentials: 'include'
-  }).then((res) => {
+  })
+  .then(checkStatus)
+  .then((res) => {
     return res.json();
   });
 }
@@ -135,6 +137,12 @@ const aliases = {
     return fetchGamesForUser().then((res) => {
       let games = JSON.parse(res.games);
       dispatch(actions.receiveGames(games));
+    }).catch((err) => {
+      if (err.code === 404 && err.message === 'Invalid session token') {
+        dispatch(actions.invalidateSession());
+      } else {
+        console.error(err.message);
+      }
     });
   },
   OPEN_GAME: (action) => (dispatch, getState) => {
@@ -146,6 +154,12 @@ const aliases = {
     }).then((body) => {
       dispatch(actions.setCurrentGame(body.game));
       dispatch(actions.changeViewTo('game'));
+    }).catch((err) => {
+      if (err.code === 404 && err.message === 'Invalid session token') {
+        dispatch(actions.invalidateSession());
+      } else {
+        console.error(err.message);
+      }
     });
   },
   ENSURE_LOGGED_IN: (action) => (dispatch, getState) => {
@@ -154,8 +168,11 @@ const aliases = {
       .then(checkStatus)
       .then((res) => res.json())
       .catch((err) => {
-        console.error(err);
-        dispatch(actions.invalidateSession());
+        if (err.code === 404 && err.message === 'Invalid session token') {
+          dispatch(actions.invalidateSession());
+        } else {
+          console.error(err.message);
+        }
       });
   }
 };
