@@ -65,3 +65,10 @@ export function openGame(gameId) {
     payload: gameId
   }
 }
+
+export const ENSURE_LOGGED_IN = 'ENSURE_LOGGED_IN';
+export function ensureLoggedIn() {
+  return {
+    type: ENSURE_LOGGED_IN
+  }
+}
