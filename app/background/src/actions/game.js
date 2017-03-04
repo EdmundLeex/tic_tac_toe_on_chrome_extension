@@ -1,4 +1,6 @@
 import { BASE_URL } from '../config/api';
+import { checkStatus } from '../util/util';
+import * as actions from './index';
 
 export const CREATE_NEW_GAME = 'CREATE_NEW_GAME';
 
@@ -30,11 +32,17 @@ export function fetchGames() {
   return dispatch => {
     fetch(`${BASE_URL}/games`, {
       credentials: 'include'
-    }).then((res) => {
+    }).then(checkStatus).then((res) => {
       return res.json();
     }).then((body) => {
       let games = JSON.parse(body.games);
       dispatch(receiveGames(games));
+    }).catch((err) => {
+      if (err.message == 'Invalid session token') {
+        dispatch(actions.changeViewTo('login'));
+      } else {
+        throw err;
+      }
     });
   }
 }

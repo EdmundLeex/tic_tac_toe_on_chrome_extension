@@ -1,5 +1,6 @@
 import * as actions from '../actions/index';
 import { BASE_URL } from '../config/api';
+import { checkStatus } from '../util/util';
 
 const default_headers = {
   'Access-Control-Allow-Origin': BASE_URL,
@@ -8,15 +9,6 @@ const default_headers = {
   'Origin': BASE_URL,
   'Host': BASE_URL
 };
-
-function checkStatus(resp) {
-  if (resp.status >= 200 && resp.status < 300) {
-    return resp;
-  }
-  const error = new Error(resp.statusText);
-  error.resp = resp;
-  throw error;
-}
 
 function login(credentials) {
   return fetch(`${BASE_URL}/login`, {
@@ -58,10 +50,12 @@ function createGameForUser(userToken) {
 }
 
 function setSessionToken(token) {
-  chrome.cookies.set({
-    url: BASE_URL,
-    name: 'ticTacToeUserToken',
-    value: token
+  return new Promise((resolve) => {
+    chrome.cookies.set({
+      url: BASE_URL,
+      name: 'ticTacToeUserToken',
+      value: token
+    }, resolve);
   });
 }
 
@@ -106,12 +100,14 @@ const aliases = {
     dispatch(actions.waitForResponse());
     dispatch(actions.clearPassword());
 
-    login({email, password}).then(checkStatus).then((res) => {
+    login({email, password})
+    .then(checkStatus)
+    .then((res) => res.json())
+    .then((body) => setSessionToken(body.token))
+    .then(() => {
       dispatch(actions.popNotification('success', 'Welcome back!'));
       dispatch(actions.loginSucceed());
-      res.json().then((body) => {
-        setSessionToken(body.token);
-      });
+      dispatch(actions.changeViewTo('home'));
     }).catch((err) => {
       console.error(err);
       dispatch(actions.popNotification('error', err.message));

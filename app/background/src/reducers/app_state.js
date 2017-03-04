@@ -13,8 +13,6 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case actions.API_ERROR:
       return setErrorMsg(state, action.payload);
-    case actions.LOGIN_SUCCESS:
-      return changeActiveView(state, 'game');
     case actions.CHANGE_VIEW:
       return changeActiveView(state, action.payload);
     default:
