@@ -101,17 +101,18 @@ const aliases = {
     dispatch(actions.clearPassword());
 
     login({email, password})
-    .then(checkStatus)
-    .then((res) => res.json())
-    .then((body) => setSessionToken(body.token))
-    .then(() => {
-      dispatch(actions.popNotification('success', 'Welcome back!'));
-      dispatch(actions.loginSucceed());
-      dispatch(actions.changeViewTo('home'));
-    }).catch((err) => {
-      console.error(err);
-      dispatch(actions.popNotification('error', err.message));
-    });
+      .then(checkStatus)
+      .then((res) => res.json())
+      .then((body) => setSessionToken(body.token))
+      .then(() => {
+        dispatch(actions.popNotification('success', 'Welcome back!'));
+        dispatch(actions.loginSucceed());
+        dispatch(actions.changeViewTo('home'));
+      })
+      .catch((err) => {
+        console.error(err);
+        dispatch(actions.popNotification('error', err.message));
+      });
   },
   CREATE_NEW_GAME: (action) => (dispatch, getState) => {
     getUserToken().then((cookies) => {
