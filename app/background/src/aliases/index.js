@@ -51,14 +51,7 @@ function createGameForUser() {
     headers: default_headers,
     credentials: 'include'
   }).then(checkStatus)
-  .then((res) => res.json())
-  .then((body) => {
-    dispatch(actions.newGame(body.id));
-  })
-  .catch((err) => {
-    console.error(err);
-    dispatch(actions.popNotification('error', err.message));
-  });
+  .then((res) => res.json());
 }
 
 function fetchGamesForUser() {
@@ -66,9 +59,6 @@ function fetchGamesForUser() {
     credentials: 'include'
   }).then((res) => {
     return res.json();
-  }).then((body) => {
-    let games = JSON.parse(body.games);
-    dispatch(actions.receiveGames(games));
   });
 }
 
@@ -134,10 +124,18 @@ const aliases = {
       });
   },
   CREATE_NEW_GAME: (action) => (dispatch, getState) => {
-    return createGameForUser();
+    return createGameForUser().then((res) => {
+      dispatch(actions.newGame(res.id));
+    }).catch((err) => {
+      console.error(err);
+      dispatch(actions.popNotification('error', err.message));
+    });
   },
   FETCH_GAMES: (action) => (dispatch, getState) => {
-    return fetchGamesForUser();
+    return fetchGamesForUser().then((res) => {
+      let games = JSON.parse(res.games);
+      dispatch(actions.receiveGames(games));
+    });
   },
   OPEN_GAME: (action) => (dispatch, getState) => {
     const gameId = action.payload;
@@ -157,6 +155,7 @@ const aliases = {
       .then((res) => res.json())
       .catch((err) => {
         console.error(err);
+        dispatch(actions.invalidateSession());
       });
   }
 };

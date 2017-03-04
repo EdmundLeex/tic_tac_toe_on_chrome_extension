@@ -5,8 +5,13 @@ function changeActiveView(state, view) {
   return state.set('currentView', view);
 }
 
+function changeLoginState(state, loggedIn) {
+  return state.set('loggedIn', loggedIn)
+}
+
 const initialState = Map({
-  currentView: 'home'
+  currentView: 'home',
+  loggedIn: false
 });
 
 export default (state = initialState, action) => {
@@ -15,6 +20,8 @@ export default (state = initialState, action) => {
       return setErrorMsg(state, action.payload);
     case actions.CHANGE_VIEW:
       return changeActiveView(state, action.payload);
+    case actions.CHANGE_LOGIN_STATE:
+      return changeLoginState(state, action.payload);
     default:
       return state;
   }
