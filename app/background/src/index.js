@@ -18,7 +18,11 @@ const enhancer = applyMiddleware(
 const store = createStore(reducer, enhancer);
 
 window.setInterval(() => {
-  store.dispatch(fetchGames());
+  if (store.getState().appState.get('loggedIn') === true) {
+    store.dispatch(fetchGames());
+  } else {
+    // no op
+  }
 }, 5000);
 
 wrapStore(store, {
