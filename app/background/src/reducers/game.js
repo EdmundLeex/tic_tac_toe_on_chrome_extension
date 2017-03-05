@@ -27,7 +27,6 @@ function createNewGame(state, id) {
   let games = state.get('games');
   let game = Game.newGame({ players: [{ mark: 'o'}, { mark: 'x' }] });
   game.id = id;
-  console.log(games)
   games = games.push(game);
 
   return state.set('games', games);
