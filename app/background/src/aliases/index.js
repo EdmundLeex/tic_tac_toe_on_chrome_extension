@@ -15,9 +15,9 @@ function login(credentials) {
     method: 'POST',
     headers: default_headers,
     body: JSON.stringify(credentials)
-  }).then(checkStatus)
-  .then((res) => res.json())
-  .then((body) => setSessionToken(body.token));
+  })
+  .then(checkStatus)
+  .then((res) => res.json());
 }
 
 function signUp(email, password) {
@@ -115,6 +115,7 @@ const aliases = {
     dispatch(actions.clearPassword());
 
     login({email, password})
+      .then((res) => setSessionToken(res.token))
       .then(() => {
         dispatch(actions.popNotification('success', 'Welcome back!'));
         dispatch(actions.loginSucceed());
@@ -164,16 +165,15 @@ const aliases = {
   },
   ENSURE_SESSION: (action) => (dispatch, getState) => {
     getUserToken()
-      .then((token) => login({token: token}))
-      .then(checkStatus)
-      .then((res) => {
+      .then((token) => login({token: token.value}))
+      .then(() => {
         dispatch(actions.changeLoginState(true))
       })
       .catch((err) => {
         if (err.code === 404 && err.message === 'Invalid session token') {
           dispatch(actions.invalidateSession());
         } else {
-          console.error(err.message);
+          console.error(err);
         }
       });
   }

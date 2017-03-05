@@ -28,7 +28,7 @@ export function invalidateSession() {
   }
 }
 
-function changeLoginState(state) {
+export function changeLoginState(state) {
   return {
     type: CHANGE_LOGIN_STATE,
     payload: state
