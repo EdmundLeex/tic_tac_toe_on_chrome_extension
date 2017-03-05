@@ -31,7 +31,10 @@ class Game extends Component {
       <div>
         <EnsureSession />
         <div onClick={this.goBack}>{'<Back'}</div>
-        <Board board={board} />
+        <Board
+          {...this.props}
+          board={board}
+        />
       </div>
     );
   }
