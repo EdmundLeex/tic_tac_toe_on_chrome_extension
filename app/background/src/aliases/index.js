@@ -2,7 +2,7 @@ import * as actions from '../actions/index';
 import { BASE_URL } from '../config/api';
 import { checkStatus } from '../util/util';
 
-const default_headers = {
+const defaultHeaders = {
   'Access-Control-Allow-Origin': BASE_URL,
   'Accept': 'application/json',
   'Content-Type': 'application/json',
@@ -13,24 +13,25 @@ const default_headers = {
 function login(credentials) {
   return fetch(`${BASE_URL}/login`, {
     method: 'POST',
-    headers: default_headers,
+    headers: defaultHeaders,
     body: JSON.stringify(credentials)
   })
   .then(checkStatus)
-  .then((res) => res.json());
+  .then(res => res.json());
 }
 
 function signUp(email, password) {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
-    headers: default_headers,
+    headers: defaultHeaders,
     body: JSON.stringify({
       email: email,
       password: password
     })
-  }).then(checkStatus)
-  .then((res) => res.json())
-  .then((body) => setSessionToken(body.token));
+  })
+  .then(checkStatus)
+  .then(res => res.json())
+  .then(body => setSessionToken(body.token));
 }
 
 function getUserToken() {
@@ -48,10 +49,11 @@ function createGameForUser() {
 
   return fetch(`${BASE_URL}/games`, {
     method: 'POST',
-    headers: default_headers,
+    headers: defaultHeaders,
     credentials: 'include'
-  }).then(checkStatus)
-  .then((res) => res.json());
+  })
+  .then(checkStatus)
+  .then(res => res.json());
 }
 
 function fetchGamesForUser() {
@@ -59,9 +61,7 @@ function fetchGamesForUser() {
     credentials: 'include'
   })
   .then(checkStatus)
-  .then((res) => {
-    return res.json();
-  });
+  .then(res => res.json());
 }
 
 function setSessionToken(token) {
@@ -74,13 +74,16 @@ function setSessionToken(token) {
   });
 }
 
-function postMove(action) {
-  console.log('api call...');
-  return action;
-}
-
 const aliases = {
   PLACE_MARK: (action) => (dispatch) => {
+    fetch(`${BASE_URL}/games`, {
+      method: 'POST',
+      headers: defaultHeaders,
+      credentials: 'include'
+    })
+    .then(checkStatus)
+    .then(res => res.json())
+
     dispatch(postMove(action));
   },
   SIGN_UP_FORM_SUBMIT: (action) => (dispatch, getState) => {
@@ -96,14 +99,14 @@ const aliases = {
       dispatch(actions.clearPassword());
 
       signUp(email, password)
-        .then(() => {
-          dispatch(actions.popNotification('success', 'Welcome to Super Tic Tac Toe!'));
-          dispatch(actions.signUpSucceed());
-        })
-        .catch((err) => {
-          console.error(err);
-          dispatch(actions.popNotification('error', err.message));
-        });
+      .then(() => {
+        dispatch(actions.popNotification('success', 'Welcome to Super Tic Tac Toe!'));
+        dispatch(actions.signUpSucceed());
+      })
+      .catch((err) => {
+        console.error(err);
+        dispatch(actions.popNotification('error', err.message));
+      });
     }
   },
   LOGIN_FORM_SUBMIT: (action) => (dispatch, getState) => {
@@ -115,30 +118,34 @@ const aliases = {
     dispatch(actions.clearPassword());
 
     login({email, password})
-      .then((res) => setSessionToken(res.token))
-      .then(() => {
-        dispatch(actions.popNotification('success', 'Welcome back!'));
-        dispatch(actions.loginSucceed());
-        dispatch(actions.changeViewTo('home'));
-      })
-      .catch((err) => {
-        console.error(err);
-        dispatch(actions.popNotification('error', err.message));
-      });
+    .then(res => setSessionToken(res.token))
+    .then(() => {
+      dispatch(actions.popNotification('success', 'Welcome back!'));
+      dispatch(actions.loginSucceed());
+      dispatch(actions.changeViewTo('home'));
+    })
+    .catch(err => {
+      console.error(err);
+      dispatch(actions.popNotification('error', err.message));
+    });
   },
   CREATE_NEW_GAME: (action) => (dispatch, getState) => {
-    return createGameForUser().then((res) => {
+    return createGameForUser()
+    .then(res => {
       dispatch(actions.newGame(res.id));
-    }).catch((err) => {
+    })
+    .catch(err => {
       console.error(err);
       dispatch(actions.popNotification('error', err.message));
     });
   },
   FETCH_GAMES: (action) => (dispatch, getState) => {
-    return fetchGamesForUser().then((res) => {
+    return fetchGamesForUser()
+    .then(res => {
       let games = JSON.parse(res.games);
       dispatch(actions.receiveGames(games));
-    }).catch((err) => {
+    })
+    .catch(err => {
       if (err.code === 404 && err.message === 'Invalid session token') {
         dispatch(actions.invalidateSession());
       } else {
@@ -150,12 +157,14 @@ const aliases = {
     const gameId = action.payload;
     return fetch(`${BASE_URL}/games/${gameId}`, {
       credentials: 'include'
-    }).then(checkStatus).then((res) => {
-      return res.json();
-    }).then((body) => {
+    })
+    .then(checkStatus)
+    .then(res => res.json())
+    .then(body => {
       dispatch(actions.setCurrentGame(body.game));
       dispatch(actions.changeViewTo('game'));
-    }).catch((err) => {
+    })
+    .catch(err => {
       if (err.code === 404 && err.message === 'Invalid session token') {
         dispatch(actions.invalidateSession());
       } else {
@@ -165,17 +174,17 @@ const aliases = {
   },
   ENSURE_SESSION: (action) => (dispatch, getState) => {
     getUserToken()
-      .then((token) => login({token: token.value}))
-      .then(() => {
-        dispatch(actions.changeLoginState(true))
-      })
-      .catch((err) => {
-        if (err.code === 404 && err.message === 'Invalid session token') {
-          dispatch(actions.invalidateSession());
-        } else {
-          console.error(err);
-        }
-      });
+    .then(token => login({token: token.value}))
+    .then(() => {
+      dispatch(actions.changeLoginState(true))
+    })
+    .catch(err => {
+      if (err.code === 404 && err.message === 'Invalid session token') {
+        dispatch(actions.invalidateSession());
+      } else {
+        console.error(err);
+      }
+    });
   }
 };
 
