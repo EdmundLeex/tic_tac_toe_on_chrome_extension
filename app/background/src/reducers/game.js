@@ -3,7 +3,12 @@ import Game from '../models/game';
 import * as actions from '../actions/index';
 
 function setGames(state, games) {
-  return state.set('games', List(games));
+  let gamesMap = Map();
+  games.forEach((game) => {
+    gamesMap = gamesMap.set(game.id, game);
+  });
+
+  return state.set('games', gamesMap);
 }
 
 function setCurrentGame(state, game) {
@@ -22,13 +27,13 @@ function createNewGame(state, id) {
   let games = state.get('games');
   let game = Game.newGame({ players: [{ mark: 'o'}, { mark: 'x' }] });
   game.id = id;
-  games = games.push(game);
+  games = games.set(game.id, game);
 
   return state.set('games', games);
 }
 
 const initialState = Map({
-  games: List(),
+  games: Map(),
   currentGame: null
 });
 
