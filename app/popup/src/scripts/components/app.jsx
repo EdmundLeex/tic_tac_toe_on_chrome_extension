@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Notification {...this.props} />
+        <Notification />
         <Main {...this.props}/>
       </div>
     );
