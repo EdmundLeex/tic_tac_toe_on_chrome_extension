@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Radium from 'radium';
 
 import Board from './board';
 import EnsureSession from './ensure_session';
+import * as actionCreators from '../action_creators';
 
 const styles = {
 
@@ -18,7 +20,7 @@ class Game extends Component {
   }
 
   goBack() {
-    this.props.changeViewTo('home');
+    this.props.changeViewTo('gameIndex');
   }
 
   placeMark(pos) {
@@ -30,7 +32,6 @@ class Game extends Component {
 
   render() {
     let gameState = JSON.parse(this.game.gameState);
-    console.log(gameState)
     let board = gameState.board ? gameState.board : null;
 
     if (!board) { return (<div></div>); }
@@ -51,4 +52,10 @@ class Game extends Component {
   }
 }
 
-export default Radium(Game);
+const mapStateToProps = (state) => {
+  return {
+    game: state.game
+  };
+};
+
+export default connect(mapStateToProps, actionCreators)(Radium(Game));

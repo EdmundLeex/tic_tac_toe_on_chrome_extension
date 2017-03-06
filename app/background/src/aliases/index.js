@@ -128,7 +128,7 @@ const aliases = {
     .then(() => {
       dispatch(actions.popNotification('success', 'Welcome back!'));
       dispatch(actions.loginSucceed());
-      dispatch(actions.changeViewTo('home'));
+      dispatch(actions.changeViewTo('gameIndex'));
     })
     .catch(err => {
       console.error(err);

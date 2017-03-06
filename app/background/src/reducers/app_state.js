@@ -10,7 +10,7 @@ function changeLoginState(state, loggedIn) {
 }
 
 const initialState = Map({
-  currentView: 'home',
+  currentView: 'gameIndex',
   loggedIn: false
 });
 

@@ -7,7 +7,7 @@ const styles = {
   
 };
 
-class Home extends Component {
+class GameIndex extends Component {
   constructor(props) {
     super(props);
 
@@ -56,4 +56,4 @@ class Home extends Component {
   }
 }
 
-export default Radium(Home);
+export default Radium(GameIndex);
