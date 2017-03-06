@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Radium from 'radium';
 
 import EnsureSession from './ensure_session';
+import * as actionCreators from '../action_creators';
 
 const styles = {
   
@@ -56,4 +58,10 @@ class GameIndex extends Component {
   }
 }
 
-export default Radium(GameIndex);
+const mapStateToProps = (state) => {
+  return {
+    game: state.game
+  };
+};
+
+export default connect(mapStateToProps, actionCreators)(Radium(GameIndex));
