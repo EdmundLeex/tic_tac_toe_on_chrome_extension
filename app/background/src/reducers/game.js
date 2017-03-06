@@ -12,7 +12,10 @@ function setGames(state, games) {
 }
 
 function setCurrentGame(state, game) {
-  return state.set('currentGame', JSON.parse(game));
+  game = JSON.parse(game);
+  game.gameState = JSON.parse(game.gameState);
+
+  return state.set('currentGame', game);
 }
 
 function makeMove(state, movePos) {

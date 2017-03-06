@@ -31,7 +31,7 @@ class Game extends Component {
   }
 
   render() {
-    let gameState = JSON.parse(this.game.gameState);
+    let gameState = this.game.gameState;
     let board = gameState.board ? gameState.board : null;
 
     if (!board) { return (<div></div>); }
