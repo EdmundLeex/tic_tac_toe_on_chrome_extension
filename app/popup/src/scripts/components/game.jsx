@@ -22,8 +22,6 @@ class Game extends Component {
   }
 
   placeMark(pos) {
-    console.log(this.game);
-    console.log(pos)
     this.props.placeMark({
       gameId: this.game.id,
       pos: pos
@@ -32,6 +30,7 @@ class Game extends Component {
 
   render() {
     let gameState = JSON.parse(this.game.gameState);
+    console.log(gameState)
     let board = gameState.board ? gameState.board : null;
 
     if (!board) { return (<div></div>); }

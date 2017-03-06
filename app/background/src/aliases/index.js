@@ -86,10 +86,11 @@ const aliases = {
     .then(checkStatus)
     .then(res => res.json())
     .then(body => {
-      console.log(body)
+      dispatch(actions.setCurrentGame(body.game));
     })
-
-    dispatch(postMove(action));
+    .catch(e => {
+      console.error(e);
+    });
   },
   SIGN_UP_FORM_SUBMIT: (action) => (dispatch, getState) => {
     const state = getState().signUpForm;
