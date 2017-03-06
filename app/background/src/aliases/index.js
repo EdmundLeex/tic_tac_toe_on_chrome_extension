@@ -76,13 +76,18 @@ function setSessionToken(token) {
 
 const aliases = {
   PLACE_MARK: (action) => (dispatch) => {
-    fetch(`${BASE_URL}/games`, {
-      method: 'POST',
+    let move = action.payload;
+    fetch(`${BASE_URL}/game/${move.gameId}/make_move`, {
+      method: 'PUT',
       headers: defaultHeaders,
-      credentials: 'include'
+      credentials: 'include',
+      body: JSON.stringify({pos: move.pos})
     })
     .then(checkStatus)
     .then(res => res.json())
+    .then(body => {
+      console.log(body)
+    })
 
     dispatch(postMove(action));
   },

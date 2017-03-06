@@ -1,8 +1,8 @@
 export const PLACE_MARK = 'PLACE_MARK';
-export function placeMark(pos) {
+export function placeMark(move) {
   return {
     type: PLACE_MARK,
-    payload: pos
+    payload: move
   }
 }
 
