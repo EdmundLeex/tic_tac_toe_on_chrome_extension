@@ -89,7 +89,7 @@ const aliases = {
       dispatch(actions.setCurrentGame(body.game));
     })
     .catch(err => {
-      if (err.code === 403 && err.message === 'Invalid move') {
+      if (err.code === 403) {
         dispatch(actions.popNotification('error', err.message));
       }
       console.error(err);
