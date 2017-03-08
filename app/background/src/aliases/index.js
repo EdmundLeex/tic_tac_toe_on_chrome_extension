@@ -88,8 +88,11 @@ const aliases = {
     .then(body => {
       dispatch(actions.setCurrentGame(body.game));
     })
-    .catch(e => {
-      console.error(e);
+    .catch(err => {
+      if (err.code === 403 && err.message === 'Invalid move') {
+        dispatch(actions.popNotification('error', err.message));
+      }
+      console.error(err);
     });
   },
   SIGN_UP_FORM_SUBMIT: (action) => (dispatch, getState) => {
