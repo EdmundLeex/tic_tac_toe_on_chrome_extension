@@ -16,7 +16,6 @@ class Game extends Component {
 
     this.goBack = this.goBack.bind(this);
     this.placeMark = this.placeMark.bind(this);
-    this.game = this.props.game.currentGame;
   }
 
   goBack() {
@@ -25,13 +24,13 @@ class Game extends Component {
 
   placeMark(pos) {
     this.props.placeMark({
-      gameId: this.game.id,
+      gameId: this.props.game.id,
       pos: pos
     });
   }
 
   render() {
-    let gameState = this.game.gameState;
+    let gameState = JSON.parse(this.props.gameState);
     let board = gameState.board ? gameState.board : null;
 
     if (!board) { return (<div></div>); }
@@ -54,7 +53,8 @@ class Game extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    game: state.game
+    game: state.game.currentGame,
+    gameState: state.game.currentGameState
   };
 };
 

@@ -11,11 +11,12 @@ function setGames(state, games) {
   return state.set('games', gamesMap);
 }
 
-function setCurrentGame(state, game) {
-  game = JSON.parse(game);
-  game.gameState = JSON.parse(game.gameState);
+function setCurrentGame(state, _game) {
+  let game = JSON.parse(_game);
+  let gameState = game.gameState;
 
-  return state.set('currentGame', game);
+  return state.set('currentGame', game)
+              .set('currentGameState', gameState);
 }
 
 function makeMove(state, movePos) {
@@ -37,7 +38,8 @@ function createNewGame(state, id) {
 
 const initialState = Map({
   games: Map(),
-  currentGame: null
+  currentGame: null,
+  currentGameState: ''
 });
 
 export default (state = initialState, action) => {
