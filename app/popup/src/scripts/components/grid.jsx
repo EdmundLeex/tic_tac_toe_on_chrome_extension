@@ -50,7 +50,18 @@ class Grid extends Component {
       let content = null;
       let id = [parentId, i].join('-');
 
-      if (grid[i] === null || grid[i].constructor === String) {
+      if (grid[i] === null) {
+        content = <div
+                    id={id}
+                    key={id}
+                    style={styles.grid}
+                    onClick={this.placeMark}
+                  >
+                    <div style={styles.mark}>
+                      {grid[i]}
+                    </div>
+                  </div>;
+      } else if (grid[i].constructor === String) {
         content = <div
                     id={id}
                     key={id}
