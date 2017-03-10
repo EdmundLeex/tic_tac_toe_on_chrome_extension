@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
+import Square from './square';
+
 function stripPosFromId(id) {
   return id.split('-').splice(1).map(id => Number(id));
 }
@@ -13,7 +15,7 @@ var styles = {
   grid: {
     width: 'calc(100% / 3)',
     height: 'calc(100% / 3)',
-    border: '1px solid black',
+    border: '3px solid black',
     display: 'flex',
     position: 'relative',
     boxSizing: 'border-box',
@@ -21,11 +23,6 @@ var styles = {
     ':hover': {
       cursor: 'pointer'
     }
-  },
-  mark: {
-    textAlign: 'center',
-    display: 'block',
-    margin: 'auto'
   }
 };
 
@@ -50,28 +47,12 @@ class Grid extends Component {
       let content = null;
       let id = [parentId, i].join('-');
 
-      if (grid[i] === null) {
-        content = <div
-                    id={id}
+      if (grid[i] === null || grid[i].constructor === String) {
+        content = <Square
                     key={id}
-                    style={styles.grid}
-                    onClick={this.placeMark}
-                  >
-                    <div style={styles.mark}>
-                      {grid[i]}
-                    </div>
-                  </div>;
-      } else if (grid[i].constructor === String) {
-        content = <div
-                    id={id}
-                    key={id}
-                    style={styles.grid}
-                    onClick={this.placeMark}
-                  >
-                    <div style={styles.mark}>
-                      {grid[i]}
-                    </div>
-                  </div>;
+                    placeMark={this.placeMark}
+                    mark={grid[i]}
+                  />
       } else {
         content = <div key={id} style={styles.grid}>
                     <Grid
