@@ -19,10 +19,7 @@ var styles = {
     display: 'flex',
     position: 'relative',
     boxSizing: 'border-box',
-    float: 'left',
-    ':hover': {
-      cursor: 'pointer'
-    }
+    float: 'left'
   }
 };
 
