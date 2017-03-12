@@ -32,6 +32,7 @@ class Game extends Component {
   render() {
     let gameState = JSON.parse(this.props.gameState);
     let board = gameState.board ? gameState.board : null;
+    let allowedGrid = gameState.gameRule.allowedGrid;
 
     if (!board) { return (<div></div>); }
 
@@ -45,6 +46,7 @@ class Game extends Component {
           {...this.props}
           placeMark={this.placeMark}
           board={board}
+          allowedGrid={allowedGrid}
         />
       </div>
     );

@@ -39,15 +39,23 @@ class Grid extends Component {
     let grid = this.props.grid;
     let parentId = this.props.parentId;
     let gridComponents = [];
+    let allowedGrid = this.props.allowedGrid;
+    let parentGrid = parentId.split('-')[1];
 
     for (let i = 0; i < grid.length; i++) {
       let content = null;
       let id = [parentId, i].join('-');
 
       if (grid[i] === null || grid[i].constructor === String) {
+        let isAllowed = allowedGrid === null ||
+          String(parentGrid) === String(allowedGrid);
+        console.log(isAllowed);
+
         content = <Square
+                    id={id}
                     key={id}
                     placeMark={this.placeMark}
+                    isAllowed={isAllowed}
                     mark={grid[i]}
                   />
       } else {

@@ -9,14 +9,23 @@ let styles = {
     display: 'flex',
     position: 'relative',
     boxSizing: 'border-box',
-    float: 'left',
+    float: 'left'
+  },
+  allowed: {
+    backgroundColor: '#999999',
+    transform: 'translateX(-4px) translateY(-4px)',
+    transition: 'all 100ms ease-in',
+    boxShadow: '4px 4px 0px 0px rgba(0,0,0,0.8)',
     ':hover': {
-      backgroundColor: 'lightgray',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      backgroundColor: 'lightgray'
     }
   },
+  notAllowed: {},
   empty: {backgroundColor: '#4c4c4c'},
-  taken: {backgroundColor: 'white'},
+  taken: {
+    backgroundColor: 'white'
+  },
   mark: {
     fontSize: '20px',
     fontFamily: 'impact',
@@ -34,12 +43,16 @@ class Square extends Component {
   }
 
   render() {
+    let isTaken = this.props.mark !== null;
+    let isAllowed = this.props.isAllowed && !isTaken;
+
     return (
       <div
         id={this.props.id}
         style={[
           styles.grid,
-          this.props.mark === null ? styles.empty : styles.taken
+          isTaken   ? styles.taken   : styles.empty,
+          isAllowed ? styles.allowed : styles.notAllowed
         ]}
         onClick={this.props.placeMark}
       >
