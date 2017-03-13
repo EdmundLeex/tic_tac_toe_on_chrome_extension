@@ -23,7 +23,6 @@ export default (state = initialState, action) => {
     case actions.CHANGE_LOGIN_STATE:
       return changeLoginState(state, action.payload);
     case 'ENSURE_SESSIONA':
-      console.log('fdsafsa')
       return
     default:
       return state;
