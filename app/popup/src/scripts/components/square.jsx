@@ -45,6 +45,7 @@ class Square extends Component {
   }
 
   render() {
+    let hasWinner = this.props.winner;
     let isTaken = this.props.mark !== null;
     let isAllowed = this.props.isAllowed && !isTaken;
 
@@ -53,9 +54,9 @@ class Square extends Component {
         id={this.props.id}
         style={[
           styles.grid,
-          isTaken   ? styles.taken   : styles.empty,
-          isAllowed ? styles.allowed : styles.notAllowed,
-          styles[`${this.props.winner}Winner`]
+          isTaken ? styles.taken : styles.empty,
+          styles[`${this.props.winner}Winner`],
+          isAllowed ? styles.allowed : styles.notAllowed
         ]}
         onClick={this.props.placeMark}
       >
