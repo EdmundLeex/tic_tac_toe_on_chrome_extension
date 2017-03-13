@@ -36,9 +36,12 @@ Board.newBoard = function (options = { level: 2 }) {
 
 Board.loadBoard = function (boardObj) {
   var level = boardObj.level;
+  var winner = boardObj.winner;
 
   var board = new Board({ level: level });
   board.grid = [];
+  board.winner = winner;
+  board.level = level;
 
   for (var i = 0; i < 9; i++) {
     if (level === 1) {
