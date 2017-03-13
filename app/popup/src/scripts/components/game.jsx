@@ -56,7 +56,8 @@ class Game extends Component {
 const mapStateToProps = (state) => {
   return {
     game: state.game.currentGame,
-    gameState: state.game.currentGameState
+    gameState: state.game.currentGameState,
+    user: state.user
   };
 };
 
