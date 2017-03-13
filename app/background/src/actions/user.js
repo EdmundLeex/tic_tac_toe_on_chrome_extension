@@ -4,12 +4,13 @@ export const LOGIN_FORM_CHANGED = 'LOGIN_FORM_CHANGED';
 export const SIGN_UP_FORM_CHANGED = 'SIGN_UP_FORM_CHANGED';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export function loginSucceed() {
+export function loginSucceed(user) {
   return dispatch => {
     dispatch(changeLoginState(true));
-    return {
-      type: LOGIN_SUCCESS
-    }
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: user
+    });
   }
 }
 

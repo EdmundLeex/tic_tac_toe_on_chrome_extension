@@ -22,8 +22,6 @@ export default (state = initialState, action) => {
       return changeActiveView(state, action.payload);
     case actions.CHANGE_LOGIN_STATE:
       return changeLoginState(state, action.payload);
-    case 'ENSURE_SESSIONA':
-      return
     default:
       return state;
   }

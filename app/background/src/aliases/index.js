@@ -134,10 +134,10 @@ const aliases = {
     dispatch(actions.clearPassword());
 
     login({email, password})
-    .then(res => setSessionToken(res.token))
-    .then(() => {
+    .then(user => Promise.all([user, setSessionToken(user.token)]))
+    .then(([user, _]) => {
       dispatch(actions.popNotification('success', 'Welcome back!'));
-      dispatch(actions.loginSucceed());
+      dispatch(actions.loginSucceed(user));
       dispatch(actions.changeViewTo('gameIndex'));
     })
     .catch(err => {
