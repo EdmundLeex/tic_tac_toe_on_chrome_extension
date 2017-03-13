@@ -41,8 +41,8 @@ class Grid extends Component {
     let gridComponents = [];
     let allowedGrid = this.props.allowedGrid;
     let parentGrid = parentId.split('-')[1];
-    let preMoveMadeBySelf = this.props.game.lastMoveUserId === this.props.user.id;
-    let isAllowed = !preMoveMadeBySelf &&
+    let prevMoveMadeBySelf = this.props.game.lastMoveUserId === this.props.user.id;
+    let isAllowed = !prevMoveMadeBySelf &&
       (allowedGrid === null || String(parentGrid) === String(allowedGrid));
 
     for (let i = 0; i < grid.length; i++) {
