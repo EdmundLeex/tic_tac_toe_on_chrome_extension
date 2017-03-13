@@ -5,7 +5,7 @@ export function checkStatus(resp) {
   const error = new Error(resp.statusText);
   error.resp = resp;
   error.code = resp.status;
-  throw error;
+  return Promise.reject(error);
 }
 
 export function handleNetworkError(err) {

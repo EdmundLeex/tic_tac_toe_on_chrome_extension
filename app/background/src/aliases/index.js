@@ -40,6 +40,13 @@ function getUserToken() {
       url: BASE_URL,
       name: 'ticTacToeUserToken',
     }, resolve);
+  })
+  .then(cookies => {
+    if (cookies) {
+      return Promise.resolve(cookies.value);
+    } else {
+      return Promise.reject(Error('Invalid session token'));
+    }
   });
 }
 
@@ -155,7 +162,7 @@ const aliases = {
       dispatch(actions.receiveGames(games));
     })
     .catch(err => {
-      if (err.code === 404 && err.message === 'Invalid session token') {
+      if (err.message === 'Invalid session token') {
         dispatch(actions.invalidateSession());
       } else {
         console.error(err.message);
@@ -174,7 +181,7 @@ const aliases = {
       dispatch(actions.changeViewTo('game'));
     })
     .catch(err => {
-      if (err.code === 404 && err.message === 'Invalid session token') {
+      if (err.message === 'Invalid session token') {
         dispatch(actions.invalidateSession());
       } else {
         console.error(err.message);
@@ -183,12 +190,12 @@ const aliases = {
   },
   ENSURE_SESSION: (action) => (dispatch, getState) => {
     getUserToken()
-    .then(token => login({token: token.value}))
+    .then(token => login({token: token}))
     .then(() => {
       dispatch(actions.changeLoginState(true))
     })
     .catch(err => {
-      if (err.code === 404 && err.message === 'Invalid session token') {
+      if (err.message === 'Invalid session token') {
         dispatch(actions.invalidateSession());
       } else {
         console.error(err);
