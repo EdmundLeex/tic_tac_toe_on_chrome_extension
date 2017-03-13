@@ -45,6 +45,7 @@ Game.prototype.makeMove = function (pos) {
   if (this.gameRule.isValidMove(pos) && this.board.isValidPos(pos)) {
     this.gameRule.registerMove(pos);
     this.board.placeMark(pos, this.currentPlayer.mark);
+    this.gameRule.setAllowedGrid();
 
     swapTurn(this);
     updateWinner(this);

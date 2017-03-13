@@ -13,7 +13,6 @@ GameRule.prototype.isValidMove = function(pos) {
 GameRule.prototype.registerMove = function(pos) {
   if (this.isValidMove(pos)) {
     this.previousPos = pos.slice(0);
-    this.allowedGrid = allowedGrid(this.previousPos, this.board);
     // check winner?
     // if there is one, set winner
     return true;
@@ -22,11 +21,15 @@ GameRule.prototype.registerMove = function(pos) {
   }
 };
 
+GameRule.prototype.setAllowedGrid = function() {
+  this.allowedGrid = allowedGrid(this.previousPos, this.board);
+};
+
 function allowedGrid(previousPos, board) {
   if (previousPos === null) return null;
   if (board.level > 1 && board.grid[previousPos[1]].isFull()) return null;
 
-  return previousPos.slice(1)[0];
+  return previousPos[1];
 }
 
 function isAllowedPos(previousPos, newPos, board) {

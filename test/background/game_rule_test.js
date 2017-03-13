@@ -106,8 +106,30 @@ describe('GameRule', () => {
     });
   });
 
+  describe('#setAllowedGrid', () => {
+    it('sets allowedGrid to null when no move has been made yet', () => {
+      gameRule.setAllowedGrid();
+      assert.equal(gameRule.allowedGrid, null);
+    });
+
+    it('sets allowedGrid according to previous move', () => {
+      assert.equal(gameRule.allowedGrid, null);
+      gameRule.previousPos = [1, 2];
+      gameRule.setAllowedGrid();
+      assert.equal(gameRule.allowedGrid, 2);
+    });
+
+    it('sets allowedGrid to null if the supposed allowedGrid is full', () => {
+      makeMove(gameRule, board, [0, 0], 'x');
+    })
+  });
+
   function makeMove(gameRUle, board, pos, mark) {
-    gameRule.registerMove(pos);
-    board.placeMark(pos, mark);
+    for (let i = 0; i < board.grid[0].grid.length; i++) {
+      board.grid[0].grid = 'x';
+    }
+    gameRule.previousPos = [0, 0];
+    gameRule.setAllowedGrid();
+    assert.equal(gameRule.allowedGrid, null);
   }
 });
