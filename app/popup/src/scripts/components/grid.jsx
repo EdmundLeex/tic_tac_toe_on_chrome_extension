@@ -49,7 +49,6 @@ class Grid extends Component {
       if (grid[i] === null || grid[i].constructor === String) {
         let isAllowed = allowedGrid === null ||
           String(parentGrid) === String(allowedGrid);
-        console.log(isAllowed);
 
         content = <Square
                     id={id}
@@ -57,14 +56,19 @@ class Grid extends Component {
                     placeMark={this.placeMark}
                     isAllowed={isAllowed}
                     mark={grid[i]}
+                    winner={this.props.winner}
                   />
       } else {
-        content = <div key={id} style={styles.grid}>
+        content = <div 
+                    key={id}
+                    style={styles.grid}
+                  >
                     <Grid
                       {...this.props}
                       grid={grid[i].grid}
                       style={styles.base}
                       parentId={id}
+                      winner={grid[i].winner}
                     />
                   </div>
       }

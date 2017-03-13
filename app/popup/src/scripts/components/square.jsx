@@ -34,7 +34,9 @@ let styles = {
     margin: 'auto'
   },
   x: {color: '#cc0000'},
-  o: {color: '#00cc00'}
+  o: {color: '#00cc00'},
+  xWinner: {backgroundColor: 'rgba(204, 0, 0, 0.4)'},
+  oWinner: {backgroundColor: 'rgba(0, 204, 0, 0.4)'}
 }
 
 class Square extends Component {
@@ -52,7 +54,8 @@ class Square extends Component {
         style={[
           styles.grid,
           isTaken   ? styles.taken   : styles.empty,
-          isAllowed ? styles.allowed : styles.notAllowed
+          isAllowed ? styles.allowed : styles.notAllowed,
+          styles[`${this.props.winner}Winner`]
         ]}
         onClick={this.props.placeMark}
       >
