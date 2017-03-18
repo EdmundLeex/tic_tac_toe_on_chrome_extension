@@ -5,6 +5,7 @@ import * as actionCreators from '../action_creators';
 
 import Notification from './notification';
 import Main from './main';
+import StickyTop from './sticky_top';
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class App extends Component {
     return (
       <div>
         <Notification />
+        <StickyTop />
         <Main {...this.props}/>
       </div>
     );

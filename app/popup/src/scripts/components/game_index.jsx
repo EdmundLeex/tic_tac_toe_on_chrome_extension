@@ -6,7 +6,20 @@ import EnsureSession from './ensure_session';
 import * as actionCreators from '../action_creators';
 
 const styles = {
-  
+  base: {
+    display: 'flex',
+    position: 'relative',
+    marginTop: '40px',
+    boxSizing: 'border-box',
+    float: 'left',
+    width: '100%',
+    height: '450px',
+    backgroundColor: 'blue'
+  },
+  item: {
+    textAlign: 'center',
+    display: 'block'
+  }
 };
 
 class GameIndex extends Component {
@@ -47,10 +60,10 @@ class GameIndex extends Component {
     return (
       <div style={styles.base}>
         <EnsureSession />
-        <div onClick={this.newGame}>
+        <div style={styles.item} onClick={this.newGame}>
           New Game
         </div>
-        <div>
+        <div style={styles.item}>
           {gamesIndex}
         </div>
       </div>
