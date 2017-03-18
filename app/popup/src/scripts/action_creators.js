@@ -6,6 +6,13 @@ export function placeMark(move) {
   }
 }
 
+export const LOGOUT = 'LOGOUT';
+export function logout() {
+  return {
+    type: LOGOUT
+  }
+}
+
 export const LOGIN_FORM_CHANGED = 'LOGIN_FORM_CHANGED';
 export function onLoginFormChange(name, value) {
   return {

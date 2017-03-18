@@ -201,6 +201,10 @@ const aliases = {
         console.error(err);
       }
     });
+  },
+  LOGOUT: (action) => (dispatch, getState) => {
+    dispatch(actions.changeLoginState(false));
+    dispatch(actions.invalidateSession());
   }
 };
 
