@@ -162,7 +162,7 @@ const aliases = {
       dispatch(actions.receiveGames(games));
     })
     .catch(err => {
-      if (err.message === 'Invalid session token') {
+      if (err.message.match(/Invalid session token/)) {
         dispatch(actions.invalidateSession());
       } else {
         console.error(err.message);
@@ -181,7 +181,7 @@ const aliases = {
       dispatch(actions.changeViewTo('game'));
     })
     .catch(err => {
-      if (err.message === 'Invalid session token') {
+      if (err.message.match(/Invalid session token/)) {
         dispatch(actions.invalidateSession());
       } else {
         console.error(err.message);

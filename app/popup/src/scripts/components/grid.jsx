@@ -15,12 +15,12 @@ var styles = {
   grid: {
     width: 'calc(100% / 3)',
     height: 'calc(100% / 3)',
-    border: '3px solid #444444',
+    border: '3px solid black',
     display: 'flex',
     position: 'relative',
     boxSizing: 'border-box',
     float: 'left',
-    backgroundColor: 'black'
+    backgroundColor: '#444444'
   }
 };
 
