@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 
 let styles = {
-  grid: {
+  base: {
     width: 'calc(100% / 3)',
     height: 'calc(100% / 3)',
     border: '1px solid black',
@@ -35,8 +35,8 @@ let styles = {
   },
   x: {color: '#cc0000'},
   o: {color: '#00cc00'},
-  xWinner: {backgroundColor: 'rgba(204, 0, 0, 0.4)'},
-  oWinner: {backgroundColor: 'rgba(0, 204, 0, 0.4)'}
+  xWinner: {backgroundColor: '#E78282'},
+  oWinner: {backgroundColor: '#82E782'}
 }
 
 class Square extends Component {
@@ -53,7 +53,7 @@ class Square extends Component {
       <div
         id={this.props.id}
         style={[
-          styles.grid,
+          styles.base,
           isTaken ? styles.taken : styles.empty,
           styles[`${this.props.winner}Winner`],
           isAllowed ? styles.allowed : styles.notAllowed
