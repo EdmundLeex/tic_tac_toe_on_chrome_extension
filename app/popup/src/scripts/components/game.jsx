@@ -7,7 +7,13 @@ import EnsureSession from './ensure_session';
 import * as actionCreators from '../action_creators';
 
 const styles = {
-
+  bold: {
+    fontFamily: 'impact',
+    textAlign: 'center',
+    margin: '0 auto',
+    display: 'block',
+    fontSize: '30px'
+  }
 };
 
 class Game extends Component {
@@ -26,6 +32,7 @@ class Game extends Component {
 
   render() {
     let gameState = JSON.parse(this.props.gameState);
+    let currentMark = gameState.currentPlayer.mark;
     let board = gameState.board ? gameState.board : null;
     let allowedGrid = gameState.gameRule.allowedGrid;
 
@@ -42,6 +49,7 @@ class Game extends Component {
           board={board}
           allowedGrid={allowedGrid}
         />
+        <div style={styles.bold}>Next Move: {currentMark}</div>
       </div>
     );
   }

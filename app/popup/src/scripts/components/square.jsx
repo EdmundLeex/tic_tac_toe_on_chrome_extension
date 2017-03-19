@@ -21,7 +21,11 @@ let styles = {
       backgroundColor: 'lightgray'
     }
   },
-  notAllowed: {},
+  notAllowed: {
+    ':hover': {
+      cursor: 'default'
+    }
+  },
   empty: {backgroundColor: '#4c4c4c'},
   taken: {
     backgroundColor: 'white'
