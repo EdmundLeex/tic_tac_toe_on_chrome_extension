@@ -7,17 +7,20 @@ import * as actionCreators from '../action_creators';
 
 const styles = {
   base: {
-    display: 'flex',
+    display: 'block',
     position: 'relative',
     boxSizing: 'border-box',
-    float: 'left',
-    width: '100%',
-    height: '450px',
-    backgroundColor: 'blue'
+    margin: '0 auto',
+    width: '200px',
+    height: '450px'
   },
   item: {
+    width: '80px',
+    height: '30px',
+    margin: '0 auto',
     textAlign: 'center',
-    display: 'block'
+    display: 'block',
+    border: '1px solid black'
   }
 };
 
