@@ -14,12 +14,7 @@ class Game extends Component {
   constructor(props) {
     super(props);
 
-    this.goBack = this.goBack.bind(this);
     this.placeMark = this.placeMark.bind(this);
-  }
-
-  goBack() {
-    this.props.changeViewTo('gameIndex');
   }
 
   placeMark(pos) {
@@ -41,7 +36,6 @@ class Game extends Component {
     return (
       <div>
         <EnsureSession />
-        <div onClick={this.goBack}>{'<Back'}</div>
         <Board
           {...this.props}
           placeMark={this.placeMark}

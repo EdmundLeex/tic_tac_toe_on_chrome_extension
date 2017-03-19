@@ -9,7 +9,6 @@ const styles = {
   base: {
     display: 'flex',
     position: 'relative',
-    marginTop: '40px',
     boxSizing: 'border-box',
     float: 'left',
     width: '100%',

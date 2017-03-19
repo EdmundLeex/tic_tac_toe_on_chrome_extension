@@ -5,25 +5,46 @@ import Radium from 'radium';
 import * as actions from '../action_creators';
 
 let styles = {
-  base: {
-    position: 'absolute',
+  wrapper: {
+    position: 'relative',
     top: '0',
     left: '0',
     right: '0',
-    width: '100%',
-    height: '20px',
-    display: 'block',
-    backgroundColor: 'green'
+    display: 'flex',
+    boxSizing: 'border-box',
+    marginLeft: '5px',
+    marginRight: '5px',
+    paddingLeft: '5px',
+    paddingRight: '5px',
+    height: '25px'
   },
-  logout: {
-    float: 'right'
-  }
+  left: {
+    width: '15%',
+    textAlign: 'center',
+    display: 'block',
+    margin: 'auto'
+  },
+  middle: {
+    width: '70%',
+    textAlign: 'center',
+    display: 'block',
+    margin: 'auto'
+  },
+  right: {
+    width: '15%',
+    textAlign: 'center',
+    display: 'block',
+    margin: 'auto'
+  },
+  show: {display: 'block'},
+  hide: {display: 'none'}
 };
 
 class StickyTop extends Component {
   constructor(props) {
     super(props);
 
+    this.goBack = this.goBack.bind(this);
     this.logout = this.logout.bind(this);
   }
 
@@ -31,11 +52,30 @@ class StickyTop extends Component {
     this.props.logout();
   }
 
+  goBack() {
+    this.props.changeViewTo('gameIndex');
+  }
+
   render() {
+    const showBackBtn = this.props.appState.currentView !== 'gameIndex' ? 'show' : 'hide';
+
     return (
-      <div style={styles.base}>
+      <div style={styles.wrapper}>
         <div
-          style={styles.logout}
+          style={[
+            styles.left
+          ]}
+          onClick={this.goBack}
+        >
+          <span style={styles[showBackBtn]}>{'<Back'}</span>
+        </div>
+        <div
+          style={styles.middle}
+        >
+
+        </div>
+        <div
+          style={styles.right}
           onClick={this.logout}
         >
           Logout
