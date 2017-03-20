@@ -8,11 +8,13 @@ import * as actionCreators from '../action_creators';
 
 const styles = {
   bold: {
-    fontFamily: 'impact',
+    fontFamily: 'arial',
     textAlign: 'center',
     margin: '0 auto',
     display: 'block',
-    fontSize: '30px'
+    fontSize: '20px',
+    marginTop: '8px',
+    marginBottom: '8px'
   }
 };
 
@@ -32,9 +34,23 @@ class Game extends Component {
 
   render() {
     let gameState = JSON.parse(this.props.gameState);
+    let game = this.props.game;
     let currentMark = gameState.currentPlayer.mark;
     let board = gameState.board ? gameState.board : null;
     let allowedGrid = gameState.gameRule.allowedGrid;
+
+    let tipsContent;
+    if (game.status === 'AWAITING_FOR_OPONENT') {
+      tipsContent = 'Waiting for an oponent. Invite your friend!'
+    } else if (game.winnerId) {
+      if (game.winnerId === this.props.user.id) {
+        tipsContent = 'Congrats! You Won!';
+      } else {
+        tipsContent = 'Oops... You lost.';
+      }
+    } else {
+      tipsContent = `Next Move: ${currentMark}`;
+    }
 
     if (!board) { return (<div></div>); }
 
@@ -48,8 +64,9 @@ class Game extends Component {
           placeMark={this.placeMark}
           board={board}
           allowedGrid={allowedGrid}
+          gameStarted={game.status === 'STARTED'}
         />
-        <div style={styles.bold}>Next Move: {currentMark}</div>
+        <div style={styles.bold}>{tipsContent}</div>
       </div>
     );
   }

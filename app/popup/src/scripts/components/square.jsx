@@ -51,7 +51,9 @@ class Square extends Component {
   render() {
     let hasWinner = this.props.winner;
     let isTaken = this.props.mark !== null;
-    let isAllowed = this.props.isAllowed && !isTaken;
+    let isAllowed = this.props.isAllowed &&
+                    !isTaken &&
+                    this.props.gameStarted;
 
     return (
       <div
