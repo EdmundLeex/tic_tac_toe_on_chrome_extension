@@ -59,6 +59,7 @@ class Grid extends Component {
                     isAllowed={isAllowed}
                     mark={grid[i]}
                     winner={this.props.winner}
+                    gameStarted={this.props.gameStarted}
                   />
       } else {
         content = <div 
