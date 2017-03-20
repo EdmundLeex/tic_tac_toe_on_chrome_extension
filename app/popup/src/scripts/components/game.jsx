@@ -10,11 +10,9 @@ const styles = {
   bold: {
     fontFamily: 'arial',
     textAlign: 'center',
-    margin: '0 auto',
+    margin: '8px 0 0 8px',
     display: 'block',
-    fontSize: '20px',
-    marginTop: '8px',
-    marginBottom: '8px'
+    fontSize: '20px'
   }
 };
 
@@ -42,9 +40,11 @@ class Game extends Component {
     let tipsContent;
     if (game.status === 'AWAITING_FOR_OPONENT') {
       tipsContent = 'Waiting for an oponent. Invite your friend!'
-    } else if (game.winnerId) {
-      if (game.winnerId === this.props.user.id) {
-        tipsContent = 'Congrats! You Won!';
+    } else if (game.status === 'FINISHED') {
+      if (game.winnerId === 0) {
+        tipsContent = 'Draw game.'
+      } else if (game.winnerId === this.props.user.id) {
+        tipsContent = 'Congrats! You won!';
       } else {
         tipsContent = 'Oops... You lost.';
       }
