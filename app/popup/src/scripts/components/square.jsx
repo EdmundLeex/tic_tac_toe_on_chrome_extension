@@ -53,9 +53,12 @@ class Square extends Component {
     let isAllowed = this.props.isAllowed &&
                     !isTaken &&
                     this.props.gameStarted;
-    let lm = this.props.lastMove.map(String);
-    let lmInId = this.props.id.split('-').slice(1)
-    let isLastMove = (lm[0] === lmInId[0] && lm[1] === lmInId[1]);
+    let lm, lmInId, isLastMove;
+    if (this.props.lastMove) {
+      lm = this.props.lastMove.map(String);
+      lmInId = this.props.id.split('-').slice(1);
+      isLastMove = (lm[0] === lmInId[0] && lm[1] === lmInId[1]);
+    }
 
     return (
       <div
