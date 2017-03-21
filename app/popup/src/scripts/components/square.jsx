@@ -26,10 +26,9 @@ let styles = {
       cursor: 'default'
     }
   },
+  lastMove: {backgroundColor: '#8e8e8e'},
+  taken: {backgroundColor: 'white'},
   empty: {backgroundColor: '#4c4c4c'},
-  taken: {
-    backgroundColor: 'white'
-  },
   mark: {
     fontSize: '20px',
     fontFamily: 'impact',
@@ -54,6 +53,9 @@ class Square extends Component {
     let isAllowed = this.props.isAllowed &&
                     !isTaken &&
                     this.props.gameStarted;
+    let lm = this.props.lastMove.map(String);
+    let lmInId = this.props.id.split('-').slice(1)
+    let isLastMove = (lm[0] === lmInId[0] && lm[1] === lmInId[1]);
 
     return (
       <div
@@ -62,7 +64,8 @@ class Square extends Component {
           styles.base,
           isTaken ? styles.taken : styles.empty,
           styles[`${this.props.winner}Winner`],
-          isAllowed ? styles.allowed : styles.notAllowed
+          isAllowed ? styles.allowed : styles.notAllowed,
+          isLastMove ? styles.lastMove : {}
         ]}
         onClick={this.props.placeMark}
       >

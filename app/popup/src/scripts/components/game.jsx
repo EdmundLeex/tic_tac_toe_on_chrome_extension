@@ -36,6 +36,7 @@ class Game extends Component {
     let currentMark = gameState.currentPlayer.mark;
     let board = gameState.board ? gameState.board : null;
     let allowedGrid = gameState.gameRule.allowedGrid;
+    let lastMove = JSON.parse(game.lastMove);
 
     let tipsContent;
     if (game.status === 'AWAITING_FOR_OPONENT') {
@@ -65,6 +66,7 @@ class Game extends Component {
           board={board}
           allowedGrid={allowedGrid}
           gameStarted={game.status === 'STARTED'}
+          lastMove={lastMove}
         />
         <div style={styles.bold}>{tipsContent}</div>
       </div>
