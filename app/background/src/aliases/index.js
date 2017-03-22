@@ -34,6 +34,15 @@ function signUp(email, password) {
   .then(body => setSessionToken(body.token));
 }
 
+function logout() {
+  return new Promise(resolve => {
+    chrome.cookies.remove({
+      url: BASE_URL,
+      name: 'ticTacToeUserToken'
+    }, resolve);
+  });
+}
+
 function getUserToken() {
   return new Promise((resolve) => {
     chrome.cookies.get({
@@ -203,8 +212,11 @@ const aliases = {
     });
   },
   LOGOUT: (action) => (dispatch, getState) => {
-    dispatch(actions.changeLoginState(false));
-    dispatch(actions.invalidateSession());
+    logout()
+    .then(() => {
+      dispatch(actions.changeLoginState(false));
+      dispatch(actions.invalidateSession());
+    });
   }
 };
 
