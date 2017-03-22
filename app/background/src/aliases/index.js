@@ -10,6 +10,25 @@ const defaultHeaders = {
   'Host': BASE_URL
 };
 
+function fbLogin(code) {
+  return fetch(`${BASE_URL}/fblogin`, {
+    method: 'POST',
+    headers: defaultHeaders,
+    body: JSON.stringify({code: code})
+  })
+  .then(checkStatus)
+  .then(res => res.json());
+}
+
+function handleFBResp(fbTabId, tabId, tabObj, _) {
+  if (fbTabId === tabId) {
+    let code = tabObj.url.match(/code=(.+)/)[1];
+    fbLogin(code);
+  }
+  chrome.tabs.onUpdated.removeListener(handleFBResp);
+  chrome.tabs.remove(fbTabId);
+}
+
 function login(credentials) {
   return fetch(`${BASE_URL}/login`, {
     method: 'POST',
@@ -216,6 +235,13 @@ const aliases = {
     .then(() => {
       dispatch(actions.changeLoginState(false));
       dispatch(actions.invalidateSession());
+    });
+  },
+  FB_LOGIN: (action) => (dispatch, getState) => {
+    chrome.tabs.create({
+      url: 'https://www.facebook.com/v2.8/dialog/oauth?client_id=297717873979239&redirect_uri=https://www.facebook.com/connect/login_success.html'
+    }, (tab) => {
+      chrome.tabs.onUpdated.addListener(handleFBResp.bind(null, tab.id));
     });
   }
 };

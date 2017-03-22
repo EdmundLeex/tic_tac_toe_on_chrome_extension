@@ -79,3 +79,10 @@ export function ensureSession() {
     type: ENSURE_SESSION
   }
 }
+
+export const FB_LOGIN = 'FB_LOGIN';
+export function fbLogin() {
+  return {
+    type: FB_LOGIN
+  }
+}

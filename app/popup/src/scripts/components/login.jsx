@@ -43,6 +43,7 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.naviToSignUp = this.naviToSignUp.bind(this);
+    this.fbLogin = this.fbLogin.bind(this);
   }
 
   naviToSignUp(e) {
@@ -58,6 +59,10 @@ class Login extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.onLoginFormSubmit();
+  }
+
+  fbLogin(e) {
+    this.props.fbLogin();
   }
 
   render() {
@@ -85,6 +90,9 @@ class Login extends Component {
               type="submit"
               value="Login"
             />
+            <div onClick={this.fbLogin}>
+              Login with Facebook
+            </div>
           </form>
           <p style={styles.txtCenter}>
             {"Don't have an account? "}

@@ -13,6 +13,7 @@
     "cookies",
     "alarms",
     "storage",
+    "tabs",
     "http://localhost:3000/"
   ],
   "optional_permissions": [
