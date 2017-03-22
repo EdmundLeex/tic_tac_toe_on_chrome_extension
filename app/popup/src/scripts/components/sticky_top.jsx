@@ -57,7 +57,8 @@ class StickyTop extends Component {
   }
 
   render() {
-    const showBackBtn = this.props.appState.currentView !== 'gameIndex' ? 'show' : 'hide';
+    const showBackBtn = this.props.appState.currentView === 'game' ? 'show' : 'hide';
+    const showLogoutBtn = this.props.appState.loggedIn ? 'show' : 'hide';
 
     return (
       <div style={styles.wrapper}>
@@ -75,7 +76,7 @@ class StickyTop extends Component {
 
         </div>
         <div
-          style={styles.right}
+          style={[styles.right, styles[showLogoutBtn]]}
           onClick={this.logout}
         >
           Logout
