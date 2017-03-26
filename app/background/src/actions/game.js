@@ -1,5 +1,4 @@
-import { BASE_URL } from '../config/api';
-import { checkStatus } from '../util/util';
+import { checkStatus, BASE_URL } from '../util/util';
 import * as actions from './index';
 
 export const CREATE_NEW_GAME = 'CREATE_NEW_GAME';
