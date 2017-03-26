@@ -1,7 +1,7 @@
 import * as actions from '../actions/index';
 import { BASE_URL, defaultHeaders } from '../config/api';
 import { checkStatus } from '../util/util';
-import { FB_OAUTH_URI, handleFBResp, fbLogin } from '../util/facebook_login';
+import { fbLogin } from '../util/facebook_login';
 
 function login(credentials) {
   return fetch(`${BASE_URL}/login`, {
@@ -212,10 +212,9 @@ const aliases = {
     });
   },
   FB_LOGIN: (action) => (dispatch, getState) => {
-    chrome.tabs.create({
-      url: FB_OAUTH_URI
-    }, (tab) => {
-      chrome.tabs.onUpdated.addListener(handleFBResp.bind(null, tab.id));
+    fbLogin()
+    .then(body => {
+      console.log(body)
     });
   }
 };

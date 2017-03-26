@@ -6,23 +6,45 @@ const SCOPE = 'email'
 
 export const FB_OAUTH_URI = `${FB_BASE_URL}client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}`;
 
-export function handleFBResp(fbTabId, tabId, tabObj, _) {
-  if (fbTabId === tabId && typeof tabObj.url !== 'undefined') {
-    let matchedCode = tabObj.url.match(/code=(.+)/);
-    if (matchedCode) {
-      fbLogin(matchedCode[1]);
+export function fbLogin() {
+  return createFbOauthTab()
+  .then(addFbOauthTabListener)
+  .then(postFbLogin);
+}
 
-      chrome.tabs.onUpdated.removeListener(handleFBResp);
-      chrome.tabs.remove(fbTabId);
+function createFbOauthTab() {
+  return new Promise(resolve => {
+    chrome.tabs.create({
+      url: FB_OAUTH_URI
+    }, resolve);
+  })
+}
+
+function addFbOauthTabListener() {
+  return new Promise(resolve => {
+    chrome.tabs.onUpdated.addListener(handleFbResp(resolve));
+  });
+}
+
+function handleFbResp(callback) {
+  return function _handleFbResp(tabId, tabObj) {
+    if (typeof tabObj.url !== 'undefined') {
+      let matchedCode = tabObj.url.match(/code=(.+)/);
+      if (matchedCode) {
+        chrome.tabs.onUpdated.removeListener(_handleFbResp);
+        chrome.tabs.remove(tabId);
+
+        callback(matchedCode[1]);
+      }
     }
   }
 }
 
-export function fbLogin(code) {
+function postFbLogin(accessToken) {
   return fetch(`${BASE_URL}/fblogin`, {
     method: 'POST',
     headers: defaultHeaders,
-    body: JSON.stringify({code: code})
+    body: JSON.stringify({code: accessToken})
   })
   .then(checkStatus)
   .then(res => res.json());
