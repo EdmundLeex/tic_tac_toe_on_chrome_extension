@@ -1,15 +1,7 @@
 import * as actions from '../actions/index';
-import { BASE_URL } from '../config/api';
+import { BASE_URL, defaultHeaders } from '../config/api';
 import { checkStatus } from '../util/util';
 import { FB_OAUTH_URI, handleFBResp, fbLogin } from '../util/facebook_login';
-
-const defaultHeaders = {
-  'Access-Control-Allow-Origin': BASE_URL,
-  'Accept': 'application/json',
-  'Content-Type': 'application/json',
-  'Origin': BASE_URL,
-  'Host': BASE_URL
-};
 
 function login(credentials) {
   return fetch(`${BASE_URL}/login`, {
