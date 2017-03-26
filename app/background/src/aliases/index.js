@@ -1,6 +1,7 @@
 import * as actions from '../actions/index';
 import { BASE_URL } from '../config/api';
 import { checkStatus } from '../util/util';
+import { FB_OAUTH_URI, handleFBResp, fbLogin } from '../util/facebook_login';
 
 const defaultHeaders = {
   'Access-Control-Allow-Origin': BASE_URL,
@@ -9,25 +10,6 @@ const defaultHeaders = {
   'Origin': BASE_URL,
   'Host': BASE_URL
 };
-
-function fbLogin(code) {
-  return fetch(`${BASE_URL}/fblogin`, {
-    method: 'POST',
-    headers: defaultHeaders,
-    body: JSON.stringify({code: code})
-  })
-  .then(checkStatus)
-  .then(res => res.json());
-}
-
-function handleFBResp(fbTabId, tabId, tabObj, _) {
-  if (fbTabId === tabId) {
-    let code = tabObj.url.match(/code=(.+)/)[1];
-    fbLogin(code);
-  }
-  chrome.tabs.onUpdated.removeListener(handleFBResp);
-  chrome.tabs.remove(fbTabId);
-}
 
 function login(credentials) {
   return fetch(`${BASE_URL}/login`, {
@@ -239,7 +221,7 @@ const aliases = {
   },
   FB_LOGIN: (action) => (dispatch, getState) => {
     chrome.tabs.create({
-      url: 'https://www.facebook.com/v2.8/dialog/oauth?client_id=297717873979239&redirect_uri=https://www.facebook.com/connect/login_success.html'
+      url: FB_OAUTH_URI
     }, (tab) => {
       chrome.tabs.onUpdated.addListener(handleFBResp.bind(null, tab.id));
     });
