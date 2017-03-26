@@ -11,16 +11,31 @@ const styles = {
     position: 'relative',
     boxSizing: 'border-box',
     margin: '0 auto',
-    width: '200px',
+    width: '300px',
     height: '450px'
   },
+  title: {
+    fontSize: '30px',
+    textAlign: 'center',
+    marginTop: '20px',
+    marginBottom: '20px',
+    ':hover': {cursor: 'default'}
+  },
   item: {
-    width: '80px',
-    height: '30px',
+    width: '120px',
     margin: '0 auto',
     textAlign: 'center',
     display: 'block',
-    border: '1px solid black'
+    border: '1px solid black',
+    fontSize: '15px',
+    paddingTop: '10px',
+    paddingBottom: '10px',
+    marginTop: '10px',
+    marginBottom: '10px',
+    ':hover': {
+      backgroundColor: '#dbdbdb',
+      cursor: 'pointer'
+    }
   }
 };
 
@@ -53,6 +68,7 @@ class GameIndex extends Component {
         <div
           key={gameId}
           onClick={this.openGame.bind(this, gameId)}
+          style={styles.item}
         >
           {games[gameId].status}
         </div>
@@ -62,10 +78,15 @@ class GameIndex extends Component {
     return (
       <div style={styles.base}>
         <EnsureSession />
-        <div style={styles.item} onClick={this.newGame}>
+        <div style={styles.title}>SUPER tic TAC TOE</div>
+        <div
+          key={'new-game'}
+          style={styles.item}
+          onClick={this.newGame}
+        >
           New Game
         </div>
-        <div style={styles.item}>
+        <div>
           {gamesIndex}
         </div>
       </div>
