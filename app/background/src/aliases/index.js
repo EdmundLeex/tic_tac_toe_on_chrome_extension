@@ -213,9 +213,16 @@ const aliases = {
   },
   FB_LOGIN: (action) => (dispatch, getState) => {
     fbLogin()
-    .then(body => {
-      console.log(body)
-    });
+    .then(user => Promise.all([user, setSessionToken(user.sessionToken)]))
+    .then(([user, _]) => {
+      dispatch(actions.popNotification('success', 'Welcome back!'));
+      dispatch(actions.loginSucceed(user));
+      dispatch(actions.changeViewTo('gameIndex'));
+    })
+    .catch(err => {
+      console.error(err);
+      dispatch(actions.popNotification('error', err.message));
+    });;;
   }
 };
 
