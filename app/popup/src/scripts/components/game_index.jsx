@@ -6,7 +6,7 @@ import EnsureSession from './ensure_session';
 import * as actionCreators from '../action_creators';
 
 const styles = {
-  base: {
+  wrapper: {
     display: 'block',
     position: 'relative',
     boxSizing: 'border-box',
@@ -22,7 +22,7 @@ const styles = {
     ':hover': {cursor: 'default'}
   },
   item: {
-    width: '120px',
+    width: '150px',
     margin: '0 auto',
     textAlign: 'center',
     display: 'block',
@@ -36,6 +36,18 @@ const styles = {
       backgroundColor: '#dbdbdb',
       cursor: 'pointer'
     }
+  },
+  status: {
+    fontSize: '10px'
+  },
+  AWAITING_FOR_OPONENT: {
+    // backgroundColor: ''
+  },
+  STARTED: {
+
+  },
+  FINISHED: {
+
   }
 };
 
@@ -61,22 +73,39 @@ class GameIndex extends Component {
 
   render() {
     let games = this.props.game.games;
+    let user = this.props.user;
     let gamesIndex = [];
 
     for (let gameId in games) {
+      let game = games[gameId];
+      let oponentName;
+      if (game.status === 'AWAITING_FOR_OPONENT') {
+        oponentName = '...'
+      } else {
+        if (game.oUser.id === user.id) {
+          oponentName = game.xUser.name;
+        } else {
+          oponentName = game.oUser.name;
+        }
+      }
+
       gamesIndex.push(
         <div
           key={gameId}
           onClick={this.openGame.bind(this, gameId)}
-          style={styles.item}
+          style={[
+            styles.item,
+            styles[game.status]
+          ]}
         >
-          {games[gameId].status}
+          vs {oponentName}
+          <div style={styles.status}>{game.status}</div>
         </div>
       );
     }
 
     return (
-      <div style={styles.base}>
+      <div style={styles.wrapper}>
         <EnsureSession />
         <div style={styles.title}>SUPER tic TAC TOE</div>
         <div
@@ -96,7 +125,8 @@ class GameIndex extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    game: state.game
+    game: state.game,
+    user: state.user
   };
 };
 
