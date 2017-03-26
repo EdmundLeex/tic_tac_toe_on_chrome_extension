@@ -1,6 +1,5 @@
 import * as actions from '../actions/index';
-import { BASE_URL, defaultHeaders } from '../config/api';
-import { checkStatus } from '../util/util';
+import { checkStatus, defaultHeaders, BASE_URL } from '../util/util';
 import { fbLogin } from '../util/facebook_login';
 
 function login(credentials) {
@@ -191,6 +190,7 @@ const aliases = {
     });
   },
   ENSURE_SESSION: (action) => (dispatch, getState) => {
+    console.log('ensure session')
     getUserToken()
     .then(token => login({token: token}))
     .then(() => {
@@ -215,6 +215,7 @@ const aliases = {
     fbLogin()
     .then(user => Promise.all([user, setSessionToken(user.sessionToken)]))
     .then(([user, _]) => {
+      console.log(user);
       dispatch(actions.popNotification('success', 'Welcome back!'));
       dispatch(actions.loginSucceed(user));
       dispatch(actions.changeViewTo('gameIndex'));
