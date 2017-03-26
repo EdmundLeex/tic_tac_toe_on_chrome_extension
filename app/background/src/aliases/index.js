@@ -222,7 +222,7 @@ const aliases = {
     .catch(err => {
       console.error(err);
       dispatch(actions.popNotification('error', err.message));
-    });;;
+    });
   }
 };
 
