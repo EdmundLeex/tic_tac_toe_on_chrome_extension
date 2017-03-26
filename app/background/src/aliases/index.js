@@ -190,7 +190,6 @@ const aliases = {
     });
   },
   ENSURE_SESSION: (action) => (dispatch, getState) => {
-    console.log('ensure session')
     getUserToken()
     .then(token => login({token: token}))
     .then(() => {
