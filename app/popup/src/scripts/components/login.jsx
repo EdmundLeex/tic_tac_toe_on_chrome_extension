@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
+import fbIcon from '../../../../img/fb_icon.png';
+
 const styles = {
   container: {
     display: 'flex',
@@ -14,7 +16,7 @@ const styles = {
   },
   fields: {
     width: '100%',
-    height: '28px',
+    height: '35px',
     boxSizing: 'border-box',
     display: 'block',
     fontSize: '15px',
@@ -23,13 +25,26 @@ const styles = {
   },
   btn: {
     width: '100%',
-    height: '28px',
+    height: '35px',
     marginTop: '15px',
     color: '#ffffff',
     backgroundColor: 'black',
     borderRadius: '2px',
     border: '0',
-    fontSize: '15px'
+    fontSize: '15px',
+    ':hover': {cursor: 'pointer'}
+  },
+  fbBtn: {
+    backgroundColor: '#4A6EA9',
+    display: 'flex',
+  },
+  btnText: {
+    display: 'block',
+    textAlign: 'center',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginLeft: '0',
+    marginRight: '0'
   },
   txtCenter: {
     textAlign: 'center'
@@ -86,12 +101,18 @@ class Login extends Component {
               onChange={this.handleChange}
             />
             <input
+              key="login-btn"
               style={styles.btn}
               type="submit"
               value="Login"
             />
-            <div onClick={this.fbLogin}>
-              Login with Facebook
+            <div
+              key="fb-btn"
+              onClick={this.fbLogin}
+              style={[styles.btn, styles.fbBtn]}
+            >
+              <div style={styles.btnText}><img src={fbIcon} /></div>
+              <div style={styles.btnText}>Login with Facebook</div>
             </div>
           </form>
           <p style={styles.txtCenter}>
