@@ -12,32 +12,35 @@ let styles = {
     right: '0',
     display: 'flex',
     boxSizing: 'border-box',
-    marginLeft: '5px',
-    marginRight: '5px',
-    paddingLeft: '5px',
-    paddingRight: '5px',
-    height: '25px'
+    paddingLeft: '10px',
+    paddingRight: '10px',
+    height: '35px',
+    backgroundColor: '#FAFAFB',
+    borderBottom: '1px solid #dbdbdb'
   },
-  left: {
+  side: {
     width: '15%',
-    textAlign: 'center',
-    display: 'block',
     margin: 'auto'
   },
   middle: {
     width: '70%',
-    textAlign: 'center',
-    display: 'block',
     margin: 'auto'
   },
-  right: {
-    width: '15%',
+  hide: {display: 'none'},
+  btnWrapper: {
     textAlign: 'center',
-    display: 'block',
-    margin: 'auto'
+    display: 'flex',
+    height: '100%',
+    ':hover': {
+      cursor: 'pointer',
+      backgroundColor: '#EFF0F1'
+    }
   },
-  show: {display: 'block'},
-  hide: {display: 'none'}
+  btnText: {
+    display: 'block',
+    textAlign: 'center',
+    margin: 'auto'
+  }
 };
 
 class StickyTop extends Component {
@@ -57,29 +60,36 @@ class StickyTop extends Component {
   }
 
   render() {
-    const showBackBtn = this.props.appState.currentView === 'game' ? 'show' : 'hide';
-    const showLogoutBtn = this.props.appState.loggedIn ? 'show' : 'hide';
+    const showBackBtn = this.props.appState.currentView === 'game' ? 'btnWrapper' : 'hide';
+    const showLogoutBtn = this.props.appState.loggedIn ? 'btnWrapper' : 'hide';
 
     return (
       <div style={styles.wrapper}>
         <div
+          key={'goback-btn'}
           style={[
-            styles.left
+            styles.side,
+            styles[showBackBtn]
           ]}
           onClick={this.goBack}
         >
-          <span style={styles[showBackBtn]}>{'<Back'}</span>
+          <div style={[
+            styles.btnText
+          ]}>
+            {'< Back'}
+          </div>
         </div>
         <div
-          style={styles.middle}
+          style={[styles.middle]}
         >
 
         </div>
         <div
-          style={[styles.right, styles[showLogoutBtn]]}
+          key={'logout-btn'}
+          style={[styles.side, styles[showLogoutBtn]]}
           onClick={this.logout}
         >
-          Logout
+          <div style={styles.btnText}>Logout</div>
         </div>
       </div>
     );
