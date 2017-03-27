@@ -48,7 +48,7 @@ class FbLoginBtn extends Component {
         style={styles.btn}
       >
         <div style={styles.btnText}><img src={fbIcon} /></div>
-        <div style={styles.btnText}>Login with Facebook</div>
+        <div style={styles.btnText}>{this.props.text} with Facebook</div>
       </div>
     );
   }

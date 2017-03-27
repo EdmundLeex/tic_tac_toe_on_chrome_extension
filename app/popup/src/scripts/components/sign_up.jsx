@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
+import FbLoginBtn from './fb_login_btn';
+
 const styles = {
   container: {
     display: 'flex',
@@ -14,7 +16,7 @@ const styles = {
   },
   fields: {
     width: '100%',
-    height: '28px',
+    height: '35px',
     boxSizing: 'border-box',
     display: 'block',
     fontSize: '15px',
@@ -23,13 +25,14 @@ const styles = {
   },
   btn: {
     width: '100%',
-    height: '28px',
+    height: '35px',
     marginTop: '15px',
     color: '#ffffff',
     backgroundColor: 'black',
     borderRadius: '2px',
     border: '0',
-    fontSize: '15px'
+    fontSize: '15px',
+    ':hover': {cursor: 'pointer'}
   },
   txtCenter: {
     textAlign: 'center'
@@ -87,10 +90,12 @@ class SignUp extends Component {
               onChange={this.handleChange}
             />
             <input
+              key='signup-btn'
               style={styles.btn}
               type="submit"
               value="Sign up"
             />
+            <FbLoginBtn text='Sign up' />
           </form>
           <p style={styles.txtCenter}>
             {"Already have an account? "}

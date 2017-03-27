@@ -89,7 +89,7 @@ class Login extends Component {
               type="submit"
               value="Login"
             />
-            <FbLoginBtn />
+            <FbLoginBtn text='Login' />
           </form>
           <p style={styles.txtCenter}>
             {"Don't have an account? "}
