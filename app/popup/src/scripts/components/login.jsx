@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-import fbIcon from '../../../../img/fb_icon.png';
+import FbLoginBtn from './fb_login_btn';
 
 const styles = {
   container: {
@@ -34,18 +34,6 @@ const styles = {
     fontSize: '15px',
     ':hover': {cursor: 'pointer'}
   },
-  fbBtn: {
-    backgroundColor: '#4A6EA9',
-    display: 'flex',
-  },
-  btnText: {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    marginLeft: '0',
-    marginRight: '0'
-  },
   txtCenter: {
     textAlign: 'center'
   }
@@ -58,7 +46,6 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.naviToSignUp = this.naviToSignUp.bind(this);
-    this.fbLogin = this.fbLogin.bind(this);
   }
 
   naviToSignUp(e) {
@@ -74,10 +61,6 @@ class Login extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.onLoginFormSubmit();
-  }
-
-  fbLogin(e) {
-    this.props.fbLogin();
   }
 
   render() {
@@ -106,14 +89,7 @@ class Login extends Component {
               type="submit"
               value="Login"
             />
-            <div
-              key="fb-btn"
-              onClick={this.fbLogin}
-              style={[styles.btn, styles.fbBtn]}
-            >
-              <div style={styles.btnText}><img src={fbIcon} /></div>
-              <div style={styles.btnText}>Login with Facebook</div>
-            </div>
+            <FbLoginBtn />
           </form>
           <p style={styles.txtCenter}>
             {"Don't have an account? "}
