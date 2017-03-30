@@ -49,6 +49,7 @@ gulp.task('build', ['copy-manifest', 'popup-js', 'popup-html', 'background-js'])
 gulp.task('watch', ['default'], () => {
   gulp.watch('app/popup/**/*', ['build']);
   gulp.watch('app/background/**/*', ['build']);
+  gulp.watch('app/manifest.json', ['build']);
 });
 
 gulp.task('default', ['build']);
