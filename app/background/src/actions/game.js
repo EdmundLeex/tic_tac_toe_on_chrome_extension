@@ -37,6 +37,16 @@ export function fetchGames() {
     }).then((body) => {
       let games = JSON.parse(body.games);
       dispatch(receiveGames(games));
+
+      let myTurnCount = 0;
+      for (let gameId in games) {
+        let game = games[gameId];
+        console.log(game.lastMoveUserId)
+        if (game.lastMoveUserId !== 1 && game.lastMoveUserId !== null) {
+          myTurnCount++;
+        }
+      }
+      chrome.browserAction.setBadgeText({text: String(myTurnCount)});
     }).catch((err) => {
       if (err.message == 'Invalid session token') {
         dispatch(actions.changeViewTo('login'));
