@@ -42,7 +42,7 @@ export function fetchGames() {
       for (let gameId in games) {
         let game = games[gameId];
         console.log(game.lastMoveUserId)
-        if (game.lastMoveUserId !== 1 && game.lastMoveUserId !== null) {
+        if (game.status === 'STARTED' && game.lastMoveUserId !== 1) {
           myTurnCount++;
         }
       }
