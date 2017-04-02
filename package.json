@@ -16,7 +16,7 @@
   "author": "Edmund Li",
   "license": "ISC",
   "dependencies": {
-    "file-loader": "^0.10.0",
+    "file-loader": "^0.11.1",
     "immutable": "^3.8.1",
     "radium": "^0.18.1",
     "react": "^15.4.2",
@@ -24,7 +24,6 @@
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
-    "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
@@ -38,6 +37,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-util": "^3.0.8",
     "mocha": "^3.2.0",
+    "redux-logger": "^3.0.1",
     "rimraf": "^2.6.0",
     "webpack": "^1.14.0"
   }
