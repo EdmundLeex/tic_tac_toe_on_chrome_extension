@@ -1,8 +1,5 @@
 import BASE_URL from '../../../base_url';
 
-// export const BASE_URL = 'http://localhost:3000';
-// export const BASE_URL = 'https://super-tic-tac-toe-server.herokuapp.com';
-
 export const defaultHeaders = {
   'Access-Control-Allow-Origin': BASE_URL,
   'Accept': 'application/json',
