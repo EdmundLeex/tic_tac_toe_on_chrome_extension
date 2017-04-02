@@ -1,4 +1,5 @@
-import { checkStatus, defaultHeaders, BASE_URL } from './util';
+import BASE_URL from '../../../base_url';
+import { checkStatus, defaultHeaders } from './util';
 const FB_BASE_URL = 'https://www.facebook.com/v2.8/dialog/oauth?';
 const CLIENT_ID = '297717873979239';
 const REDIRECT_URI = 'https://www.facebook.com/connect/login_success.html';

@@ -1,5 +1,6 @@
 import * as actions from '../actions/index';
-import { checkStatus, defaultHeaders, BASE_URL } from '../util/util';
+import BASE_URL from '../../../base_url';
+import { checkStatus, defaultHeaders } from '../util/util';
 import { fbLogin } from '../util/facebook_login';
 
 function login(credentials) {
@@ -119,6 +120,7 @@ const aliases = {
       .then(() => {
         dispatch(actions.popNotification('success', 'Welcome to Super Tic Tac Toe!'));
         dispatch(actions.signUpSucceed());
+        dispatch(actions.changeViewTo('gameIndex'));
       })
       .catch((err) => {
         console.error(err);
