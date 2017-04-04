@@ -29,7 +29,7 @@ export function setCurrentGame(game) {
 }
 
 export function fetchGames() {
-  return dispatch => {
+  return (dispatch, getState) => {
     fetch(`${BASE_URL}/games`, {
       credentials: 'include'
     }).then(checkStatus).then((res) => {
@@ -41,8 +41,8 @@ export function fetchGames() {
       let myTurnCount = 0;
       for (let gameId in games) {
         let game = games[gameId];
-        console.log(game.lastMoveUserId)
-        if (game.status === 'STARTED' && game.lastMoveUserId !== 1) {
+        let userId = getState().user.get('id');
+        if (game.status === 'STARTED' && game.lastMoveUserId !== userId) {
           myTurnCount++;
         }
       }

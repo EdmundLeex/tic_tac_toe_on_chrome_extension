@@ -32,6 +32,7 @@ const styles = {
     paddingBottom: '10px',
     marginTop: '10px',
     marginBottom: '10px',
+    position: 'relative',
     ':hover': {
       backgroundColor: '#dbdbdb',
       cursor: 'pointer'
@@ -40,6 +41,21 @@ const styles = {
   status: {
     fontSize: '10px'
   },
+  notifier: {
+    position: 'absolute',
+    right: 0,
+    top: '50%',
+    transform: 'translateX(-5px) translateY(-50%)',
+    width: '13px',
+    height: '13px',
+    backgroundColor: '#c60000',
+    border: '1px solid white',
+    borderRadius: '5px',
+    color: 'white',
+    fontSize: '10px'
+  },
+  show: {display: 'block'},
+  hide: {display: 'none'},
   AWAITING_FOR_OPONENT: {
     // backgroundColor: ''
   },
@@ -89,6 +105,9 @@ class GameIndex extends Component {
         }
       }
 
+      let isMyTurn = game.status === 'STARTED' && user.id !== game.lastMoveUserId;
+      let notifierDisplay = isMyTurn ? 'show' : 'hide'
+
       gamesIndex.push(
         <div
           key={gameId}
@@ -100,6 +119,7 @@ class GameIndex extends Component {
         >
           vs {oponentName}
           <div style={styles.status}>{game.status}</div>
+          <div style={[styles.notifier, styles[notifierDisplay]]}>!</div>
         </div>
       );
     }

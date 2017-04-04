@@ -210,6 +210,7 @@ const aliases = {
     .then(() => {
       dispatch(actions.changeLoginState(false));
       dispatch(actions.invalidateSession());
+      chrome.browserAction.setBadgeText({text: ''});
     });
   },
   FB_LOGIN: (action) => (dispatch, getState) => {
