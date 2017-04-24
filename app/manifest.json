@@ -1,5 +1,6 @@
 {
   "manifest_version": 2,
+  "content_security_policy": "script-src 'self' https://connect.facebook.net; object-src 'self'",
   "name": "Super Tic Tac Toe",
   "version": "0.0.1",
   "description": "Tic Tac Toe of Strategy",
@@ -15,6 +16,7 @@
     "storage",
     "tabs",
     "http://localhost:3000/"
+
   ],
   "optional_permissions": [
     "tabs"
@@ -31,8 +33,4 @@
     "default_title": "Super Tic Tac Toe",
     "default_popup": "popup.html"
   }
-  // "options_ui": {
-  //   "page": "options.html",
-  //   "chrome_style": true
-  // }
 }

@@ -6,6 +6,10 @@ import App from './components/app';
 import { Store } from 'react-chrome-redux';
 import { Provider } from 'react-redux';
 
+import { initFBSDK } from './lib/fb_sdk';
+
+initFBSDK();
+
 const proxyStore = new Store({
   portName: 'SUPER_TTT'
 });
