@@ -53,9 +53,6 @@ function getUserToken() {
 }
 
 function createGameForUser() {
-  let headers = new Headers();
-  headers.append('Content-Type', 'application/json');
-
   return fetch(`${BASE_URL}/games`, {
     method: 'POST',
     headers: defaultHeaders,
@@ -225,6 +222,38 @@ const aliases = {
     .catch(err => {
       console.error(err);
       dispatch(actions.popNotification('error', err.message));
+    });
+  },
+  SURRENDER: action => (dispatch, getState) => {
+    const game = getState().game.get('currentGame');
+    if (game.status !== 'STARTED') return;
+
+    return fetch(`${BASE_URL}/game/${game.id}/surrender`, {
+      method: 'PUT',
+      headers: defaultHeaders,
+      credentials: 'include'
+    })
+    .then(checkStatus)
+    .then(res => res.json())
+    .then(body => {
+      dispatch(actions.setCurrentGame(body.game));
+      dispatch(actions.popNotification('error', 'You surrendered. Try another game.'));
+    });
+  },
+  PROPOSE_DRAW: action => (dispatch, getState) => {
+    const game = getState().game.get('currentGame');
+    if (game.status !== 'STARTED') return;
+
+    return fetch(`${BASE_URL}/game/${game.id}/draw`, {
+      method: 'PUT',
+      headers: defaultHeaders,
+      credentials: 'include'
+    })
+    .then(checkStatus)
+    .then(res => res.json())
+    .then(body => {
+      dispatch(actions.setCurrentGame(body.game));
+      dispatch(actions.popNotification('success', 'You surrendered. Try another game.'));
     });
   }
 };

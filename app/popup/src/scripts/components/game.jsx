@@ -13,6 +13,25 @@ const styles = {
     margin: '8px 0 0 8px',
     display: 'block',
     fontSize: '20px'
+  },
+  btn: {
+    display: 'inline-block',
+    width: '120px',
+    height: '25px',
+    border: '1px black solid',
+    lineHeight: '25px',
+    textAlign: 'center',
+    marginLeft: '10px',
+    marginRight: '10px',
+    ':hover': {
+      cursor: 'pointer',
+      backgroundColor: '#d6d6d6'
+    }
+  },
+  btnGroup: {
+    marginTop: '5px',
+    marginBottom: '5px',
+    textAlign: 'center'
   }
 };
 
@@ -60,6 +79,15 @@ class Game extends Component {
     return (
       <div>
         <EnsureSession />
+        <div style={styles.btnGroup}>
+          <div
+            key='surrenderBtn'
+            style={styles.btn}
+            onClick={this.props.surrender}
+          >
+            SURRENDER
+          </div>
+        </div>
         <Board
           {...this.props}
           placeMark={this.placeMark}

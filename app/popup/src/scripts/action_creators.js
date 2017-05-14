@@ -86,3 +86,17 @@ export function fbLogin() {
     type: FB_LOGIN
   }
 }
+
+export const SURRENDER = 'SURRENDER';
+export function surrender() {
+  return {
+    type: SURRENDER
+  }
+}
+
+export const PROPOSE_DRAW = 'PROPOSE_DRAW';
+export function proposeDraw() {
+  return {
+    type: PROPOSE_DRAW
+  }
+}
