@@ -23,8 +23,7 @@ function signUp(email, password) {
     })
   })
   .then(checkStatus)
-  .then(res => res.json())
-  .then(body => setSessionToken(body.token));
+  .then(res => res.json());
 }
 
 function logout() {
@@ -114,9 +113,10 @@ const aliases = {
       dispatch(actions.clearPassword());
 
       signUp(email, password)
-      .then(() => {
+      .then(user => Promise.all([user, setSessionToken(user.token)]))
+      .then(([user, _]) => {
         dispatch(actions.popNotification('success', 'Welcome to Super Tic Tac Toe!'));
-        dispatch(actions.signUpSucceed());
+        dispatch(actions.signUpSucceed(user));
         dispatch(actions.changeViewTo('gameIndex'));
       })
       .catch((err) => {

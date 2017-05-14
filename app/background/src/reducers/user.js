@@ -15,6 +15,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case actions.LOGIN_SUCCESS:
       return setUser(state, action.payload);
+    case actions.SIGN_UP_SUCCESS:
+      return setUser(state, action.payload);
     case actions.CLEAR_USER:
       return setUser(state, {id: null, email: null});
     default:

@@ -15,9 +15,13 @@ export function loginSucceed(user) {
 }
 
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
-export function signUpSucceed() {
-  return {
-    type: SIGN_UP_SUCCESS
+export function signUpSucceed(user) {
+  return dispatch => {
+    dispatch(changeLoginState(true));
+    dispatch({
+      type: SIGN_UP_SUCCESS,
+      payload: user
+    });
   }
 }
 
