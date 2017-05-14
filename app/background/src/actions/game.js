@@ -46,6 +46,7 @@ export function fetchGames() {
           myTurnCount++;
         }
       }
+      if (myTurnCount === 0) myTurnCount = '';
       chrome.browserAction.setBadgeText({text: String(myTurnCount)});
     }).catch((err) => {
       if (err.message == 'Invalid session token') {

@@ -6,6 +6,11 @@ import EnsureSession from './ensure_session';
 import * as actionCreators from '../action_creators';
 
 const styles = {
+  bugReport: {
+    position: 'fixed',
+    right: '10px',
+    bottom: '10px'
+  },
   wrapper: {
     display: 'block',
     position: 'relative',
@@ -129,6 +134,9 @@ class GameIndex extends Component {
     return (
       <div style={styles.wrapper}>
         <EnsureSession />
+        <div style={styles.bugReport}>
+          <a href='https://goo.gl/forms/Uc2w1pU46ysS6c6q2' target='_blank'>Bug Report / Feature Request</a>
+        </div>
         <div style={styles.title}>SUPER tic TAC TOE</div>
         <div
           key={'new-game'}
