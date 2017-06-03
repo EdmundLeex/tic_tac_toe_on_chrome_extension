@@ -14,7 +14,7 @@ const styles = {
     borderRadius: '2px',
     border: '0',
     fontSize: '15px',
-    backgroundColor: '#4A6EA9',
+    backgroundColor: '#4b639c',
     display: 'flex',
     ':hover': {cursor: 'pointer'}
   },
