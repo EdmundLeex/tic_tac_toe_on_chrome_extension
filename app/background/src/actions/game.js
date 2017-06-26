@@ -30,30 +30,34 @@ export function setCurrentGame(game) {
 
 export function fetchGames() {
   return (dispatch, getState) => {
-    fetch(`${BASE_URL}/games`, {
-      credentials: 'include'
-    }).then(checkStatus).then((res) => {
-      return res.json();
-    }).then((body) => {
-      let games = JSON.parse(body.games);
-      dispatch(receiveGames(games));
+    const loggedIn = getState().appState.get('loggedIn')
 
-      let myTurnCount = 0;
-      for (let gameId in games) {
-        let game = games[gameId];
-        let userId = getState().user.get('id');
-        if (game.status === 'STARTED' && game.lastMoveUserId !== userId) {
-          myTurnCount++;
+    if (loggedIn) {
+      fetch(`${BASE_URL}/games`, {
+        credentials: 'include'
+      }).then(checkStatus).then((res) => {
+        return res.json();
+      }).then((body) => {
+        let games = JSON.parse(body.games);
+        dispatch(receiveGames(games));
+
+        let myTurnCount = 0;
+        for (let gameId in games) {
+          let game = games[gameId];
+          let userId = getState().user.get('id');
+          if (game.status === 'STARTED' && game.lastMoveUserId !== userId) {
+            myTurnCount++;
+          }
         }
-      }
-      if (myTurnCount === 0) myTurnCount = '';
-      chrome.browserAction.setBadgeText({text: String(myTurnCount)});
-    }).catch((err) => {
-      if (err.message == 'Invalid session token') {
-        dispatch(actions.changeViewTo('login'));
-      } else {
-        throw err;
-      }
-    });
+        if (myTurnCount === 0) myTurnCount = '';
+        chrome.browserAction.setBadgeText({text: String(myTurnCount)});
+      }).catch((err) => {
+        if (err.message == 'Invalid session token') {
+          dispatch(actions.changeViewTo('login'));
+        } else {
+          throw err;
+        }
+      });
+    }
   }
 }
