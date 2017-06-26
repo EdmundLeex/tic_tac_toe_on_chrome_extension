@@ -91,7 +91,8 @@ const aliases = {
     .then(checkStatus)
     .then(res => res.json())
     .then(body => {
-      dispatch(actions.setCurrentGame(body.game));
+      let game = JSON.parse(body.game);
+      dispatch(actions.setCurrentGame(game));
     })
     .catch(err => {
       if (err.code === 403) {
@@ -177,7 +178,8 @@ const aliases = {
     .then(checkStatus)
     .then(res => res.json())
     .then(body => {
-      dispatch(actions.setCurrentGame(body.game));
+      let game = JSON.parse(body.game);
+      dispatch(actions.setCurrentGame(game));
       dispatch(actions.changeViewTo('game'));
     })
     .catch(err => {
@@ -236,7 +238,8 @@ const aliases = {
     .then(checkStatus)
     .then(res => res.json())
     .then(body => {
-      dispatch(actions.setCurrentGame(body.game));
+      let game = JSON.parse(body.game);
+      dispatch(actions.setCurrentGame(game));
       dispatch(actions.popNotification('error', 'You surrendered. Try another game.'));
     });
   },
@@ -252,8 +255,28 @@ const aliases = {
     .then(checkStatus)
     .then(res => res.json())
     .then(body => {
-      dispatch(actions.setCurrentGame(body.game));
+      let game = JSON.parse(body.game);
+      dispatch(actions.setCurrentGame(game));
       dispatch(actions.popNotification('success', 'You surrendered. Try another game.'));
+    });
+  },
+  CHALLENGE_FRIEND: action => (dispatch, getState) => {
+    return fetch(`${BASE_URL}/challenge`, {
+      method: 'POST',
+      headers: defaultHeaders,
+      credentials: 'include'
+    })
+    .then(checkStatus)
+    .then(res => res.json())
+    .then(body => {
+      const game = JSON.parse(body.game);
+      dispatch(actions.newGame(game.id));
+      dispatch(actions.setCurrentGame(game));
+      dispatch(actions.changeViewTo('game'));
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch(actions.popNotification('error', err.message));
     });
   }
 };

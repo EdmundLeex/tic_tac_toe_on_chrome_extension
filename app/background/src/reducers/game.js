@@ -11,8 +11,7 @@ function setGames(state, games) {
   return state.set('games', gamesMap);
 }
 
-function setCurrentGame(state, _game) {
-  let game = JSON.parse(_game);
+function setCurrentGame(state, game) {
   let gameState = game.gameState;
 
   return state.set('currentGame', game)

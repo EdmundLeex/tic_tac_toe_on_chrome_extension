@@ -63,7 +63,7 @@ const styles = {
   },
   show: {display: 'block'},
   hide: {display: 'none'},
-  AWAITING_FOR_OPONENT: {
+  WAITING_FOR_OPONENT: {
     // backgroundColor: ''
   },
   STARTED: {
@@ -102,8 +102,10 @@ class GameIndex extends Component {
     for (let gameId in games) {
       let game = games[gameId];
       let oponentName;
-      if (game.status === 'AWAITING_FOR_OPONENT') {
+      if (game.status === 'WAITING_FOR_OPONENT') {
         oponentName = '...'
+      } else if (game.status === 'WAITING_FOR_FRIEND') {
+        oponentName = 'your friend'
       } else {
         if (game.oUser.id === user.id) {
           oponentName = game.xUser.name;
@@ -144,6 +146,13 @@ class GameIndex extends Component {
           onClick={this.newGame}
         >
           New Game
+        </div>
+        <div
+          key={'challenge-friend'}
+          style={styles.item}
+          onClick={this.props.challengeFriend}
+        >
+          Challenge Friend
         </div>
         <div>
           {gamesIndex}

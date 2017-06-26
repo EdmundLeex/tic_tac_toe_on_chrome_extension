@@ -5,6 +5,7 @@ import Radium from 'radium';
 import Board from './board';
 import EnsureSession from './ensure_session';
 import * as actionCreators from '../action_creators';
+import BASE_URL from '../../../../base_url';
 
 const styles = {
   bold: {
@@ -15,11 +16,10 @@ const styles = {
     fontSize: '20px'
   },
   btn: {
-    display: 'inline-block',
     width: '120px',
     height: '25px',
     border: '1px black solid',
-    lineHeight: '25px',
+    backgroundColor: 'white',
     textAlign: 'center',
     marginLeft: '10px',
     marginRight: '10px',
@@ -32,7 +32,10 @@ const styles = {
     marginTop: '5px',
     marginBottom: '5px',
     textAlign: 'center'
-  }
+  },
+  input: {width: '400px'},
+  show: {display: 'inline-block'},
+  hide: {display: 'none'}
 };
 
 class Game extends Component {
@@ -56,10 +59,22 @@ class Game extends Component {
     let board = gameState.board ? gameState.board : null;
     let allowedGrid = gameState.gameRule.allowedGrid;
     let lastMove = JSON.parse(game.lastMove);
+    let challengeUrl;
 
     let tipsContent;
-    if (game.status === 'AWAITING_FOR_OPONENT') {
-      tipsContent = 'Waiting for an oponent. Invite your friend!'
+    if (game.status === 'WAITING_FOR_OPONENT') {
+      tipsContent = 'Waiting for an oponent. Challenge your friend!'
+    } else if (game.status === 'WAITING_FOR_FRIEND') {
+      tipsContent = 'Send this link to a friend and ask for a challenge:'
+      challengeUrl = (
+        <div style={styles.bold}>
+          <input
+            style={styles.input}
+            value={`${BASE_URL}/challenge/${game.id}`}
+            readOnly={true}
+          />
+        </div>
+      );
     } else if (game.status === 'FINISHED') {
       if (game.winnerId === 0) {
         tipsContent = 'Draw game.'
@@ -70,6 +85,7 @@ class Game extends Component {
       }
     } else {
       tipsContent = `Next Move: ${currentMark}`;
+      challengeUrl = '';
     }
 
     if (!board) { return (<div></div>); }
@@ -80,13 +96,16 @@ class Game extends Component {
       <div>
         <EnsureSession />
         <div style={styles.btnGroup}>
-          <div
+          <button
             key='surrenderBtn'
-            style={styles.btn}
+            style={
+              [styles.btn, styles[game.status !== 'STARTED' ? 'hide' : 'show']]
+            }
             onClick={this.props.surrender}
+            disabled={game.status !== 'STARTED'}
           >
             SURRENDER
-          </div>
+          </button>
         </div>
         <Board
           {...this.props}
@@ -97,6 +116,7 @@ class Game extends Component {
           lastMove={lastMove}
         />
         <div style={styles.bold}>{tipsContent}</div>
+        {challengeUrl}
       </div>
     );
   }

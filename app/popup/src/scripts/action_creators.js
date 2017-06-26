@@ -100,3 +100,10 @@ export function proposeDraw() {
     type: PROPOSE_DRAW
   }
 }
+
+export const CHALLENGE_FRIEND = 'CHALLENGE_FRIEND';
+export function challengeFriend() {
+  return {
+    type: CHALLENGE_FRIEND
+  }
+}
