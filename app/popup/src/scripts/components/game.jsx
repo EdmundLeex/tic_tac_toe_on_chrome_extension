@@ -70,7 +70,7 @@ class Game extends Component {
         <div style={styles.bold}>
           <input
             style={styles.input}
-            value={`${BASE_URL}/challenge/${game.id}`}
+            value={`${BASE_URL}/#/challenge/${game.id}`}
             readOnly={true}
           />
         </div>
