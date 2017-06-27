@@ -10,7 +10,6 @@ const plugins = loadPlugins();
 
 import popupWebpackConfig from './app/popup/webpack.config.js';
 import eventWebpackConfig from './app/background/webpack.config.js';
-// import contentWebpackConfig from './content/webpack.config';
 
 gulp.task('popup-js', ['clean'], (cb) => {
   webpack(popupWebpackConfig, (err, stats) => {
