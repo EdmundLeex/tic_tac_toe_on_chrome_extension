@@ -1,3 +1,9 @@
-// module.exports = 'http://localhost:3000';
+let baseUrl;
 
-export const BASE_URL = 'https://super-tic-tac-toe-server.herokuapp.com';
+if (process.env.NODE_ENV) {
+  baseUrl = 'http://localhost:3000';
+} else {
+  baseUrl = 'http://www.supertictactoe.club'
+}
+
+module.exports = baseUrl;
