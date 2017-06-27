@@ -2,6 +2,9 @@ import gulp from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
 import webpack from 'webpack';
 import rimraf from 'rimraf';
+import env from 'gulp-env';
+import zip from 'gulp-zip';
+import rename from 'gulp-rename';
 
 const plugins = loadPlugins();
 
@@ -35,8 +38,14 @@ gulp.task('popup-html', ['clean'], () => {
     .pipe(gulp.dest('./build'))
 });
 
-gulp.task('copy-manifest', ['clean'], () => {
-  return gulp.src('app/manifest.json')
+gulp.task('copy-dev-manifest', ['clean'], () => {
+  return gulp.src('app/manifest.development.json')
+    .pipe(gulp.dest('./build'));
+});
+
+gulp.task('copy-prod-manifest', ['clean'], () => {
+  return gulp.src('app/manifest.production.json')
+    .pipe(rename('manifest.json'))
     .pipe(gulp.dest('./build'));
 });
 
@@ -44,12 +53,33 @@ gulp.task('clean', (cb) => {
   rimraf('./build', cb);
 });
 
-gulp.task('build', ['copy-manifest', 'popup-js', 'popup-html', 'background-js']);
+gulp.task('build', ['copy-dev-manifest', 'popup-js', 'popup-html', 'background-js']);
 
 gulp.task('watch', ['default'], () => {
   gulp.watch('app/popup/**/*', ['build']);
   gulp.watch('app/background/**/*', ['build']);
   gulp.watch('app/manifest.json', ['build']);
+});
+
+gulp.task('set-production-env', () => {
+  env({
+    vars: {
+      NODE_ENV: 'production'
+    }
+  });
+});
+
+gulp.task('deploy', [
+  'set-production-env',
+  'clean',
+  'copy-prod-manifest',
+  'popup-js',
+  'popup-html',
+  'background-js'
+], () => {
+  gulp.src('./build/*')
+      .pipe(zip('release.zip'))
+      .pipe(gulp.dest('./build'));
 });
 
 gulp.task('default', ['build']);
