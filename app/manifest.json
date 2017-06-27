@@ -2,9 +2,9 @@
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' https://connect.facebook.net; object-src 'self'",
   "name": "Super Tic Tac Toe",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Tic Tac Toe of Strategy",
-  // "homepage_url": "#",
+  "homepage_url": "http://www.supertictactoe.club/",
   "minimum_chrome_version": "46",
   // "icons": {
   //   "128": "assets/images/icon-lg.png"
